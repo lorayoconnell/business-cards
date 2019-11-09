@@ -1,1 +1,19 @@
-<p>card works!</p>
+<h2>My Cards</h2>>
+
+<div *ngIf="card$ | async as card">
+    <div><label>Display Name: </label>{{ card.displayName }}</div>
+    <div><label>Organization Name: </label>{{ card.organizationName }}</div>
+    <div><label>Email: </label><input [(ngModel)]="card.email" placeholder="Email"/></div>
+        
+    <div>
+        <button (click)="gotoCards(card)">Back To List</button> <!-- passing curr selected card for ux -->
+        <button>Update Card</button>
+    </div>
+</div>
+
+
+<!--
+
+    using <input> will allow for user updating
+
+-->
