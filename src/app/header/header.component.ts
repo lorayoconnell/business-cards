@@ -22,6 +22,11 @@ export class HeaderComponent implements OnInit {
     console.log("signed in: " + this.signedIn());
   }
 
+  logOut() {
+    this.authService.logout();
+  }
+
+
 }
 
 

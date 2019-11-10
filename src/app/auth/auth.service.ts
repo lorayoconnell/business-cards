@@ -42,7 +42,7 @@ export class AuthService {
     this.afAuth.auth.signOut().then(() => {
       console.log("Logged out");
       this.isLoggedIn = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
   }
 

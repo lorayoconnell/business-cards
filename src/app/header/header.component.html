@@ -3,14 +3,21 @@
     <button class="btn btn-primary" (click)="displayTest()">Signed in?</button>
 
     <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Log In</button>
-    <button class="btn btn-primary" routerLink="/logout" routerLinkActive="active">Log Out</button>
 
+
+    <button class="btn btn-primary" (click)="logOut()">Log Out</button>
+
+    <button class="btn btn-primary" routerLink="/cardlist" routerLinkActive="active">My Cards</button>
     <button class="btn btn-primary" routerLink="/profile" routerLinkActive="active">My Profile</button>
 
  </header>
  
  
+
+<!--
+<button class="btn btn-primary" routerLink="/logout" routerLinkActive="active">Log Out</button>
+-->
  
- <!--
- <header *ngIf="signedIn()"></header>
- -->
+<!--
+<header *ngIf="signedIn()"></header>
+-->
