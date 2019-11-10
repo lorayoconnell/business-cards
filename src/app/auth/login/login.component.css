@@ -1,0 +1,45 @@
+
+
+.container {
+    outline: 3px solid red;
+}
+
+
+
+/*
+
+.login-container {
+    display: flex;
+    position:relative;
+    width: 100%;
+    justify-content: center;
+}
+
+.login-form {
+    box-sizing: border-box;
+    position: absolute;
+    background-color: #fff;
+    top: 1em;
+    padding: 6em 2em 1em 2em;
+    min-width: 480px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    box-shadow: 0 0 18px 1px rgba(50,50,50,0.5);
+    z-index: 99;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+}
+
+.signInBtn {
+    margin-top: 1em;
+}
+
+.loginBtn {
+    margin-top: 1.2em;
+}
+
+*/

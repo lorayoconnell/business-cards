@@ -1,1 +1,25 @@
-<p>card-list works!</p>
+<h2>CardList</h2>
+
+<button>Add New Card</button>
+
+<ul class="cards">
+
+    <li *ngFor="let card of cards | async" [class.selected]="card.cardId === selectedId">
+        <a [routerLink]="['/card', card.cardId]">
+            <span class="badge">{{ card.cardId }}</span>{{ card.displayName }}
+        </a>
+    </li>
+
+
+<!--
+    <li *ngFor="let card of cards$ | async" [class.selected]="card.id === selectedId">
+        <a [routerLink]="['/card', card.id]">
+            <span class="badge">{{ card.id }}</span>{{ card.displayName }}
+        </a>
+    </li>
+-->
+
+</ul>
+
+
+

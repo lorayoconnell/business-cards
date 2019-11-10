@@ -1,0 +1,22 @@
+
+
+header {
+    background-color:rgb(146, 162, 168);
+}
+
+
+/*
+header {
+    display: flex;
+    
+    padding: 0 0.5em 0.5em 2.5em;
+    border-bottom: 1px solid rgb(122, 129, 136);
+}
+
+h1 {
+    display: flex;
+    color: #fff;
+    font-variant: small-caps;
+    text-shadow: 0 0 4px rgba(20,20,20,0.5);
+}
+*/

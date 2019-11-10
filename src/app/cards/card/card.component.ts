@@ -23,7 +23,12 @@ export class CardComponent implements OnInit {
     );
   }
 
-
+  // go back to the list
+  // passing parameters back to list:
+  // ex: localhost:4200/heroes;id=15;foo=foo
+  // The optional route parameters are not separated by "?" and "&" as they would be
+  // in the URL query string. They are separated by semicolons ";" This is matrix URL
+  // notation—something you may not have seen before.
   gotoCards(card: Card) {
     let cId = card ? card.cardId : null;
     // pass along the card id if available so that
