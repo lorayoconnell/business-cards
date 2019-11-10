@@ -1,28 +1,18 @@
 <h2>CardList</h2>
 
-<button>Add New Card</button>
+<button routerLink="/newcard" routerLinkActive="active">Add New Card</button>
 
-<ul class="cards">
-    <li *ngFor="let card of cards" (click)="onSelect(card)" [class.selected]="card === selectedCard">
-        <span class="badge">{{ card.cardId }}</span>{{ card.displayName }}
-    </li>
+<ul>
+    <div>
+        <li *ngFor="let card of card$ | async" (click)="onSelect(card)" [class.selected]="card === selectedCard">
+            <a [routerLink]="['/card', card.cardId]">
+                <span class="badge">{{ card.cardId }}</span>{{ card.displayName }}
+            </a>
+        </li>
+    </div>
 </ul>
 
 <app-card [card]="selectedCard"></app-card>
-
-
-
-
-
-
-
-<!--
-    <li *ngFor="let card of cards$ | async" [class.selected]="card.cardId === selectedId">
-        <a [routerLink]="['/card', card.cardId]">
-            <span class="badge">{{ card.id }}</span>{{ card.displayName }}
-        </a>
-    </li>
--->
 
 
 

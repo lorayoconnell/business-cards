@@ -10,6 +10,9 @@ import { SearchCardComponent } from './search-card/search-card.component';
 import { CardsRoutingModule } from './cards-routing.module';
 import { CardService } from './card.service';
 
+//import { AngularFireModule } from 'angularfire2';
+//import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +26,7 @@ import { CardService } from './card.service';
     SearchCardComponent
   ],
   providers: [
-    CardService
+    CardService//, AngularFirestore
   ]
   
 })

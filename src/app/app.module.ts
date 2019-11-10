@@ -7,6 +7,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
 
@@ -20,6 +22,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { WebcamComponent } from './webcam/webcam.component';
 import { HeaderComponent } from './header/header.component';
 
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import { HeaderComponent } from './header/header.component';
     UserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'app'),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   declarations: [
     AppComponent,

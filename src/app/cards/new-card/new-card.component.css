@@ -1,0 +1,45 @@
+
+
+
+/*
+
+this is from the todo app
+
+form {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+input, button {
+    display: flex;
+}
+
+.btn {
+    display:flex;
+    background-color: #21BA45;
+    color: #fff;
+    font-size:1em;
+    width: 40px;
+    justify-content: center;
+    border-radius: 4px;
+    margin-left: 0.5em;
+}
+
+.ui.form { 
+    margin: 0.5em;
+}
+
+i.icon {
+    display:flex;
+    margin:0;
+    width: 1em;
+
+    justify-content:center;
+}
+
+i.icon.plus:before {
+    display:flex;
+}
+
+*/

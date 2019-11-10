@@ -1,11 +1,13 @@
-import { Observable, pipe } from 'rxjs';
+import { Observable, pipe, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../card.service';
 import { Card } from '../card.model';
 import { CARDS } from '../mock-cards';
-//import { CardComponent } from '../card/card.component';
+
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-list',
@@ -14,19 +16,89 @@ import { CARDS } from '../mock-cards';
 })
 export class CardListComponent implements OnInit {
 
+  cardCollectionRef: AngularFirestoreCollection<Card>;
+  card$: Observable<Card[]>;
+
+/*
   cards$: Observable<Card[]>;
-  cards = CARDS;
+  cardss$: Observable<any[]>;
+  cardsArr: Card[];
   selectedCard: Card;
   selectedId: number;
+  cards: Card[];
+*/
 
-  constructor(private service: CardService, private route: ActivatedRoute) {
-    //this.cards$ = service.getCards();
-    //this.showCards();
-    //console.log("maybe got some cards?");
+  constructor(private afs: AngularFirestore, private service: CardService, private route: ActivatedRoute) {
+    this.cardCollectionRef = this.afs.collection('cards');
+    this.card$ = this.cardCollectionRef.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(action => {
+          const data = action.payload.doc.data() as Card;
+          const id = action.payload.doc.id;
+          return { id, ...data};
+        });
+      })
+    )
   }
 
   ngOnInit() {
-    this.getCardList();
+    //this.getCardList();
+  }
+
+  addCard() {
+    console.log("add card method");
+    // route to newcardcomponent
+  }
+
+  
+/*
+  addTodo(todoDesc: HTMLInputElement) {
+    if (todoDesc.value && todoDesc.value.trim().length) {
+      this.todoCollectionRef.add({description: todoDesc.value, completed: false });
+    }
+  }
+*/
+
+/*
+  updateTodo(todo: Todo) {
+    this.todoCollectionRef.doc(todo.id).update({ completed: !todo.completed });
+  }
+*/
+
+/*
+  deleteTodo(todo: Todo) {
+    this.todoCollectionRef.doc(todo.id).delete();
+  }
+*/
+
+
+
+
+
+//getCardList(): void {}
+
+
+
+  onSelect(card: Card): void {
+  //  this.selectedCard = card;
+    //CardComponent.displayThisCard(card);
+  }
+
+
+}
+
+
+
+
+
+    //this.cards$ = service.getCards();
+    //this.showCards();
+    //console.log("maybe got some cards?");
+
+
+
+
+
 
     /*
     this.cards$ = this.route.paramMap.pipe(
@@ -39,21 +111,29 @@ export class CardListComponent implements OnInit {
       })
     );
 */
-  }
-
-  addCard() {
-    console.log("add card method");
-  }
-
-  getCardList(): void {
-    this.service.getCards().subscribe(cards => this.cards$ = this.cards$);
-  }
-
-  onSelect(card: Card): void {
-    this.selectedCard = card;
-    //CardComponent.displayThisCard(card);
-  }
 
 
-}
 
+
+
+
+//  getCardList(): void {
+
+    // getCards() returns a single value: the array of mock cards
+   // this.cards = this.service.testingDb();
+   // this.cards$ = this.service.getCards();
+/*
+    this.cards$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        return this.service.getCards();
+      })
+    )
+*/
+//  this.service.getCards().subscribe(cards => this.cards$ = this.cards$);
+// from tour of heroes example:
+    //this.service.getCards()
+      //.subscribe(cards => this.cards = cards);
+
+    //  returns Observable<any[]>
+
+ // }
