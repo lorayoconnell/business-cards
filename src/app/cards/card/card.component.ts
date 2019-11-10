@@ -1,5 +1,5 @@
 import { switchMap } from 'rxjs/operators'; // to process the observable route parameters
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CardService } from '../card.service';
@@ -12,16 +12,38 @@ import { Card } from '../card.model';
 })
 export class CardComponent implements OnInit {
 
+  @Input() card: Card;
+
   card$: Observable<Card>;
 
   constructor(private route: ActivatedRoute, private router: Router, private service: CardService) { }
 
   ngOnInit() {
+    /*
+    this.card$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+      this.service.getCard(params.get('cardId')))
+    );
+*/
+  }
+
+editCard(card: Card) {
+  console.log("edit card method");
+  // change the text fields to input fields to allow for updating
+  // also show update button
+  // also give big read button to delete the card
+}
+
+
+/*
+  displayCard(card: Card) {
     this.card$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
       this.service.getCard(params.get('cardId')))
     );
   }
+*/
+
 
   // go back to the list
   // passing parameters back to list:

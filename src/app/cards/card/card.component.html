@@ -1,15 +1,59 @@
-<h2>My Cards</h2>>
+<h2>My Card</h2>>
 
+<div *ngIf="card">
+
+    <button (click)="editCard(card)">Edit Info</button>
+
+    <h2>{{card.displayName | uppercase}} Details</h2>
+    <div><span>id: </span>{{card.cardId}}</div>
+
+    <div><label>displayName:<input [(ngModel)]="card.displayName" placeholder="displayName"/></label></div>
+    <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName"/></label></div>
+    <div><label>lastName:<input [(ngModel)]="card.lastName" placeholder="lastName"/></label></div>
+    <div><label>organizationName:<input [(ngModel)]="card.organizationName" placeholder="organizationName"/></label></div>
+    <div><label>phone:<input [(ngModel)]="card.phone" placeholder="phone"/></label></div>
+    <div><label>fax:<input [(ngModel)]="card.fax" placeholder="fax"/></label></div>
+    <div><label>email:<input [(ngModel)]="card.email" placeholder="email"/></label></div>
+    <div><label>cardImage:<input [(ngModel)]="card.cardImage" placeholder="cardImage"/></label></div>
+
+    <!-- do not actually display this -->
+    <div><label>userId:<input [(ngModel)]="card.userId" placeholder="userId"/></label></div>
+    
+
+</div>
+
+<button>Back to List</button>
+
+
+<!--
+    displayName: string;
+    cardId: string;
+    firstName: string;
+    lastName: string;
+    organizationName: string;
+    phone: string;
+    fax: string;
+    email: string;
+    cardImage: string;
+    userId: string;
+-->
+
+
+
+<!--
 <div *ngIf="card$ | async as card">
     <div><label>Display Name: </label>{{ card.displayName }}</div>
     <div><label>Organization Name: </label>{{ card.organizationName }}</div>
     <div><label>Email: </label><input [(ngModel)]="card.email" placeholder="Email"/></div>
         
     <div>
-        <button (click)="gotoCards(card)">Back To List</button> <!-- passing curr selected card for ux -->
+        <button (click)="gotoCards(card)">Back To List</button> 
         <button>Update Card</button>
     </div>
 </div>
+-->
+<!-- passing curr selected card for ux -->
+
 
 
 <!--

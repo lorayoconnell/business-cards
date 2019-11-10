@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Card } from './card.model';
 import { CARDS } from './mock-cards';
+//import { CardComponent } from '../cards/card/card.component';
 
 /*
 @Injectable({
@@ -18,6 +19,8 @@ export class CardService {
 
 
   getCards(): Observable<Card[]> {
+
+
     return of(CARDS);
   }
 
@@ -33,7 +36,11 @@ export class CardService {
   }
 
 
-
+  /*
+  displayThisCard(card: Card) {
+    displayCard
+  }
+*/
 
 
 

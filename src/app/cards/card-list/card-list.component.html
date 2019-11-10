@@ -3,23 +3,38 @@
 <button>Add New Card</button>
 
 <ul class="cards">
-
-    <li *ngFor="let card of cards | async" [class.selected]="card.cardId === selectedId">
-        <a [routerLink]="['/card', card.cardId]">
-            <span class="badge">{{ card.cardId }}</span>{{ card.displayName }}
-        </a>
+    <li *ngFor="let card of cards" (click)="onSelect(card)" [class.selected]="card === selectedCard">
+        <span class="badge">{{ card.cardId }}</span>{{ card.displayName }}
     </li>
+</ul>
+
+<app-card [card]="selectedCard"></app-card>
+
+
+
+
+
 
 
 <!--
-    <li *ngFor="let card of cards$ | async" [class.selected]="card.id === selectedId">
-        <a [routerLink]="['/card', card.id]">
+    <li *ngFor="let card of cards$ | async" [class.selected]="card.cardId === selectedId">
+        <a [routerLink]="['/card', card.cardId]">
             <span class="badge">{{ card.id }}</span>{{ card.displayName }}
         </a>
     </li>
 -->
 
-</ul>
 
 
 
+<!--
+<div *ngIf="selectedCard">
+<h2>{{selectedCard.displayName | uppercase}} Details</h2>
+<div><span>id: </span>{{selectedCard.cardId}}</div>
+<div>
+    <label>displayName:
+        <input [(ngModel)]="selectedCard.displayName" placeholder="displayName"/>
+    </label>
+</div>
+</div>
+-->
