@@ -8,6 +8,7 @@ import { CARDS } from '../mock-cards';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-card-list',
@@ -18,15 +19,7 @@ export class CardListComponent implements OnInit {
 
   cardCollectionRef: AngularFirestoreCollection<Card>;
   card$: Observable<Card[]>;
-
-/*
-  cards$: Observable<Card[]>;
-  cardss$: Observable<any[]>;
-  cardsArr: Card[];
   selectedCard: Card;
-  selectedId: number;
-  cards: Card[];
-*/
 
   constructor(private afs: AngularFirestore, private service: CardService, private route: ActivatedRoute) {
     this.cardCollectionRef = this.afs.collection('cards');
@@ -50,7 +43,21 @@ export class CardListComponent implements OnInit {
     // route to newcardcomponent
   }
 
-  
+  getThisCard(card: Card) {
+    console.log("getThisCard: card.id: " + card.id);
+  }
+
+
+  onSelect(card: Card): void {
+    //console.log("onSelect card.id: " + card.id);
+    this.selectedCard = card;
+    //this.service.showThisCard(card);
+    // CardComponent.displayCard(card);
+    //CardComponent.displayThisCard(card);
+  }
+
+
+
 /*
   addTodo(todoDesc: HTMLInputElement) {
     if (todoDesc.value && todoDesc.value.trim().length) {
@@ -79,10 +86,7 @@ export class CardListComponent implements OnInit {
 
 
 
-  onSelect(card: Card): void {
-  //  this.selectedCard = card;
-    //CardComponent.displayThisCard(card);
-  }
+
 
 
 }

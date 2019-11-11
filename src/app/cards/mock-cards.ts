@@ -4,7 +4,7 @@ export const CARDS: Card[] = [
 
     {
         displayName: 'DisplayName1',
-        cardId: '123abc',
+        id: '123abc',
         firstName: 'Joe',
         lastName: 'Smith',
         organizationName: 'CompanyA',
@@ -16,7 +16,7 @@ export const CARDS: Card[] = [
     },
     {
         displayName: 'DisplayName2',
-        cardId: '124abd',
+        id: '124abd',
         firstName: 'Joan',
         lastName: 'Davis',
         organizationName: 'CompanyB',

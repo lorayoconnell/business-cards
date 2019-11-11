@@ -36,7 +36,7 @@ export class CardService {
       // also add the current users id
     })
     .then(function(docRef) {
-      card.cardId = docRef.id;
+      card.id = docRef.id;
       console.log("Document written with id: " + docRef.id);
     })
     .catch (function (error) {
@@ -72,15 +72,30 @@ export class CardService {
     return of(CARDS);
   }
 
-  getCard(cardId: string) {    // uid
-    return this.getCards().pipe(
+
+  showThisCard(card: Card) {
+
+
+    // route to cardcomponent with card as parameter
+    console.log("inside cardservice. send card to indiv card component");
+
+  }
+
+
+  getCard(id: string) {    // uid
+
+    console.log("cardservice cardid: " );
+
+//    return this.getCards().pipe(
 
       // (+) before `id` turns the string into a number
       // is === ok to use to compare strings
       // card.cardId === +cardId))
 
-      map((cards: Card[]) => cards.find(card => card.cardId === cardId)) 
-    );
+//      map((cards: Card[]) => cards.find(card => card.id === id)) 
+//    );
+
+
   }
 
 }

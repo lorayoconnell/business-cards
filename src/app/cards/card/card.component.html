@@ -5,7 +5,7 @@
     <button (click)="editCard(card)">Edit Info</button>
 
     <h2>{{card.displayName | uppercase}} Details</h2>
-    <div><span>id: </span>{{card.cardId}}</div>
+    <div><span>id: </span>{{card.id}}</div>
 
     <div><label>displayName:<input [(ngModel)]="card.displayName" placeholder="displayName"/></label></div>
     <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName"/></label></div>

@@ -1,4 +1,17 @@
-/* HeroListComponent's private CSS styles */
+
+ul {
+  outline: 2px solid blue;
+  list-style: none;
+}
+
+li {
+  outline: 1px solid purple;
+}
+
+
+
+
+
 
 /*
 .heroes {
@@ -80,3 +93,7 @@
   .cards li.selected:hover {
     background-color: #BBD8DC;
   }
+
+
+
+  
