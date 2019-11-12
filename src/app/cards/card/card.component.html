@@ -4,11 +4,13 @@
 
     <div *ngIf="card">
 
-        <button (click)="editCard(card)">Edit Info</button>
+        <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
+        <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
+        <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
 
         <h2>{{card.displayName | uppercase}} Details</h2>
 
-<form>
+<form id="thisForm" class="no_edit">
         <div><span>id: </span>{{card.id}}</div>
 
         <div>

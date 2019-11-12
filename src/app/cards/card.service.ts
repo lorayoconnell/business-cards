@@ -71,12 +71,59 @@ export class CardService {
     });
   }
 
+/*
+To update some fields of a document without overwriting the entire document, use the update() method:
+
+var washingtonRef = db.collection("cities").doc("DC");
+
+// Set the "capital" field of the city 'DC'
+return washingtonRef.update({
+    capital: true
+})
+.then(function() {
+    console.log("Document successfully updated!");
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+*/
+
+
+updateCard(cc: Card) {
+
+  console.log("updateCard id: " + cc.id);
+  console.log("udpate firstName: " + cc.firstName);
+
+  //this.cardDoc = this.db.doc<Card>
+  //(`${"cards"}/${cc.id}`);
+  //this.cardDoc.update(update);
+
+// do this for each field until I figure out a better way:
+
+  var firstNameRef = this.db.collection('cards').doc(cc.id);
+  return firstNameRef.update({firstName: cc.firstName})
+  .then(function() {console.log("Document successfully updated");})
+  .catch(function(error) {console.error("Error updating document: ", error);});
+
+
+}
+
+/*
+  //updateCard(key: string, value: any): Promise<void> {
+    //return this.cardRef.update(key, value);
+  //}
+
   updateCard(id, update) {
     // Get the card document
     this.cardDoc = this.db.doc<Card>
     (`${"cards"}/${id}`);
     this.cardDoc.update(update);
   }
+*/
+
+
+
 
   deleteCard(id) {
     // Get the card document
@@ -168,9 +215,7 @@ service cloud.firestore {
 */
 
 
-  //updateCard(key: string, value: any): Promise<void> {
-    //return this.cardRef.update(key, value);
-  //}
+
 
   //deleteCard(key: string): Promise<void> {
     //return this.cardRef.remove(key);

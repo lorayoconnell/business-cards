@@ -21,6 +21,7 @@ export class CardComponent implements OnInit {
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private service: CardService) { }
 
   ngOnInit():void {
+    //this.setReadOnly("false");
     this.getSelectedCard();
   }
 
@@ -32,14 +33,27 @@ export class CardComponent implements OnInit {
     }
   }
 
-  /**  TODO:
-   *  change the text fields to input fields to allow for updating
-   *  also show update button
-   *  also give big read button to delete the card
-   */
-  editCard(card: Card) {
-    console.log("edit card method");
+  editCard() {
+    document.getElementById("thisForm").classList.toggle("no_edit");
+    document.getElementById("editBtn").classList.toggle("toggleBtnShow");
+    document.getElementById("editBtn").classList.toggle("toggleBtnHide");
+    document.getElementById("updateBtn").classList.toggle("toggleBtnHide");
+    document.getElementById("updateBtn").classList.toggle("toggleBtnShow");
+    document.getElementById("deleteBtn").classList.toggle("toggleBtnHide");
+    document.getElementById("deleteBtn").classList.toggle("toggleBtnShow");
   }
+
+  updateCard() {
+    this.service.updateCard(this.card);
+
+
+
+  }
+
+
+
+
+
 
   /**
    *  Route back to cardlist passing parameter of card id
