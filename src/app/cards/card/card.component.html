@@ -1,28 +1,42 @@
-<h2>My Card</h2>
+<div class="component-wrapper">
 
-<div *ngIf="card">
+    <h2>My Card</h2>
 
-    <button (click)="editCard(card)">Edit Info</button>
+    <div *ngIf="card">
 
-    <h2>{{card.displayName | uppercase}} Details</h2>
-    <div><span>id: </span>{{card.id}}</div>
+        <button (click)="editCard(card)">Edit Info</button>
 
-    <div><label>displayName:<input [(ngModel)]="card.displayName" placeholder="displayName"/></label></div>
-    <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName"/></label></div>
-    <div><label>lastName:<input [(ngModel)]="card.lastName" placeholder="lastName"/></label></div>
-    <div><label>organizationName:<input [(ngModel)]="card.organizationName" placeholder="organizationName"/></label></div>
-    <div><label>phone:<input [(ngModel)]="card.phone" placeholder="phone"/></label></div>
-    <div><label>fax:<input [(ngModel)]="card.fax" placeholder="fax"/></label></div>
-    <div><label>email:<input [(ngModel)]="card.email" placeholder="email"/></label></div>
-    <div><label>cardImage:<input [(ngModel)]="card.cardImage" placeholder="cardImage"/></label></div>
+        <h2>{{card.displayName | uppercase}} Details</h2>
 
-    <!-- do not actually display this -->
-    <div><label>userId:<input [(ngModel)]="card.userId" placeholder="userId"/></label></div>
-    
+<form>
+        <div><span>id: </span>{{card.id}}</div>
+
+        <div>
+            <label>displayName:
+                <input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/>
+            </label>
+        </div>
+
+
+        <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></label></div>
+        <div><label>lastName:<input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></label></div>
+        <div><label>organizationName:<input [(ngModel)]="card.organizationName" placeholder="organizationName" type="text" name="organizationName"/></label></div>
+        <div><label>phone:<input [(ngModel)]="card.phone" placeholder="phone" type="text" name="phone"/></label></div>
+        <div><label>fax:<input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax"/></label></div>
+        <div><label>email:<input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></label></div>
+        <div><label>cardImage:<input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></label></div>
+
+        <!-- do not actually display this -->
+        <div><label>userId:<input [(ngModel)]="card.userId" placeholder="userId" type="text" name="userId"/></label></div>
+</form>        
+
+
+    </div>
+
+
+    <button>Back to List</button>
 
 </div>
-
-<button>Back to List</button>
 
 
 <!--

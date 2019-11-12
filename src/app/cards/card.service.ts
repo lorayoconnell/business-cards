@@ -1,29 +1,56 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Card } from './card.model';
 import { CARDS } from './mock-cards';
-import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
+
 
 @Injectable()
 export class CardService {
+  @Input() card: Card;
 
   private cardDoc: AngularFirestoreDocument<Card>;
   private dbPath = '/cards'; // cardlist?
-  cardRef: AngularFireList<Card> = null;
-  cardDbRef: AngularFirestore;
-  cards: Observable<any[]>;
-  cardCollectionRef: AngularFirestore;
+  cards$: Observable<Card[]>;
+  c: Card;
 
-  constructor(private db: AngularFirestore) {
+  //cardRef: AngularFireList<Card> = null;
+  //cardDbRef: AngularFirestore;
+  //cardCollectionRef: AngularFirestore;
+  //carddd: Card;
+  //ccc: Card;
 
+  constructor(private db: AngularFirestore) { }
+
+/*
+  docRef.get().then(function(doc) {
+    if (doc.exists) { console.log("exists"); }
+    else { console.log("No such document."); }
+  }).catch(function(error) {
+    console.log("Error getting document: " + error);
+  })
+*/
+
+  getCard(cardd: Card): Card {
+    var docRef = this.db.collection("cards").doc(cardd.id);
+    docRef.snapshotChanges().subscribe(
+      res => {
+        cardd.displayName = res.payload.get('displayName');
+        cardd.firstName = res.payload.get('firstName');
+        cardd.lastName = res.payload.get('lastName');
+        cardd.organizationName = res.payload.get('organizationName');
+        cardd.phone = res.payload.get('phone');
+        cardd.fax = res.payload.get('fax');
+        cardd.email = res.payload.get('email');
+        cardd.cardImage = res.payload.get('cardImage');
+        cardd.userId = res.payload.get('userId');
+      }
+    );
+    return cardd;
   }
 
   createCard(card: Card): void {
-    console.log("card.service.ts createCard() but not really (???) creating card: card.displayName: " + card.displayName);
-    console.log("this is where I would be pushing the new card to the database");
-
     this.db.collection("cards").add({
       displayName: card.displayName,
       firstName: card.firstName,
@@ -42,8 +69,6 @@ export class CardService {
     .catch (function (error) {
       console.error("Error adding document: " + error);
     });
-
-    //this.cardRef.push(card);
   }
 
   updateCard(id, update) {
@@ -61,17 +86,10 @@ export class CardService {
     this.cardDoc.delete();
   }
 
-
-  testingDb(): Observable<any[]> {
-    this.cards = this.db.collection("cards").valueChanges();
-    return this.cards;
-  }
-
   getCards(): Observable<Card[]> {
     console.log("this is where I should be getting the list from the db");
     return of(CARDS);
   }
-
 
   showThisCard(card: Card) {
 
@@ -82,21 +100,7 @@ export class CardService {
   }
 
 
-  getCard(id: string) {    // uid
 
-    console.log("cardservice cardid: " );
-
-//    return this.getCards().pipe(
-
-      // (+) before `id` turns the string into a number
-      // is === ok to use to compare strings
-      // card.cardId === +cardId))
-
-//      map((cards: Card[]) => cards.find(card => card.id === id)) 
-//    );
-
-
-  }
 
 }
 
@@ -106,35 +110,31 @@ export class CardService {
 
 
 
+/*
 
+thisFunction() {
+this.cards$ = this.db.collection<Card>('cards') //.valueChanges()
+.snapshotChanges().pipe(map(collection => {
+return collection.map(c => {
+let card = new Card();
+card.lastName = c.payload.doc.data().lastName;
+console.log("card.lastName: " + card.lastName);return card;
+});
+}));
+}
 
+thisFunction2(i: string): Card {
+this.c = new Card();
+this.db.collection<Card>('cards').doc(i)
+.snapshotChanges().pipe(map(carddd => {
+this.c = carddd.payload.data() as Card;
+this.c.lastName = carddd.payload.get('lastName');
+})
+)
+return this.c;
+}
 
-  //displayCards() {
-
-    /*
-        this.cards = this.db.collection('cards')
-            .snapshotChanges()
-            .map(actions => {
-              return actions.map(a => {
-                // get document data
-                const data = a.payload.doc.data() as Card;
-                // Get document id
-                const id = a.payload.doc.id;
-                // use spread operator to add the id to the document data
-                return { id, ...data };
-              })
-            })
-    */
-  //}
-
-
-
-  /*
-  displayThisCard(card: Card) {
-    displayCard
-  }
 */
-
 
 /*
 {
@@ -166,9 +166,6 @@ service cloud.firestore {
   }
 }
 */
-
-
-
 
 
   //updateCard(key: string, value: any): Promise<void> {
