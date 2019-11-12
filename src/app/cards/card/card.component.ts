@@ -50,7 +50,9 @@ export class CardComponent implements OnInit {
 
   }
 
-
+  deleteCard() {
+    this.service.deleteCard(this.card);
+  }
 
 
 

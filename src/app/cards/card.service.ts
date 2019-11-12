@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Card } from './card.model';
 import { CARDS } from './mock-cards';
 import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class CardService {
   //carddd: Card;
   //ccc: Card;
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
 
 /*
   docRef.get().then(function(doc) {
@@ -59,8 +60,8 @@ export class CardService {
       phone: card.phone,
       fax: card.fax,
       email: card.email,
-      cardImage: card.cardImage
-      // also add the current users id
+      cardImage: card.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
     })
     .then(function(docRef) {
       card.id = docRef.id;
@@ -71,66 +72,35 @@ export class CardService {
     });
   }
 
-/*
-To update some fields of a document without overwriting the entire document, use the update() method:
-
-var washingtonRef = db.collection("cities").doc("DC");
-
-// Set the "capital" field of the city 'DC'
-return washingtonRef.update({
-    capital: true
-})
-.then(function() {
-    console.log("Document successfully updated!");
-})
-.catch(function(error) {
-    // The document probably doesn't exist.
-    console.error("Error updating document: ", error);
-});
-*/
-
-
-updateCard(cc: Card) {
-
-  console.log("updateCard id: " + cc.id);
-  console.log("udpate firstName: " + cc.firstName);
-
-  //this.cardDoc = this.db.doc<Card>
-  //(`${"cards"}/${cc.id}`);
-  //this.cardDoc.update(update);
-
-// do this for each field until I figure out a better way:
-
-  var firstNameRef = this.db.collection('cards').doc(cc.id);
-  return firstNameRef.update({firstName: cc.firstName})
-  .then(function() {console.log("Document successfully updated");})
-  .catch(function(error) {console.error("Error updating document: ", error);});
-
-
-}
-
-/*
-  //updateCard(key: string, value: any): Promise<void> {
-    //return this.cardRef.update(key, value);
-  //}
-
-  updateCard(id, update) {
-    // Get the card document
-    this.cardDoc = this.db.doc<Card>
-    (`${"cards"}/${id}`);
-    this.cardDoc.update(update);
+  updateCard(cc: Card) {
+    var cardRef = this.db.collection('cards').doc(cc.id);
+    return cardRef.update({
+      displayName: cc.displayName,
+      firstName: cc.firstName,
+      lastName: cc.lastName,
+      organizationName: cc.organizationName,
+      phone: cc.phone,
+      fax: cc.fax,
+      email: cc.email,
+      cardImage: cc.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function() {console.log("Document successfully updated");})
+    .catch(function(error) {console.error("Error updating document: ", error);});
   }
-*/
+
+  deleteCard(cccc: Card) {
+
+    var cardRef = this.db.collection('cards').doc(cccc.id);
+    cardRef.delete();
+    console.log("Document deleted.");
 
 
-
-
-  deleteCard(id) {
     // Get the card document
-    this.cardDoc = this.db.doc<Card>
-    (`${"cards"}/${id}`);
+  //  this.cardDoc = this.db.doc<Card>
+  //  (`${"cards"}/${id}`);
     // Delete the document
-    this.cardDoc.delete();
+  //  this.cardDoc.delete();
   }
 
   getCards(): Observable<Card[]> {

@@ -3,6 +3,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
+import { User } from '../user/user.model';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +12,19 @@ import { tap, delay } from 'rxjs/operators';
 export class AuthService {
 
   isLoggedIn: boolean = false;
+  user: User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
-
-
-  }
-
-
+  constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
   isSignedIn(): boolean {
+
+    // this.card.userId = 
+    //console.log(this.afAuth.auth.currentUser.uid);
+    
+    
     return this.isLoggedIn;
   }
 
@@ -52,6 +55,28 @@ export class AuthService {
       tap(val => this.isLoggedIn = true)
     );
   }
+
+
+/*
+  getCard(cardd: Card): Card {
+    var docRef = this.db.collection("cards").doc(cardd.id);
+    docRef.snapshotChanges().subscribe(
+      res => {
+        cardd.displayName = res.payload.get('displayName');
+        cardd.firstName = res.payload.get('firstName');
+        cardd.lastName = res.payload.get('lastName');
+        cardd.organizationName = res.payload.get('organizationName');
+        cardd.phone = res.payload.get('phone');
+        cardd.fax = res.payload.get('fax');
+        cardd.email = res.payload.get('email');
+        cardd.cardImage = res.payload.get('cardImage');
+        cardd.userId = res.payload.get('userId');
+      }
+    );
+    return cardd;
+  }
+*/
+
 
 
 

@@ -44,7 +44,10 @@ ul {
 
 .component-wrapper {
   display: flex;
-  width: 100%;
+  margin: auto;
+  flex-direction: column;
+  position: relative;
+  width: 90%;
 }
 
 .button-wrapper {
@@ -58,7 +61,7 @@ ul {
 body{ outline:2px solid cyan; }
 html { outline:2px solid red; }
 form { outline: 1px solid green; }
-.component-wrapper { outline: 1px solid blue; }
+.component-wrapper { outline: 5px solid blue; }
 .button-wrapper { outline: 1px solid purple }
 
 

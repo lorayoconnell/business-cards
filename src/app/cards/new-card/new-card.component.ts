@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CardService } from '../card.service';
 import { Card } from '../card.model';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/user/user.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-new-card',
@@ -12,7 +14,7 @@ export class NewCardComponent implements OnInit {
 
   card: Card = new Card();
 
-  constructor(private cardService: CardService, private router: Router) { }
+  constructor(private cardService: CardService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -37,6 +39,10 @@ export class NewCardComponent implements OnInit {
 
   onSubmit(formData) {
     console.log("new-card.component.ts onSubmit()");
+    //this.card.userId = this.userService.getUserId();
+
+    
+
     this.cardService.createCard(this.card);
     this.card = new Card();
     this.router.navigateByUrl('/cardlist');
