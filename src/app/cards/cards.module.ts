@@ -9,6 +9,7 @@ import { SearchCardComponent } from './search-card/search-card.component';
 
 import { CardsRoutingModule } from './cards-routing.module';
 import { CardService } from './card.service';
+import { SearchCardService } from './search-card.service';
 
 //import { AngularFireModule } from 'angularfire2';
 //import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -26,7 +27,8 @@ import { CardService } from './card.service';
     SearchCardComponent
   ],
   providers: [
-    CardService//, AngularFirestore
+    CardService, 
+    SearchCardService //, AngularFirestore
   ]
   
 })

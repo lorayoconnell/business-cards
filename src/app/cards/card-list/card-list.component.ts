@@ -10,6 +10,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { map } from 'rxjs/operators';
 import { CardComponent } from '../card/card.component';
 
+
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
@@ -55,6 +56,8 @@ export class CardListComponent implements OnInit {
     // CardComponent.displayCard(card);
     //CardComponent.displayThisCard(card);
   }
+
+
 
 
 

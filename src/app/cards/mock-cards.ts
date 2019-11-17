@@ -11,6 +11,7 @@ export const CARDS: Card[] = [
         phone: '800-555-1234',
         fax: '800-555-5678',
         email: 'joesmith@companyA.org',
+        additionalInfo: '',
         cardImage: 'someUrl',
         userId: 'myUserId123456789'
     },
@@ -23,6 +24,7 @@ export const CARDS: Card[] = [
         phone: '800-555-1235',
         fax: '800-555-5679',
         email: 'joandavis@companyB.org',
+        additionalInfo: '',
         cardImage: 'someOtherUrl',
         userId: 'myUserId987654321'
     }

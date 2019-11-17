@@ -1,1 +1,49 @@
-<p>search-card works!</p>
+
+
+<!--
+    have a separate component of just a magnifying glass turning into an input field in the header...?
+-->
+
+
+
+<div class="component-wrapper">
+<h2>Search My Cards</h2>
+
+<p>Search by first name, last name, or organization name</p>
+<input type="text" id="searchField" placeholder="Search your cards"/>
+<button (click)="searchCards()">Search</button>
+
+</div>
+
+
+
+
+<!--
+
+<div *ngIf="card">
+<button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
+<button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
+<button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
+<h2>{{card.displayName | uppercase}} Details</h2>
+<form id="thisForm" class="no_edit">
+<div><span>id: </span>{{card.id}}</div>
+
+<div>
+<label>displayName:
+<input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/>
+</label>
+</div>
+<div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></label></div>
+<div><label>lastName:<input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></label></div>
+<div><label>organizationName:<input [(ngModel)]="card.organizationName" placeholder="organizationName" type="text" name="organizationName"/></label></div>
+<div><label>phone:<input [(ngModel)]="card.phone" placeholder="phone" type="text" name="phone"/></label></div>
+<div><label>fax:<input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax"/></label></div>
+<div><label>email:<input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></label></div>
+<div><label>cardImage:<input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></label></div>
+<div><label>userId:<input [(ngModel)]="card.userId" placeholder="userId" type="text" name="userId"/></label></div>
+</form>        
+</div>
+
+<button>Back to List</button>
+
+-->

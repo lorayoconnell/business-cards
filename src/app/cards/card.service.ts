@@ -44,6 +44,7 @@ export class CardService {
         cardd.phone = res.payload.get('phone');
         cardd.fax = res.payload.get('fax');
         cardd.email = res.payload.get('email');
+        cardd.additionalInfo = res.payload.get('additionalInfo');
         cardd.cardImage = res.payload.get('cardImage');
         cardd.userId = res.payload.get('userId');
       }
@@ -60,6 +61,7 @@ export class CardService {
       phone: card.phone,
       fax: card.fax,
       email: card.email,
+      additionalInfo: card.additionalInfo,
       cardImage: card.cardImage,
       userId: this.afAuth.auth.currentUser.uid
     })
@@ -82,6 +84,7 @@ export class CardService {
       phone: cc.phone,
       fax: cc.fax,
       email: cc.email,
+      additionalInfo: cc.additionalInfo,
       cardImage: cc.cardImage,
       userId: this.afAuth.auth.currentUser.uid
     })

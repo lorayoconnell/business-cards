@@ -23,6 +23,8 @@ import { WebcamComponent } from './webcam/webcam.component';
 import { HeaderComponent } from './header/header.component';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { SearchCardService } from './cards/search-card.service';
+import { SearchCardComponent } from './cards/search-card/search-card.component';
 
 @NgModule({
   imports: [
@@ -44,7 +46,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     WebcamComponent,
     HeaderComponent
   ],
-  providers: [],
+  providers: [SearchCardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

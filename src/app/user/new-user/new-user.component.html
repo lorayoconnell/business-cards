@@ -1,3 +1,14 @@
 <div class="component-wrapper">
-    <p>new user form</p>
+    <h2>My Profile</h2>
+
+    <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+
+        <div><label>First Name:<input [(ngModel)]="user.firstName" placeholder="firstName" name="firstName"/></label></div>
+        <div><label>Last Name:<input [(ngModel)]="user.lastName" placeholder="lastName" name="lastName"/></label></div>
+        <div><label>Email:<input [(ngModel)]="user.userEmail" placeholder="userEmail" name="userEmail"/></label></div>
+
+        <button class="btn" type="submit">Save</button>
+
+    </form>
+
 </div>
