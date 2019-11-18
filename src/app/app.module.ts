@@ -24,7 +24,6 @@ import { HeaderComponent } from './header/header.component';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SearchCardService } from './cards/search-card.service';
-import { SearchCardComponent } from './cards/search-card/search-card.component';
 
 @NgModule({
   imports: [

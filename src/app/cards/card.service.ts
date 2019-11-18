@@ -1,28 +1,160 @@
 import { Injectable, Input } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Card } from './card.model';
-import { CARDS } from './mock-cards';
-import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SearchCardService } from './search-card.service';
 
 @Injectable()
 export class CardService {
+
   @Input() card: Card;
 
-  private cardDoc: AngularFirestoreDocument<Card>;
-  private dbPath = '/cards'; // cardlist?
-  cards$: Observable<Card[]>;
-  c: Card;
 
-  //cardRef: AngularFireList<Card> = null;
-  //cardDbRef: AngularFirestore;
-  //cardCollectionRef: AngularFirestore;
-  //carddd: Card;
-  //ccc: Card;
+  thisCard: Card;
+  cardIds: string[];
+  cardCollectionRef: AngularFirestoreCollection<Card>;
+  card$: Observable<Card[]>;
+  selectedCard: Card;
+  searchStr: string;
 
-  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
+
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) {  }
+
+
+/*
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) {
+    this.cardIds = new Array();
+    this.cardCollectionRef = this.db.collection('cards');
+    this.card$ = this.cardCollectionRef.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(action => {
+          const data = action.payload.doc.data() as Card;
+          const id = action.payload.doc.id;
+          this.cardIds.push(id);
+          console.log("action.payload.doc.id: " + id);
+          console.log("data.firstName: " + data.firstName);
+          return { id, ...data};
+        });
+      })
+    )
+  }
+
+getArrOfCardsIds(): string[] {
+  console.log("inside cardService: " + this.cardIds.length);
+  return this.cardIds;
+}
+*/
+
+  getAllCards() {
+    return this.db.collection("cards").snapshotChanges();
+  }
+
+
+
+
+  getCard(c: Card): Card {
+    var docRef = this.db.collection("cards").doc(c.id);
+    docRef.snapshotChanges().subscribe(
+      res => {
+        c.displayName = res.payload.get('displayName');
+        c.firstName = res.payload.get('firstName');
+        c.lastName = res.payload.get('lastName');
+        c.organizationName = res.payload.get('organizationName');
+        c.phone = res.payload.get('phone');
+        c.fax = res.payload.get('fax');
+        c.email = res.payload.get('email');
+        c.additionalInfo = res.payload.get('additionalInfo');
+        c.cardImage = res.payload.get('cardImage');
+        c.userId = res.payload.get('userId');
+      }
+    );
+    return c;
+  }
+
+  createCard(c: Card): void {
+    this.db.collection("cards").add({
+      displayName: c.displayName,
+      firstName: c.firstName,
+      lastName: c.lastName,
+      organizationName: c.organizationName,
+      phone: c.phone,
+      fax: c.fax,
+      email: c.email,
+      additionalInfo: c.additionalInfo,
+      cardImage: c.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function(docRef) {
+      c.id = docRef.id;
+      console.log("Document written with id: " + docRef.id);
+    })
+    .catch (function (error) {
+      console.error("Error adding document: " + error);
+    });
+  }
+
+  updateCard(c: Card) {
+    var cardRef = this.db.collection('cards').doc(c.id);
+    return cardRef.update({
+      displayName: c.displayName,
+      firstName: c.firstName,
+      lastName: c.lastName,
+      organizationName: c.organizationName,
+      phone: c.phone,
+      fax: c.fax,
+      email: c.email,
+      additionalInfo: c.additionalInfo,
+      cardImage: c.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function() {console.log("Document successfully updated");})
+    .catch(function(error) {console.error("Error updating document: ", error);});
+  }
+
+  deleteCard(c: Card) {
+    var cardRef = this.db.collection('cards').doc(c.id);
+    cardRef.delete();
+    console.log("Document deleted.");
+  }
+
+}
+
+
+
+
+
+//import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
+//import { Observable, of } from 'rxjs';
+//import { map } from 'rxjs/operators';
+//import { CARDS } from './mock-cards';
+//import { CardListComponent } from '../cards/card-list/card-list.component';
+//import { CardComponent } from './card/card.component';
+
+
+  //private cardDoc: AngularFirestoreDocument<Card>;
+  //private dbPath = '/cards';
+  //cards$: Observable<Card[]>;
+  //c: Card;
+  //cardIds: string[];
+
+  //getCards(): Observable<Card[]> {
+    //console.log("this is where I should be getting the list from the db");
+    //return of(CARDS);
+  //}
+
+  //getCardIdsArray(arr: String[]): void {
+  //getCardIdsArray(): string[] {
+    //console.log("inside cardservice. arr.length: " + arr.length);
+    //console.log("cardIds.length: " + this.cardIds.length);
+    //return this.cardIds;
+    //getArrayOfCardIds();
+  //}
+
+  //showThisCard(card: Card) {
+  //  console.log("inside cardservice. send card to indiv card component");
+  //}
 
 /*
   docRef.get().then(function(doc) {
@@ -33,99 +165,18 @@ export class CardService {
   })
 */
 
-  getCard(cardd: Card): Card {
-    var docRef = this.db.collection("cards").doc(cardd.id);
-    docRef.snapshotChanges().subscribe(
-      res => {
-        cardd.displayName = res.payload.get('displayName');
-        cardd.firstName = res.payload.get('firstName');
-        cardd.lastName = res.payload.get('lastName');
-        cardd.organizationName = res.payload.get('organizationName');
-        cardd.phone = res.payload.get('phone');
-        cardd.fax = res.payload.get('fax');
-        cardd.email = res.payload.get('email');
-        cardd.additionalInfo = res.payload.get('additionalInfo');
-        cardd.cardImage = res.payload.get('cardImage');
-        cardd.userId = res.payload.get('userId');
-      }
-    );
-    return cardd;
-  }
-
-  createCard(card: Card): void {
-    this.db.collection("cards").add({
-      displayName: card.displayName,
-      firstName: card.firstName,
-      lastName: card.lastName,
-      organizationName: card.organizationName,
-      phone: card.phone,
-      fax: card.fax,
-      email: card.email,
-      additionalInfo: card.additionalInfo,
-      cardImage: card.cardImage,
-      userId: this.afAuth.auth.currentUser.uid
-    })
-    .then(function(docRef) {
-      card.id = docRef.id;
-      console.log("Document written with id: " + docRef.id);
-    })
-    .catch (function (error) {
-      console.error("Error adding document: " + error);
-    });
-  }
-
-  updateCard(cc: Card) {
-    var cardRef = this.db.collection('cards').doc(cc.id);
-    return cardRef.update({
-      displayName: cc.displayName,
-      firstName: cc.firstName,
-      lastName: cc.lastName,
-      organizationName: cc.organizationName,
-      phone: cc.phone,
-      fax: cc.fax,
-      email: cc.email,
-      additionalInfo: cc.additionalInfo,
-      cardImage: cc.cardImage,
-      userId: this.afAuth.auth.currentUser.uid
-    })
-    .then(function() {console.log("Document successfully updated");})
-    .catch(function(error) {console.error("Error updating document: ", error);});
-  }
-
-  deleteCard(cccc: Card) {
-
-    var cardRef = this.db.collection('cards').doc(cccc.id);
-    cardRef.delete();
-    console.log("Document deleted.");
 
 
-    // Get the card document
-  //  this.cardDoc = this.db.doc<Card>
-  //  (`${"cards"}/${id}`);
-    // Delete the document
-  //  this.cardDoc.delete();
-  }
+    /*
+    this.cards$.pipe(map(c => {
+      return c.map(cc => {
+        this.cardIds.push(cc.id);
+        // cc.firstName
+      })
+    }))
 
-  getCards(): Observable<Card[]> {
-    console.log("this is where I should be getting the list from the db");
-    return of(CARDS);
-  }
-
-  showThisCard(card: Card) {
-
-
-    // route to cardcomponent with card as parameter
-    console.log("inside cardservice. send card to indiv card component");
-
-  }
-
-
-
-
-}
-
-
-
+    
+*/
 
 
 

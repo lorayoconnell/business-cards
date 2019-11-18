@@ -1,70 +1,201 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Card } from './card.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CardService } from './card.service';
-
+import { query } from '@angular/animations';
+//import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchCardService {
 
+  firstSearch: boolean;
   cardCollectionRef: AngularFirestoreCollection<Card>;
   card$: Observable<Card[]>;
-
-  cardArr: Card[];
   cardId: string[];
   card: Card;
+  cardIdArr: string[];
+  companyArr: string[];
+  firstNameArr: string[];
+  lastNameArr: string[];
+  //arrrr: string[] = new Array();  
 
   constructor(private afs: AngularFirestore, private cardService: CardService) {
-    this.cardCollectionRef = this.afs.collection('cards');
-    this.card$ = this.cardCollectionRef.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(action => {
-          const data = action.payload.doc.data() as Card;
-          const id = action.payload.doc.id;
-          return { id, ...data};
-        });
-      })
-    )
+    this.firstSearch = true;
   }
+
+  // document reference points to a single card
+  getSingleCard(cardId: string): AngularFirestoreDocument {
+    var documentReference = this.afs.collection('cards').doc(cardId);
+    return documentReference;
+  }
+
+  getCard(cardId: string) {
+    var documentReference = this.afs.collection('cards').doc(cardId);
+    documentReference.get().toPromise().then(function(documentSnapshot) {
+      if (documentSnapshot.exists) {
+        console.log("Document has been found");
+        var data = documentSnapshot.data();
+      }
+      else {
+        console.log("Document not found");
+      }
+    })
+  }
+
+
+
+
+  printAllCardIdsToConsole() {
+    this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.id);
+      });
+    });
+  }
+
+  getArrayOfCardIds() {
+    this.cardIdArr = new Array();
+    this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        this.cardIdArr.push(doc.id.toString());
+      })
+    }).then( res => {
+      this.updateArr(this.cardIdArr);
+    })
+  }
+  updateArr(st: string[]) {
+    console.log("array: " + st);
+  }
+
+  testSearchServ(searchTerm: string) {
+    console.log("inside search-card.service.ts * searchTerm: " + searchTerm);
+    //this.getArrayOfCardIds();
+    this.createParallelSearchArrays(searchTerm);
+  }
+
+  createParallelSearchArrays(searchTerm: string) {
+    console.log("firstSearch? " + this.firstSearch);
+    if (this.firstSearch) {
+      this.cardIdArr = new Array();
+      this.firstNameArr = new Array();
+      this.lastNameArr = new Array();
+      this.companyArr = new Array();
+
+      this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.cardIdArr.push(doc.id.toString());
+          this.firstNameArr.push(doc.get('firstName'));   // || null?
+          this.lastNameArr.push(doc.get('lastName'));
+          this.companyArr.push(doc.get('organizationName'));
+        })
+  /*    }).then( res => {
+        this.updateArr(this.cardIdArr);
+        this.getFnArr(this.firstNameArr);
+        this.getLnArr(this.lastNameArr);
+        this.getCompArr(this.companyArr); */
+      }).then(res => {
+        this.gatherAllArrays(this.cardIdArr, this.firstNameArr, this.lastNameArr, this.companyArr, searchTerm);
+      })
+    }
+    else {
+      this.gatherAllArrays(this.cardIdArr, this.firstNameArr, this.lastNameArr, this.companyArr, searchTerm);
+    }
+  }
+/*
+  getFnArr(st:string[]) {
+    console.log("array.length: " + st.length);
+    console.log("array: " + st);
+  }
+  getLnArr(st:string[]) {
+    console.log("array.length: " + st.length);
+    console.log("array: " + st);
+  }
+  getCompArr(st:string[]) {
+    console.log("array.length: " + st.length);
+    console.log("array: " + st);
+  }
+*/
+  gatherAllArrays(id:string[], fn:string[], ln:string[], org:string[], searchTerm:string) {
+    console.log("searchTerm: " + searchTerm + " id.length: " + id.length + " fn.length: "
+                + fn.length + " ln.length: " + fn.length + " org.length: " + org.length);
+
+    var arrLen = id.length;
+    if ((arrLen != fn.length) || (arrLen != ln.length) || (arrLen != org.length) ) {
+      console.log("there is an error... all arrays should be the same length");
+    }
+
+    var result = -1;
+    result = this.searchStringInArray(searchTerm, org);
+    if (result < 0) { // keep searching
+      result = this.searchStringInArray(searchTerm, ln);
+    }
+    if (result < 0) { // keep searching
+      result = this.searchStringInArray(searchTerm, fn);
+    }
+
+    if (result < 0) { // no matches
+      // no match was found in company name, firstName, or lastName
+      this.noMatchMsg();
+    }
+    else { // match has been found. result = index of match.
+      this.displayMatch(id[result]);
+    }
+
+    this.firstSearch = false;
+  }
+
+  /**
+   *  Returns -1 if not found or index of match if found
+   */
+  searchStringInArray(str:string, arr:string[]): number {
+    var result = -1;
+    str = str.toLowerCase();
+    var len = arr.length;
+    for (var i=0; i<len; i++) {
+      if ((arr[i].toLowerCase()).indexOf(str) >= 0) {
+        result = i;
+      }
+    }
+    return result;
+  }
+
+  displayMatch(cardId: string) {
+    console.log("match in cardId: " + cardId);
+
+
+    this.getCard(cardId);
+    var documentReference = this.getSingleCard(cardId);
+
+
+
+  }
+
+  noMatchMsg() {
+    console.log("no match");
+  }
+
+
+
+
+
+
 
   searchCards(userInput: string) {
 
+    // article about querying a collection:
+    // https://medium.com/@scarygami/cloud-firestore-quicktip-documentsnapshot-vs-querysnapshot-70aef6d57ab3
 
-    //this.card$.subscribe(cards => {
-      // cardsArray.push(this.card.id);
-    //});
-    //console.log( cardsArray.length );
+    // var collectionReference = this.afs.collection<Card>('cards');
+    // var query = collectionReference.doc().collection('lastName', '==', 'blah'); // .where('lastName', '==', 'something');
+
+    // var query = collectionReference.where()
 
 
-
-
-/*
-  getCard(cardd: Card): Card {
-    var docRef = this.db.collection("cards").doc(cardd.id);
-    docRef.snapshotChanges().subscribe(
-      res => {
-        cardd.displayName = res.payload.get('displayName');
-        cardd.firstName = res.payload.get('firstName');
-        cardd.lastName = res.payload.get('lastName');
-        cardd.organizationName = res.payload.get('organizationName');
-        cardd.phone = res.payload.get('phone');
-        cardd.fax = res.payload.get('fax');
-        cardd.email = res.payload.get('email');
-        cardd.additionalInfo = res.payload.get('additionalInfo');
-        cardd.cardImage = res.payload.get('cardImage');
-        cardd.userId = res.payload.get('userId');
-      }
-    );
-    return cardd;
   }
-*/
-
-
-
 
 
 
@@ -85,56 +216,7 @@ export class SearchCardService {
     });
 */
 
-  }
-
-  /*
-getCard(cardd: Card): Card {
-    var docRef = this.db.collection("cards").doc(cardd.id);
-    docRef.snapshotChanges().subscribe(
-      res => {
-        cardd.displayName = res.payload.get('displayName');
-        cardd.firstName = res.payload.get('firstName');
-        cardd.lastName = res.payload.get('lastName');
-        cardd.organizationName = res.payload.get('organizationName');
-        cardd.phone = res.payload.get('phone');
-        cardd.fax = res.payload.get('fax');
-        cardd.email = res.payload.get('email');
-        cardd.additionalInfo = res.payload.get('additionalInfo');
-        cardd.cardImage = res.payload.get('cardImage');
-        cardd.userId = res.payload.get('userId');
-      }
-    );
-    return cardd;
-  }
-  */
-
-
-
-
 }
-
-
-/*
-
-  getSelectedCard() {
-    this.card = new Card;
-    this.card.id = this.route.snapshot.paramMap.get('id');
-    if (this.card.id != null) {
-      this.card = this.service.getCard(this.card);
-    }
-  }
-
-
-  cardCollectionRef: AngularFirestoreCollection<Card>;
-  card$: Observable<Card[]>;
-  selectedCard: Card;
-
-
-
-  constructor(private afs: AngularFirestore, private service: CardService, private route: ActivatedRoute) {
-
-  }
-*/
 
 
 
@@ -146,7 +228,6 @@ suggests a third-party search service: Algolia
 since this is a fairly small app,
 I'll just search manually.....
 */
-
 
 
 

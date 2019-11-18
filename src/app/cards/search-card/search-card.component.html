@@ -2,6 +2,7 @@
 
 <!--
     have a separate component of just a magnifying glass turning into an input field in the header...?
+
 -->
 
 
@@ -10,8 +11,8 @@
 <h2>Search My Cards</h2>
 
 <p>Search by first name, last name, or organization name</p>
-<input type="text" id="searchField" placeholder="Search your cards"/>
-<button (click)="searchCards()">Search</button>
+<input type="text" id="searchFieldd" placeholder="Search your cards" #inputContent/>
+<button (click)="searchCards(inputContent)">Search</button>
 
 </div>
 

@@ -2,7 +2,6 @@
 
 <button routerLink="/newcard" routerLinkActive="active">Add New Card</button>
 
-
 <ul>
     <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
         <a [routerLink]="['/card/', card.id]">
@@ -10,6 +9,11 @@
         </a>
     </li>
 </ul>
+
+<button>View as Cards</button>
+<button>View as List</button>
+
+<app-search-card></app-search-card>
 
 
 
@@ -39,41 +43,6 @@
         </div>
 </li>
 </ul>
-
--->
-
-
-
-<button>View as Cards</button>
-<button>View as List</button>
-
-
-
-<!--
- (click)="getThisCard(card)"
-
--->
-
-
-<!-- <li *ngFor="let card of card$ | async" (click)="onSelect(card)" [class.selected]="card === selectedCard"> -->
-
-
-<!--
-<app-card [card]="selectedCard"></app-card>
--->
-
-
-
-<!--
-<div *ngIf="selectedCard">
-<h2>{{selectedCard.displayName | uppercase}} Details</h2>
-<div><span>id: </span>{{selectedCard.cardId}}</div>
-<div>
-    <label>displayName:
-        <input [(ngModel)]="selectedCard.displayName" placeholder="displayName"/>
-    </label>
-</div>
-</div>
 -->
 
 
