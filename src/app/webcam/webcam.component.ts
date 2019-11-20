@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CardService } from '../cards/card.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-webcam',
@@ -44,18 +45,28 @@ export class WebcamComponent implements OnInit {
     var dataURL = this.canvas.nativeElement.toDataURL();
     // console.log("dataURL: " + dataURL);
     this.processImage(dataURL);
+
+
+
+    this.stopCamera();
   }
 
   public processImage(dataURL) {
   
-  
     console.log("dataURL: " + dataURL);
   
-
     // api requires base64 image header to be removed:
-    // const parsedImage = this.mybase64Image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ‘’);
+    //const parsedImage = this.mybase64Image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ‘’);
   
+    const parsedImage = dataURL.replace('data:image\/png;base64,', '');
 
+    console.log("parsedImage: " + parsedImage);
+
+
+const apikey = environment.cloudVision.apiKey;
+console.log("apikey: " + apikey);
+
+    
   }
 
 
