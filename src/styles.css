@@ -28,6 +28,7 @@ button {
   outline: none;
   color: #eee;
   cursor: pointer;
+  margin: 0 0.5em;
 }
 
 button:hover {
@@ -44,25 +45,103 @@ ul {
 
 .component-wrapper {
   display: flex;
-  margin: auto;
+  margin: 2em auto;
   flex-direction: column;
   position: relative;
   width: 90%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 1em 0.5em;
 }
 
 .button-wrapper {
   display: flex;
+  justify-content: space-between
 }
 
 
 
 /****** OUTLINES ******/
 
+
 body{ outline:2px solid cyan; }
 html { outline:2px solid red; }
 form { outline: 1px solid green; }
 .component-wrapper { outline: 5px solid blue; }
 .button-wrapper { outline: 1px solid purple }
+
+
+
+
+
+
+
+.login-wrapper,
+.profile-wrapper {
+  width: 460px;
+}
+
+.login-wrapper h2,
+.login-wrapper > div,
+.profile-wrapper h2 {
+  width: 90%;
+  display: flex;
+}
+
+.login-wrapper form,
+.profile-wrapper form {
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.login-wrapper h2,
+.profile-wrapper h2 {
+  justify-content: flex-start;
+  margin: 1em auto;
+}
+
+.login-wrapper > div {
+  margin: 1em auto 0 auto;
+  justify-content: flex-end;
+}
+
+
+
+
+.login-wrapper form > div,
+.profile-wrapper form > div {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0;
+}
+
+
+
+.login-wrapper input {
+  display: flex;
+  width: 80%;
+}
+
+.profile-wrapper input {
+  display: flex;
+  width: 64%;
+  margin-left: 0.2em;
+}
+
+.profile-wrapper form > div {
+  justify-content: space-between;
+}
+
+.profile-wrapper button {
+  width: 120px;
+  margin: 1em auto 0;
+}
+
+
+
+
+
+
 
 
 

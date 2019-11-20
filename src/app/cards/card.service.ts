@@ -1,4 +1,4 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable, Input, OnDestroy } from '@angular/core';
 import { Card } from './card.model';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 import { SearchCardService } from './search-card.service';
 
 @Injectable()
-export class CardService {
+export class CardService { //implements OnDestroy {
 
+  //subscr$;
   @Input() card: Card;
 
 
@@ -56,6 +57,7 @@ getArrOfCardsIds(): string[] {
 
   getCard(c: Card): Card {
     var docRef = this.db.collection("cards").doc(c.id);
+    //this.subscr$ = 
     docRef.snapshotChanges().subscribe(
       res => {
         c.displayName = res.payload.get('displayName');
@@ -72,6 +74,14 @@ getArrOfCardsIds(): string[] {
     );
     return c;
   }
+
+
+  //ngOnDestroy(): void {
+
+    //this.subscr$.unsubscribe();
+    //throw new Error("Method not implemented.");
+  //} 
+
 
   createCard(c: Card): void {
     this.db.collection("cards").add({

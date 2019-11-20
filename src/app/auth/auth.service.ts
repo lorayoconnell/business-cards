@@ -42,12 +42,20 @@ export class AuthService {
   }
 
   logout() {
+
+// unsubscribe from 3
+
+
+
+
     this.afAuth.auth.signOut().then(() => {
       console.log("Logged out");
       this.isLoggedIn = false;
       this.router.navigate(['/login']);
     });
   }
+
+
 
   loginn(): Observable<boolean> {
     return of(true).pipe(

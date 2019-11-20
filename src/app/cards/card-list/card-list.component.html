@@ -1,11 +1,16 @@
+<div class="component-wrapper">
+
 <h2>CardList</h2>
 
 <button routerLink="/newcard" routerLinkActive="active">Add New Card</button>
 
-<ul>
+<ul class="list">
     <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
         <a [routerLink]="['/card/', card.id]">
-            <span class="badge">{{ card.id }}</span>{{ card.displayName }}
+            <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
+            <span class="phNum">{{ card.phone }}</span>
+            <span class="orgName">{{ card.organizationName }}</span>
+            <span class="emailAdd">{{ card.email }}</span>
         </a>
     </li>
 </ul>
@@ -13,12 +18,21 @@
 <button>View as Cards</button>
 <button>View as List</button>
 
+</div>
+
+
 <app-search-card></app-search-card>
 
 
 
 
-<!--
+<!-- 
+
+               <span class="badge">{{ card.id }}</span>{{ card.displayName }}
+
+
+
+
 <ul class="ui cards">
 <li class="card" *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
         <div class="content">

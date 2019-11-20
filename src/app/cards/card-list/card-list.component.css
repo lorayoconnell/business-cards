@@ -4,12 +4,75 @@ ul {
   list-style: none;
 }
 
-li {
-  outline: 1px solid purple;
+ul.list {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.list li {
+  border: 1px solid #999;
+  border-radius: 4px;
+  margin: 0.5em 1em 0.5em 0;
+  display: flex;
+  padding: 0.5em;
+}
+
+.list li:hover {
+  background-color: yellow;
+}
+
+.list a {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-decoration: none;
+  outline:2px solid purple;
+  width: 100%;
+}
+
+.list span {
+  color: #333;
+            /*  display: flex; */
+  outline:1px solid red;
+  margin: 0 0.5em;
+}
+
+.list span.name {
+  font-size: 1.2em;
+  width: 45%;
+  min-width: 200px;
+}
+.list span.orgName {
+  width: 45%;
+  min-width: 200px;
+}
+.list span.phNum {
+  text-align: right;
+  width: 45%;
+  min-width: 160px;
+}
+.list span.emailAdd {
+  text-align: right;
+  width: 45%;
+  min-width: 260px;
 }
 
 
 
+/*
+
+
+
+<ul class="list">
+    <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
+        <a [routerLink]="['/card/', card.id]">
+            <span class="badge">{{ card.id }}</span>{{ card.displayName }}
+        </a>
+    </li>
+</ul>
+*/
 
 
 

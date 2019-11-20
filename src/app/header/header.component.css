@@ -5,13 +5,15 @@ header {
     background-color:rgb(146, 162, 168);
     color: #eee;
     margin: 0;
-    padding: 1.6em;  
+    padding: 1.6em;
+    justify-content: space-between;
 }
 
 h1 {
     margin: 0;
     padding: 0;
 }
+
 
 /*
 header {

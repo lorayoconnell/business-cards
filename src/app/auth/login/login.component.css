@@ -1,10 +1,51 @@
 
+.login-wrapper {
+    width: 460px;
+}
 
+.login-wrapper form {
+    justify-content: center;
+    margin-bottom: 1em;
+}
 
+.login-wrapper form > div {
+    display: flex;
+    justify-content: center;
+    margin: 0.5em 0;
+}
 
+.login-wrapper input {
+    display: flex;
+    width: 80%;
+    
+}
 
+.login-wrapper h2,
+.login-wrapper > div {
+    width: 90%;
+    display: flex;
+}
+
+.login-wrapper > div {
+    margin: 1em auto 0 auto;
+    justify-content: flex-end;
+}
+
+.login-wrapper h2 {
+    justify-content: flex-start;
+    margin: 1em auto;
+}
 
 /*
+
+
+    margin: 2em auto;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 0.5em;
+
+
+
 
 .container {
     outline: 3px solid red;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; // , NavigationExtras
 import { AuthService } from '../auth.service';
 
@@ -7,9 +7,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent { //implements OnDestroy {
 
   message: string;
+  //subscr$;
 
   constructor(public authService: AuthService, public router: Router) {
     this.setMessage();
@@ -32,13 +33,12 @@ export class LoginComponent {
 
 
 
-  
-
 
 
   login() {
     this.message = 'Trying to log in ...';
 
+    //this.subscr$ = 
     this.authService.loginn().subscribe(() => {
       this.setMessage();
       if (this.authService.isLoggedIn) {
@@ -59,13 +59,22 @@ export class LoginComponent {
         this.router.navigateByUrl(redirect);  //, navigationExtras);
       }
     });
-
-
-
-
   }
 
+
+  //ngOnDestroy(): void {
+
+    //this.authService.
+    //this.subscr$.unsubscribe();
+    //throw new Error("Method not implemented.");
+  //} 
+
+
+
   logout() {
+
+    //this.authService.loginn().unsubscribe();
+
     this.authService.logout();
     this.setMessage();
   }

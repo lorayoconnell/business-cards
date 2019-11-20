@@ -1,1 +1,19 @@
 <p>webcam works!</p>
+
+<div id="app">
+    <div class="wrapper">
+      <video #video id="video" width="640" height="480" autoplay></video>
+      <div id="guides"></div>
+  </div>
+  <div><button id="snap" (click)="capture()">Snap Photo</button></div>
+  
+  <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  <ul>
+    <li *ngFor="let c of captures">
+      <img src="{{ c }}" height="50"/>
+    </li>
+  </ul>
+</div>
+
+
+

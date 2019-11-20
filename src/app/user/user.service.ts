@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { User } from './user.model';
@@ -7,14 +7,16 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService { // implements OnDestroy {
 
+  //subscr$;
   user: User;
 
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) { }
 
   getUser(u: User): User {
     var docRef = this.db.collection("users").doc(u.userId);
+    //this.subscr$ = 
     docRef.snapshotChanges().subscribe(
       res => {
         u.userId = res.payload.get('userId');
@@ -49,6 +51,11 @@ export class UserService {
     });
   }
 
+  //ngOnDestroy(): void {
+
+    //this.subscr$.unsubscribe();
+    //throw new Error("Method not implemented.");
+  //} 
 
 }
 

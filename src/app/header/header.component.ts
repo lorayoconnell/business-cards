@@ -25,15 +25,29 @@ export class HeaderComponent implements OnInit {
     return this.authService.isSignedIn();
   }
 
+
+  userSignedIn(): boolean {
+    if (this.authService.isSignedIn())
+      return true;
+    else
+      return false;
+  }
+
+
   displayTest() {
     console.log("signed in: " + this.signedIn());
   }
 
+  /*
   logOut() {
     this.authService.logout();
   }
-
-
+*/
+  
+  signOut(): void {
+    this.authService.logout();
+  }
+  
 
 
 

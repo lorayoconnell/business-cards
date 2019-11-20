@@ -1,0 +1,55 @@
+
+.search-component-wrapper {
+    width: 460px;
+    justify-content: center;
+}
+
+.search-component-wrapper h2 {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    margin: 1em auto;
+}
+
+.search-component-wrapper input,
+.search-component-wrapper p {
+    display: flex;
+    width: 80%;
+}
+
+
+
+
+
+
+
+/*
+
+<div class="component-wrapper search-component-wrapper">
+<h2>Search My Cards</h2>
+
+<p>Search by first name, last name, or organization name</p>
+<input type="text" id="searchFieldd" placeholder="Search your cards" #inputContent/>
+<button (click)="searchCards(inputContent)">Search</button>
+
+</div>
+
+
+
+form {
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+form > div {
+    display: flex;
+    justify-content: center;
+    margin: 0.5em 0;
+}
+
+.login-wrapper > div {
+    margin: 1em auto 0 auto;
+    justify-content: flex-end;
+}
+
+*/

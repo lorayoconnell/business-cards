@@ -1,0 +1,47 @@
+
+
+body {
+    background-color: #F0F0F0;
+}
+#app {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+}
+#video {
+    background-color: #000000;
+}
+#canvas {
+    display: none;
+}
+li {
+    display: inline;
+    padding: 5px;
+}
+
+.wrapper {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    outline: 5px solid red;
+    margin: auto;
+}
+
+#guides {
+    display:block;
+    position:absolute;
+    width:320px;
+    height:190px;
+    outline:3px solid white;
+    left:160px;
+    top:140px;
+}
+
+/*
+
+0, 0, 640, 480
+
+160, 140, 320, 200
+
+
+*/
