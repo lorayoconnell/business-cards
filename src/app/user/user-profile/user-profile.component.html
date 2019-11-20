@@ -1,18 +1,41 @@
 <div class="component-wrapper profile-wrapper">
 <h2>My Profile</h2>
-<form class="ui form">
+
+<form class="ui form" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
     <div class="field">
         <label>First Name</label>
-        <input type="text" name="firstName" placeholder="First Name">
+        <input [(ngModel)]="user.firstName" type="text" name="firstName" placeholder="First Name">
     </div>
+
     <div class="field">
         <label>Last Name</label>
-        <input type="text" name="lastName" placeholder="Last Name">
+        <input [(ngModel)]="user.lastName" type="text" name="lastName" placeholder="Last Name">
     </div>
+
     <div class="field">
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Email address">
+        <label>Email:</label>
+        <input [(ngModel)]="user.email" type="text" placeholder="userEmail" name="email"/>
     </div>
+
+
+    <button class="ui button">Reset Password</button>
+
     <button class="ui button">Update</button>
 </form>
 </div>
+
+
+
+
+
+<!--
+    <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+
+        
+
+     <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></label></div>
+
+
+
+
+-->

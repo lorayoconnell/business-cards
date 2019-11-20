@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SearchCardService } from './search-card.service';
+import { WebcamComponent } from '../webcam/webcam.component';
 
 @Injectable()
 export class CardService { //implements OnDestroy {
@@ -128,6 +129,13 @@ getArrOfCardsIds(): string[] {
     cardRef.delete();
     console.log("Document deleted.");
   }
+
+
+  gotoWebcam() {
+    
+  }
+
+
 
 }
 

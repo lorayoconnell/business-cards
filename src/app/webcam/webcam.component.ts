@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CardService } from '../cards/card.service';
 
 @Component({
   selector: 'app-webcam',
@@ -13,9 +14,9 @@ export class WebcamComponent implements OnInit {
   @ViewChild("canvas", {static:false})
   public canvas: ElementRef;
 
-  public captures: Array<any>;
+  public captures: Array<any>;  // an array of imgs in case combine several for better resolution/accuracy
 
-  public constructor() {
+  public constructor(cardService: CardService) {
     this.captures = [];
   }
 
@@ -54,7 +55,7 @@ export class WebcamComponent implements OnInit {
     // api requires base64 image header to be removed:
     // const parsedImage = this.mybase64Image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ‘’);
   
-    
+
   }
 
 

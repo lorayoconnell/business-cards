@@ -19,8 +19,8 @@ export class UserService { // implements OnDestroy {
     //this.subscr$ = 
     docRef.snapshotChanges().subscribe(
       res => {
-        u.userId = res.payload.get('userId');
-        u.userEmail = res.payload.get('userEmail');
+       //u.userId = res.payload.get('userId');
+        u.email = res.payload.get('email');
         u.firstName = res.payload.get('firstName');
         u.lastName = res.payload.get('lastName');
       }
@@ -40,7 +40,7 @@ export class UserService { // implements OnDestroy {
     this.db.collection("users").add({
       firstName: user.firstName,
       lastName: user.lastName,
-      userEmail: user.userEmail
+      email: user.email
     })
     .then(function(docRef) {
       user.userId = docRef.id;
@@ -51,6 +51,30 @@ export class UserService { // implements OnDestroy {
     });
   }
 
+  updateUser(user: User) {
+    var userRef = this.db.collection("users").doc(user.userId);
+    return userRef.update({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
+    })
+    .then(function() {
+      console.log("User data has been updated.");
+    })
+    .catch (function(error) {
+      console.error("Error updating user document: " + error);
+    });
+  }
+
+
+  displayUserInfoOnConsole(user: User) {
+
+    console.log("user.service: userId: " + user.userId + " userEmail: " + user.email + " userFirstName: " + user.firstName + " userLastName: " + user.lastName);
+
+  }
+
+
+
   //ngOnDestroy(): void {
 
     //this.subscr$.unsubscribe();
@@ -58,6 +82,28 @@ export class UserService { // implements OnDestroy {
   //} 
 
 }
+
+
+/*
+  updateCard(c: Card) {
+    var cardRef = this.db.collection('cards').doc(c.id);
+    return cardRef.update({
+      displayName: c.displayName,
+      firstName: c.firstName,
+      lastName: c.lastName,
+      organizationName: c.organizationName,
+      phone: c.phone,
+      fax: c.fax,
+      email: c.email,
+      additionalInfo: c.additionalInfo,
+      cardImage: c.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function() {console.log("Document successfully updated");})
+    .catch(function(error) {console.error("Error updating document: ", error);});
+  }
+*/
+
 
 
 
