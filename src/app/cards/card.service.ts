@@ -2,10 +2,12 @@ import { Injectable, Input, OnDestroy } from '@angular/core';
 import { Card } from './card.model';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { map } from 'rxjs/operators';
+import { map, scan } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SearchCardService } from './search-card.service';
 import { WebcamComponent } from '../webcam/webcam.component';
+import { NewCardComponent } from '../cards/new-card/new-card.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class CardService { //implements OnDestroy {
@@ -13,6 +15,10 @@ export class CardService { //implements OnDestroy {
   //subscr$;
   @Input() card: Card;
 
+  newCardComponent: NewCardComponent;
+
+  scanData: boolean = false;
+  scanCard: Card;
 
   thisCard: Card;
   cardIds: string[];
@@ -21,8 +27,9 @@ export class CardService { //implements OnDestroy {
   selectedCard: Card;
   searchStr: string;
 
+  tempCard: Card;
 
-  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) {  }
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router) {  }
 
 
 /*
@@ -53,9 +60,6 @@ getArrOfCardsIds(): string[] {
     return this.db.collection("cards").snapshotChanges();
   }
 
-
-
-
   getCard(c: Card): Card {
     var docRef = this.db.collection("cards").doc(c.id);
     //this.subscr$ = 
@@ -75,7 +79,6 @@ getArrOfCardsIds(): string[] {
     );
     return c;
   }
-
 
   //ngOnDestroy(): void {
 
@@ -100,11 +103,13 @@ getArrOfCardsIds(): string[] {
     .then(function(docRef) {
       c.id = docRef.id;
       console.log("Document written with id: " + docRef.id);
+
     })
     .catch (function (error) {
       console.error("Error adding document: " + error);
     });
   }
+
 
   updateCard(c: Card) {
     var cardRef = this.db.collection('cards').doc(c.id);
@@ -130,14 +135,52 @@ getArrOfCardsIds(): string[] {
     console.log("Document deleted.");
   }
 
-
   gotoWebcam() {
     
   }
 
+  getWebcamInfo(c: Card) {
+    console.log("getWebcamInfo: c.toString: " + c.toString());
+    this.scanData = true;
+    this.scanCard = c;
+
+
+    // route to newcardcomponent and add a param = new
+
+this.router.navigate(['/newcard', { par: 'new' }]); // in case we want other paramaters passed
+
+
+/*
+<button routerLink="/newcard" routerLinkActive="active">Add New Card</button>
+
+<ul class="list">
+    <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
+        <a [routerLink]="['/card/', card.id]">
+
+         //
+*/
+
+    
+    //this.newCardComponent.getInfoFromScan(c);
+  
+
+// have to push c to newcardcomponent
+
+
+  }
+
+  getCardInfoFromScan(): Card {
+    console.log("getCardInfoFromScan scanCard.toString: " + this.scanCard.toString());
+    
+    return this.scanCard;
+
+  }
+
+
 
 
 }
+
 
 
 
@@ -300,4 +343,4 @@ this.cards = this.db.collection("cards")
 
 //return this.cards;
 
-// }
+//}

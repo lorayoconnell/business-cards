@@ -5,6 +5,10 @@
 <!-- <button class="btn btn-primary" routerLink="/login" routerLinkActive="active" *ngIf="!userSignedIn()">Log In</button> -->
 
 
+
+<!-- <div *ngIf="!cardScan"> -->
+
+
 <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
     <!-- <input type="text" placeholder="Card display name" [(ngModel)]="card.displayName" name="displayName"/> -->
 
@@ -21,6 +25,26 @@
 
     <button class="btn" type="submit">Save Card</button>
 </form>
+
+
+<!-- </div> -->
+
+<!--
+<div *ngIf="cardScan">
+  <form class="" #scanFormData="ngForm" (ngSubmit)="onSubmit(scanFormData)">
+    <div><label>displayName:<input [(ngModel)]="cardScan.displayName" placeholder="displayName" name="displayName"/></label></div>
+    <div><label>firstName:<input [(ngModel)]="cardScan.firstName" placeholder="firstName" name="firstName"/></label></div>
+    <div><label>lastName:<input [(ngModel)]="cardScan.lastName" placeholder="lastName" name="lastName"/></label></div>
+    <div><label>organizationName:<input [(ngModel)]="cardScan.organizationName" placeholder="organizationName" name="organizationName"/></label></div>
+    <div><label>phone:<input [(ngModel)]="cardScan.phone" placeholder="phone"/></label></div>
+    <div><label>fax:<input [(ngModel)]="cardScan.fax" placeholder="fax" name="fax"/></label></div>
+    <div><label>email:<input [(ngModel)]="cardScan.email" placeholder="email" name="email"/></label></div>
+    <div><label>additionalInfo:<input [(ngModel)]="cardScan.additionalInfo" placeholder="additionalInfo" name="additionalInfo"/></label></div>
+    <div><label>cardImage:<input [(ngModel)]="cardScan.cardImage" placeholder="cardImage" name="cardImage"/></label></div>
+    <button class="btn" type="submit">Save Card</button>
+  </form>
+</div>
+-->
 
 
 

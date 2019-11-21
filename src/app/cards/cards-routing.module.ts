@@ -13,6 +13,7 @@ const cardRoutes: Routes = [
   { path: 'cardlist', component: CardListComponent, data: { animation: 'cards' }, canActivate: [AuthGuard] },
   { path: 'card/:id', component: CardComponent, data: { animation: 'card' }, canActivate: [AuthGuard] },
   { path: 'newcard', component: NewCardComponent, canActivate: [AuthGuard] },
+  { path: 'newcard/:par', component: NewCardComponent, canActivate: [AuthGuard] },
   { path: 'webcam', component: WebcamComponent, canActivate: [AuthGuard]}
   // need '**' ?
 ];

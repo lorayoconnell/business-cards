@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,13 +22,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { WebcamComponent } from './webcam/webcam.component';
 import { HeaderComponent } from './header/header.component';
+// import { WebcamModule } from 'ngx-webcam';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SearchCardService } from './cards/search-card.service';
+import { WebcamService } from './webcam.service';
 
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     CardsModule,
@@ -45,7 +49,7 @@ import { SearchCardService } from './cards/search-card.service';
     WebcamComponent,
     HeaderComponent
   ],
-  providers: [SearchCardService],
+  providers: [SearchCardService, WebcamService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

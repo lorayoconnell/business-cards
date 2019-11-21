@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CardService } from '../cards/card.service';
-import { environment } from '../../environments/environment';
+// import { environment } from '../../environments/environment';
+import { WebcamService } from '../webcam.service';
+
+//const vision = require('@google-cloud/vision');
+//const client = new vision.ImageAnnotatorClient();
 
 @Component({
   selector: 'app-webcam',
@@ -16,8 +20,10 @@ export class WebcamComponent implements OnInit {
   public canvas: ElementRef;
 
   public captures: Array<any>;  // an array of imgs in case combine several for better resolution/accuracy
+  base64img: string;
 
-  public constructor(cardService: CardService) {
+
+  public constructor(private cardService: CardService, private webcamService: WebcamService) {
     this.captures = [];
   }
 
@@ -42,9 +48,21 @@ export class WebcamComponent implements OnInit {
     var context = this.canvas.nativeElement.getContext("2d")
         .drawImage(this.video.nativeElement, 160, 140, 320, 200, 0,0, 640, 480); // first 4 are the section to capture, second 4 are the dimensions of the new img
     this.captures.push(this.canvas.nativeElement.toDataURL("image/png"));
-    var dataURL = this.canvas.nativeElement.toDataURL();
-    // console.log("dataURL: " + dataURL);
-    this.processImage(dataURL);
+
+    //var dataURL = this.canvas.nativeElement.toDataURL();
+    //this.processImage(dataURL);
+
+
+
+
+
+    this.base64img = this.canvas.nativeElement.toDataURL();
+    this.processImage(this.base64img);
+
+
+
+
+
 
 
 
@@ -53,32 +71,61 @@ export class WebcamComponent implements OnInit {
 
   public processImage(dataURL) {
   
-    console.log("dataURL: " + dataURL);
+    //console.log("dataURL: " + dataURL);
   
     // api requires base64 image header to be removed:
     //const parsedImage = this.mybase64Image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ‘’);
   
     const parsedImage = dataURL.replace('data:image\/png;base64,', '');
 
-    console.log("parsedImage: " + parsedImage);
+    //console.log("parsedImage: " + parsedImage);
 
 
-const apikey = environment.cloudVision.apiKey;
-console.log("apikey: " + apikey);
 
-    
+    this.webcamService.sendToCloudVision(parsedImage);
+
+
+
   }
-
-
-
 
   public stopCamera() {
     this.video.nativeElement.srcObject.getTracks().forEach(track => track.stop());
   }
 
+  testingStuff() {
+      // "requests": [ { "image": { "content": "base64-encoded image" }, "features": [ { "type": "TEXT_DETECTION" } ] } ]
+
+      
+    
+
+  }
+
+
+
 
 
 }
+
+
+/*
+const request = {
+  image: {
+    source: {imageUri: 'gs://path/to/image.jpg'}
+  }
+};
+client
+  .textDetection(request)
+  .then(response => {
+    // doThingsWith(response);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+*/
+
+
+
+
 
 /*
 local variables from the HTML:
