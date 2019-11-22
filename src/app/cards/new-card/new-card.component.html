@@ -1,6 +1,19 @@
-<p>new-card works!</p>
+<div class="component-wrapper">
 
-<button class="btn" routerLink="/webcam" routerLinkActive="active">Pic icon</button>
+  <!--
+
+<button class="ui button" routerLink="/webcam" routerLinkActive="active">Pic icon</button>
+
+-->
+<div class="button-wrapper webcam-btn">
+<button class="ui button" routerLink="/webcam" routerLinkActive="active">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="580 600 860 860">
+  <g><rect fill="none" id="canvas_background" height="1325" width="1441" y="-1" x="-1"/></g><g><path id="svg_1" fill="#ffffff" d="m616.679,854.886c0,-28.263 22.815,-51.077 51.078,-51.077l85.129,0l0,-34.052l-85.129,0c-46.992,0 -85.13,38.138 -85.13,85.129l0,85.13l34.052,0l0,-85.13z"/><path id="svg_2" fill="#ffffff" d="m667.757,1284.246c-28.263,0 -51.078,-22.815 -51.078,-51.078l0,-85.1295l-34.052,0l0,85.1295c0,46.992 38.138,85.13 85.13,85.13l85.129,0l0,-34.052l-85.129,0z"/><path id="svg_3" fill="#ffffff" d="m1403.791,1237.167c0,28.263 -22.815,51.077 -51.078,51.077l-85.13,0l0,34.052l85.13,0c46.992,0 85.13,-38.138 85.13,-85.129l0,-85.1299l-34.052,0l0,85.1299z"/><path id="svg_4" fill="#ffffff" d="m1352.713,803.809c28.263,0 51.078,22.814 51.078,51.077l0,85.13l34.052,0l0,-85.13c0,-46.991 -38.138,-85.129 -85.13,-85.129l-85.13,0l0,34.052l85.13,0z"/><path stroke="null" id="svg_11" fill="#ffffff" d="m890.954064,1065.2981l229.806859,0c15.800519,0 28.726068,-5.411684 28.726068,-12.025894c0,-6.61428 -12.92555,-12.025894 -28.726068,-12.025894l-229.806859,0c-15.798831,0 -28.726068,5.411613 -28.726068,12.025894c0,6.61421 12.927237,12.025894 28.726068,12.025894z"/><path stroke="null" id="svg_13" fill="#ffffff" d="m1158.353999,1204.2981l153.006971,0c10.520093,0 19.126004,-5.41168 19.126004,-12.02589c0,-6.61428 -8.605911,-12.0259 -19.126004,-12.0259l-153.006971,0c-10.518966,0 -19.126012,5.41162 -19.126012,12.0259c0,6.61421 8.607047,12.02589 19.126012,12.02589z"/><polyline stroke-linecap="round" id="svg_14" points="364,659 364,659 " fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="none"/><path stroke="null" id="svg_16" fill="#ffffff" d="m703.353999,1204.2981l153.006971,0c10.520093,0 19.126004,-5.41168 19.126004,-12.02589c0,-6.61428 -8.605911,-12.0259 -19.126004,-12.0259l-153.006971,0c-10.518966,0 -19.126012,5.41162 -19.126012,12.0259c0,6.61421 8.607046,12.02589 19.126012,12.02589z"/><path stroke="null" id="svg_17" fill="#ffffff" d="m703.353999,1160.2981l153.006971,0c10.520093,0 19.126004,-5.41168 19.126004,-12.02589c0,-6.61428 -8.605911,-12.0259 -19.126004,-12.0259l-153.006971,0c-10.518966,0 -19.126012,5.41162 -19.126012,12.0259c0,6.61421 8.607046,12.02589 19.126012,12.02589z"/><path stroke="null" id="svg_18" fill="#ffffff" d="m1158.353999,1160.2981l153.006971,0c10.520093,0 19.126004,-5.41168 19.126004,-12.02589c0,-6.61428 -8.605911,-12.0259 -19.126004,-12.0259l-153.006971,0c-10.518966,0 -19.126012,5.41162 -19.126012,12.0259c0,6.61421 8.607046,12.02589 19.126012,12.02589z"/><path stroke="null" id="svg_19" fill="#ffffff" d="m890.954064,1018.2981l229.806858,0c15.800519,0 28.726069,-5.411684 28.726069,-12.025894c0,-6.614281 -12.92555,-12.025894 -28.726069,-12.025894l-229.806858,0c-15.798832,0 -28.726069,5.411613 -28.726069,12.025894c0,6.61421 12.927237,12.025894 28.726069,12.025894z"/></g>
+  </svg>
+</button>
+<button class="ui button cancel-btn" routerLink="/cardlist" routerLinkActive="active">Cancel</button>
+</div>
+
 
 <!-- <button class="btn btn-primary" routerLink="/login" routerLinkActive="active" *ngIf="!userSignedIn()">Log In</button> -->
 
@@ -12,19 +25,57 @@
 <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
     <!-- <input type="text" placeholder="Card display name" [(ngModel)]="card.displayName" name="displayName"/> -->
 
-    <div><label>displayName:<input [(ngModel)]="card.displayName" placeholder="displayName" name="displayName"/></label></div>
-    <div><label>firstName:<input [(ngModel)]="card.firstName" placeholder="firstName" name="firstName"/></label></div>
-    <div><label>lastName:<input [(ngModel)]="card.lastName" placeholder="lastName" name="lastName"/></label></div>
-    <div><label>organizationName:<input [(ngModel)]="card.organizationName" placeholder="organizationName" name="organizationName"/></label></div>
-    <div><label>phone:<input [(ngModel)]="card.phone" placeholder="phone" name="phone"/></label></div>
-    <div><label>fax:<input [(ngModel)]="card.fax" placeholder="fax" name="fax"/></label></div>
-    <div><label>email:<input [(ngModel)]="card.email" placeholder="email" name="email"/></label></div>
-    <div><label>additionalInfo:<input [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" name="additionalInfo"/></label></div>
+    <div><label>displayName:</label><input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/></div>
+    <div><label>firstName:</label><input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></div>
+    <div><label>lastName:</label><input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></div>
+    <div><label>organizationName:</label><input [(ngModel)]="card.organizationName" placeholder="organizationName" type="text" name="organizationName"/></div>
+    <div><label>phone:</label><input [(ngModel)]="card.phone" placeholder="phone" type="text" name="phone"/></div>
+    <div><label>fax:</label><input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax"/></div>
+    <div><label>email:</label><input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></div>
+    <div><label>additionalInfo:</label><input [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" type="text" name="additionalInfo"/></div>
 
-    <div><label>cardImage:<input [(ngModel)]="card.cardImage" placeholder="cardImage" name="cardImage"/></label></div>
+    <div><label>cardImage:</label><input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></div>
 
+    <div><textarea placeholder="additionalInfo"></textarea></div>
+
+    <div class="button-wrapper">
     <button class="btn" type="submit">Save Card</button>
+    </div>
 </form>
+
+</div>
+
+
+<!--
+  <div class="component-wrapper">
+    <h2>My Card</h2>
+    <div *ngIf="card">
+        <div class="button-wrapper">
+        <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
+        <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
+        <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
+        </div>
+        <form id="thisForm" class="no_edit">
+            <div><label>displayName:</label><input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/></div>
+            <div><label>firstName:</label><input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></div>
+            <div><label>lastName:</label><input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></div>
+            <div><label>organizationName:</label><input [(ngModel)]="card.organizationName" placeholder="organizationName" type="text" name="organizationName"/></div>
+            <div><label>phone:</label><input [(ngModel)]="card.phone" placeholder="phone" type="text" name="phone"/></div>
+            <div><label>fax:</label><input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax"/></div>
+            <div><label>email:</label><input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></div>
+            <div><label>additionalInfo:</label><textarea [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" type="text" name="additionalInfo"></textarea></div>
+            <div><label>cardImage:</label><input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></div>
+        </form>        
+    </div>
+    <div class="button-wrapper">
+        <button class="btn btn-primary" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
+    </div>
+</div>
+-->
+
+
+
+
 
 
 <!-- </div> -->

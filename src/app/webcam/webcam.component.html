@@ -1,11 +1,20 @@
-<p>webcam works!</p>
 
-<div id="app">
+
+
+<div id="app" class="component-wrapper">
+
+  <div class="button-wrapper">
+    <button id="snap" (click)="capture()">Snap Photo</button>
+    <button (click)="cancel()">Cancel</button>
+  </div>
+
+
     <div class="wrapper">
       <video #video id="video" width="640" height="480" autoplay></video>
       <div id="guides"></div>
   </div>
-  <div><button id="snap" (click)="capture()">Snap Photo</button></div>
+
+  
   
   <canvas #canvas id="canvas" width="640" height="480"></canvas>
   <ul>

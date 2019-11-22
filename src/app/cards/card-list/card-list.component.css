@@ -1,20 +1,39 @@
+.list a,
+.component-wrapper,
+.button-wrapper {
+  display: flex;
+}
 
-ul {
-  outline: 2px solid blue;
-  list-style: none;
+
+
+
+
+.component-wrapper {
+  margin: 2em auto;
+  flex-direction: column;
+  position: relative;
+  width: 90%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 1em 0.5em;
+}
+
+.button-wrapper {
+  justify-content: space-between
+}
+
+.addBtn {
+  margin-left: 1.4em;
 }
 
 ul.list {
-  display: flex;
   flex-direction: column;
-
 }
 
 .list li {
   border: 1px solid #999;
   border-radius: 4px;
   margin: 0.5em 1em 0.5em 0;
-  display: flex;
   padding: 0.5em;
 }
 
@@ -23,19 +42,15 @@ ul.list {
 }
 
 .list a {
-  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   text-decoration: none;
-  outline:2px solid purple;
   width: 100%;
 }
 
 .list span {
   color: #333;
-            /*  display: flex; */
-  outline:1px solid red;
   margin: 0 0.5em;
 }
 
@@ -61,102 +76,17 @@ ul.list {
 
 
 
-/*
-
-
-
-<ul class="list">
-    <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
-        <a [routerLink]="['/card/', card.id]">
-            <span class="badge">{{ card.id }}</span>{{ card.displayName }}
-        </a>
-    </li>
-</ul>
-*/
-
-
-
-/*
-.heroes {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-    width: 15em;
-  }
-  .heroes li {
-    position: relative;
-    cursor: pointer;
-    background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
-    border-radius: 4px;
-  }
-  
-  .heroes li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
-  }
-  
-  .heroes a {
-    color: #888;
-    text-decoration: none;
-    position: relative;
-    display: block;
-  }
-  
-  .heroes a:hover {
-    color:#607D8B;
-  }
-  
-  .heroes .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color: #607D8B;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    min-width: 16px;
-    text-align: right;
-    margin-right: .8em;
-    border-radius: 4px 0 0 4px;
-  }
-  
-  button {
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    cursor: hand;
-    font-family: Arial;
-  }
-  
-  button:hover {
-    background-color: #cfd8dc;
-  }
-  
-  button.delete {
-    position: relative;
-    left: 194px;
-    top: -32px;
-    background-color: gray !important;
-    color: white;
-  }
-    */
-  .cards li.selected {
+.cards li.selected {
     background-color: #CFD8DC;
     color: white;
-  }
-  .cards li.selected:hover {
+}
+.cards li.selected:hover {
     background-color: #BBD8DC;
-  }
+}
 
-
+.bottom-wrapper {
+  width: 50%;
+  margin: auto;
+}
 
   

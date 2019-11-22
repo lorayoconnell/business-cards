@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CardService } from './card.service';
 import { query } from '@angular/animations';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 //import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchCardService {
+
+  viewSearch: boolean = false;
 
   firstSearch: boolean;
   cardCollectionRef: AngularFirestoreCollection<Card>;
@@ -23,6 +27,8 @@ export class SearchCardService {
   lastNameArr: string[];
   //arrrr: string[] = new Array();  
 
+
+// private afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute
   constructor(private afs: AngularFirestore, private cardService: CardService) {
     this.firstSearch = true;
   }
@@ -39,14 +45,41 @@ export class SearchCardService {
       if (documentSnapshot.exists) {
         console.log("Document has been found");
         var data = documentSnapshot.data();
+
+/*
+        right now just returns the first match
+        display a list of matches? or just select first match and go to card view
+*/
+
+// <a [routerLink]="['/card/', card.id]">
+// this.router.navigate(['/card/', cardId]);
+
+//this.cardService.showCard(cardId);
+
       }
       else {
-        console.log("Document not found");
+        console.log("Document not found"); // create message to display to screen
       }
     })
+
+
+
+ 
+
   }
 
 
+  updateViewSearch() {
+    this.viewSearch = true;
+  }
+
+  viewSearchPanel(): boolean {
+    return this.viewSearch;
+  }
+
+  closeViewSearch() {
+    this.viewSearch = false;
+  }
 
 
   printAllCardIdsToConsole() {
@@ -166,13 +199,27 @@ export class SearchCardService {
   displayMatch(cardId: string) {
     console.log("match in cardId: " + cardId);
 
-
     this.getCard(cardId);
-    var documentReference = this.getSingleCard(cardId);
+
+    //var documentReference = this.getSingleCard(cardId);
+
+    
+
 
 
 
   }
+
+
+
+/*
+  gotoCards(card: Card) {
+    let cId = card ? card.id : null;
+     // in case we want other paramaters passed
+  }
+*/
+
+
 
   noMatchMsg() {
     console.log("no match");

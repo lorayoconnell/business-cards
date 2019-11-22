@@ -1,4 +1,67 @@
+form > div,
+input,
+label,
+.component-wrapper,
+.button-wrapper {
+    display: flex;
+}
 
+.component-wrapper {
+    position: relative;
+    flex-direction: column;
+    width: 90%;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin: 2em auto;
+    padding: 0.5em 0.5em 1em 0.5em;
+}
+
+form {
+    margin: 1em 0;
+    padding: 0.5em;
+}
+
+form > div {
+    position: relative;
+    margin: 0.5em 0;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+    width: 20%;
+    min-width: 184px;
+    line-height: 36px;
+}
+
+input, textarea {
+    width: 80%;
+}
+
+textarea {
+    height: 156px;
+}
+
+    .button-wrapper {
+    justify-content: space-between
+  }
+
+  .webcam-btn {
+      margin-top: 1.2em;
+  }
+  
+.cancel-btn {
+    height: 36px;
+}
+
+  /*
+
+
+*/
+  
+  
 
 
 /*

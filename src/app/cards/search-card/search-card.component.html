@@ -8,11 +8,22 @@
 
 
 <div class="component-wrapper search-component-wrapper">
+
+<div class="button-close-wrapper">
+<button (click)="searchCardService.closeViewSearch()" class=" ui button close-btn"><span class="close"></span></button>
+</div>
+
+
+
+
 <h2>Search My Cards</h2>
 
 <p>Search by first name, last name, or organization name</p>
 <input type="text" id="searchFieldd" placeholder="Search your cards" #inputContent/>
+
+<div class="button-wrapper">
 <button (click)="searchCards(inputContent)">Search</button>
+</div>
 
 </div>
 

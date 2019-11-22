@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { SearchCardService } from '../cards/search-card.service';
 import { CardService } from '../cards/card.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   //showSearchField: boolean = false;
 
 
-  constructor(private cardService: CardService, private authService: AuthService, private searchCardService: SearchCardService) { }
+  constructor(private cardService: CardService, private authService: AuthService, private searchService: SearchCardService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
   }
@@ -48,7 +49,11 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
   
-
+// 
+  gotoSearch() {
+    this.searchService.updateViewSearch();
+    this.router.navigateByUrl('/cardlist');
+  }
 
 
   //getSearchBoolean():boolean {

@@ -1,10 +1,89 @@
+form > div,
+input,
+label,
+.component-wrapper,
+.button-wrapper {
+    display: flex;
+}
+
+.component-wrapper {
+    position: relative;
+    flex-direction: column;
+    width: 90%;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin: 2em auto;
+    padding: 0.5em 0.5em 1em 0.5em;
+}
+
+form {
+    margin: 1em 0;
+    padding: 0.5em;
+}
+
+form > div {
+    position: relative;
+    margin: 0.5em 0;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+    width: 20%;
+    min-width: 184px;
+    line-height: 36px;
+}
+
+input, textarea {
+    width: 80%;
+}
+
+textarea {
+    height: 156px;
+}
+
+
+
+/*
+textarea {
+    width: 100%;
+}
+
+.button-wrapper {
+    justify-content: space-between
+}
+
+.component-wrapper {width: 460px}
+
+form {justify-content: center}
+form > div {justify-content: center}
+form > div {justify-content: space-between}
+
+input{
+    width: 64%;
+    margin-left: 0.2em;
+}
+  button {
+    width: 120px;
+    margin: 1em auto 0;
+  }
+*/
+
+form {outline: 1px solid red}
+form > div {outline: 1px solid green}
+input {outline: 1px solid blue}
+
+
+
 #thisForm {
-    outline:1px solid red;
     position:relative;
 }
 
 .no_edit {
 }
+
 .no_edit::after {
     position:absolute;
     top:0;
@@ -13,7 +92,6 @@
     height:100%;
     content:'';
     background-color: rgba(255,0,0,0.2);
-    outline:2px solid cyan;
 }
 
 .toggleBtnHide {

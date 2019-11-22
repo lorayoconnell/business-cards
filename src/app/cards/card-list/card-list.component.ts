@@ -47,7 +47,6 @@ export class CardListComponent implements OnInit {
     //this.getCardList();
   }
 
-
   onSelect(card: Card): void {
     //console.log("onSelect card.id: " + card.id);
     this.selectedCard = card;

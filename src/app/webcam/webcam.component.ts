@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CardService } from '../cards/card.service';
 // import { environment } from '../../environments/environment';
 import { WebcamService } from '../webcam.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 //const vision = require('@google-cloud/vision');
 //const client = new vision.ImageAnnotatorClient();
@@ -22,8 +23,8 @@ export class WebcamComponent implements OnInit {
   public captures: Array<any>;  // an array of imgs in case combine several for better resolution/accuracy
   base64img: string;
 
-
-  public constructor(private cardService: CardService, private webcamService: WebcamService) {
+// 
+  public constructor(private cardService: CardService, private webcamService: WebcamService, private route: ActivatedRoute, private router: Router) {
     this.captures = [];
   }
 
@@ -43,6 +44,13 @@ export class WebcamComponent implements OnInit {
         });
     }
   }
+
+public cancel() {
+  this.router.navigateByUrl('/cardlist');
+  this.stopCamera();
+}
+
+
 
   public capture() {
     var context = this.canvas.nativeElement.getContext("2d")
@@ -68,6 +76,9 @@ export class WebcamComponent implements OnInit {
 
     this.stopCamera();
   }
+
+
+
 
   public processImage(dataURL) {
   

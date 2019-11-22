@@ -135,6 +135,14 @@ getArrOfCardsIds(): string[] {
     console.log("Document deleted.");
   }
 
+
+  showCard(cardId: string) {
+    var cardRef = this.db.collection('cards').doc(cardId);
+    this.router.navigate(['/card/', cardId]);
+  }
+
+
+
   gotoWebcam() {
     
   }

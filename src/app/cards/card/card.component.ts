@@ -21,7 +21,6 @@ export class CardComponent implements OnInit {
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private service: CardService) { }
 
   ngOnInit():void {
-    //this.setReadOnly("false");
     this.getSelectedCard();
   }
 
@@ -45,17 +44,13 @@ export class CardComponent implements OnInit {
 
   updateCard() {
     this.service.updateCard(this.card);
-
-
-
+    this.router.navigate(['/cardlist']);
   }
 
   deleteCard() {
     this.service.deleteCard(this.card);
+    this.router.navigate(['/cardlist']);
   }
-
-
-
 
   /**
    *  Route back to cardlist passing parameter of card id
