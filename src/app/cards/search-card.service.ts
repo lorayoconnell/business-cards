@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Card } from './card.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+//import { map } from 'rxjs/operators';
 import { CardService } from './card.service';
-import { query } from '@angular/animations';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
-//import * as firebase from 'firebase';
+//import { query } from '@angular/animations';
+//import { Router, ActivatedRoute } from '@angular/router';
+//import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +14,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class SearchCardService {
 
   viewSearch: boolean = false;
+  noMatch: boolean = false; // when true, display error message to user
 
   firstSearch: boolean;
   cardCollectionRef: AngularFirestoreCollection<Card>;
@@ -25,10 +25,7 @@ export class SearchCardService {
   companyArr: string[];
   firstNameArr: string[];
   lastNameArr: string[];
-  //arrrr: string[] = new Array();  
 
-
-// private afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute
   constructor(private afs: AngularFirestore, private cardService: CardService) {
     this.firstSearch = true;
   }
@@ -51,20 +48,11 @@ export class SearchCardService {
         display a list of matches? or just select first match and go to card view
 */
 
-// <a [routerLink]="['/card/', card.id]">
-// this.router.navigate(['/card/', cardId]);
-
-//this.cardService.showCard(cardId);
-
       }
       else {
         console.log("Document not found"); // create message to display to screen
       }
     })
-
-
-
- 
 
   }
 
@@ -80,7 +68,6 @@ export class SearchCardService {
   closeViewSearch() {
     this.viewSearch = false;
   }
-
 
   printAllCardIdsToConsole() {
     this.afs.collection("cards").get().toPromise().then(querySnapshot => {
@@ -138,23 +125,11 @@ export class SearchCardService {
       this.gatherAllArrays(this.cardIdArr, this.firstNameArr, this.lastNameArr, this.companyArr, searchTerm);
     }
   }
-/*
-  getFnArr(st:string[]) {
-    console.log("array.length: " + st.length);
-    console.log("array: " + st);
-  }
-  getLnArr(st:string[]) {
-    console.log("array.length: " + st.length);
-    console.log("array: " + st);
-  }
-  getCompArr(st:string[]) {
-    console.log("array.length: " + st.length);
-    console.log("array: " + st);
-  }
-*/
+
   gatherAllArrays(id:string[], fn:string[], ln:string[], org:string[], searchTerm:string) {
-    console.log("searchTerm: " + searchTerm + " id.length: " + id.length + " fn.length: "
-                + fn.length + " ln.length: " + fn.length + " org.length: " + org.length);
+
+    //console.log("searchTerm: " + searchTerm + " id.length: " + id.length + " fn.length: "
+    //            + fn.length + " ln.length: " + fn.length + " org.length: " + org.length);
 
     var arrLen = id.length;
     if ((arrLen != fn.length) || (arrLen != ln.length) || (arrLen != org.length) ) {
@@ -172,7 +147,8 @@ export class SearchCardService {
 
     if (result < 0) { // no matches
       // no match was found in company name, firstName, or lastName
-      this.noMatchMsg();
+      console.log("no match");
+      this.noMatch = true;
     }
     else { // match has been found. result = index of match.
       this.displayMatch(id[result]);
@@ -198,40 +174,19 @@ export class SearchCardService {
 
   displayMatch(cardId: string) {
     console.log("match in cardId: " + cardId);
-
+    this.cardService.showCard(cardId);
     this.getCard(cardId);
-
-    //var documentReference = this.getSingleCard(cardId);
-
-    
-
-
-
-
   }
 
-
-
-/*
-  gotoCards(card: Card) {
-    let cId = card ? card.id : null;
-     // in case we want other paramaters passed
-  }
-*/
-
-
-
-  noMatchMsg() {
-    console.log("no match");
+  resetNoMatchMsg() {
+    this.noMatch = false;
   }
 
+}
 
 
 
-
-
-
-  searchCards(userInput: string) {
+  //searchCards(userInput: string) {
 
     // article about querying a collection:
     // https://medium.com/@scarygami/cloud-firestore-quicktip-documentsnapshot-vs-querysnapshot-70aef6d57ab3
@@ -242,7 +197,7 @@ export class SearchCardService {
     // var query = collectionReference.where()
 
 
-  }
+  //}
 
 
 
@@ -262,10 +217,6 @@ export class SearchCardService {
         console.log("Error getting documents: ", error);
     });
 */
-
-}
-
-
 
 
 /*

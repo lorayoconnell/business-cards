@@ -17,6 +17,7 @@ export class UserService { // implements OnDestroy {
   getUser(u: User): User {
     var docRef = this.db.collection("users").doc(u.userId);
     //this.subscr$ = 
+    console.log("SUBSCRIBING!!");
     docRef.snapshotChanges().subscribe(
       res => {
        //u.userId = res.payload.get('userId');

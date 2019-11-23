@@ -33,7 +33,7 @@ export class AuthService {
     .then(value => {
       console.log('Nice, it worked!');
       this.isLoggedIn = true;
-      this.router.navigateByUrl('/profile');
+      this.router.navigateByUrl('/cardlist');
     })
     .catch(err => {
       window.alert("Incorrect email or password. Try again.");    // or set message that displays on screen

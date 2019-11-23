@@ -25,6 +25,12 @@
 <button (click)="searchCards(inputContent)">Search</button>
 </div>
 
+
+<div *ngIf="searchCardService.noMatch" class="no-match">
+    <p>No match was found.</p>
+</div>
+
+
 </div>
 
 

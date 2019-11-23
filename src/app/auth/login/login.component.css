@@ -22,16 +22,9 @@
   }
   
   
-  
-  
-  
-  
-  
-  
-  
 
-
-
+  
+  
 
 .component-wrapper {
     width: 460px;
@@ -42,14 +35,12 @@
     width: 90%;
     margin: 1em auto 0 auto;
     justify-content: flex-end;
-
 }
 
 form {
     justify-content: center;
     margin-bottom: 1em;
 }
-
 
 form > div {
   display: flex;

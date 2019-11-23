@@ -62,4 +62,7 @@ export class NewCardComponent implements OnInit {
     this.router.navigateByUrl('/cardlist');
   }
 
+
+
+
 }

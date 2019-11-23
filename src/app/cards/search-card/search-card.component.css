@@ -84,7 +84,16 @@
   
   
   
-  
+  .no-match {
+      display: flex;
+      margin-top: 1em;
+      border: 1px solid red;
+    border-radius: 4px;
+  }
+  .no-match p {
+      text-align: center;
+      color: red;
+  }
   
   
   

@@ -1,65 +1,4 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0;
-    font-size: 18px;
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  button,
-  input[type=text],
-  input[type=email],
-  input[type=password],
-  textarea {
-    display: flex;
-    font-size: 18px;
-    padding: 0.3em 0.5em;
-    border: 1px solid #999;
-    border-radius: 4px;
-  }
-  
-  button {
-    display: flex;
-    background-color: #2B5881;
-    outline: none;
-    color: #eee;
-    cursor: pointer;
-    margin: 0 0.5em;
-  }
-  
-  button:hover {
-    background-color: #1E3E5A
-  }
-  
-  button:active{
-    background-color: #162C41;
-  }
-  
-  ul {
-    display: flex;
-    list-style: none;
-  }
-  
-  li {
-    display: flex;
-  }
-  
-  h2 {
-    display: flex;
-    width: 90%;
-    content: flex-start;
-    margin: 1em auto;
-  }
-  
+
   .component-wrapper {
     display: flex;
     margin: 2em auto;
@@ -77,20 +16,7 @@
     margin: 1em 0;
   }
   
-  
-  textarea {
-    width: 100%;
-    resize: none;
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ 
 
 body {
     background-color: #F0F0F0;
@@ -123,16 +49,8 @@ li {
     position:absolute;
     width:320px;
     height:190px;
-    outline:3px solid white;
+    outline:6px dashed rgba(255,255,255,0.6);
     left:160px;
     top:140px;
 }
 
-/*
-
-0, 0, 640, 480
-
-160, 140, 320, 200
-
-
-*/

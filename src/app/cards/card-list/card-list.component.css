@@ -38,7 +38,7 @@ ul.list {
 }
 
 .list li:hover {
-  background-color: yellow;
+  background-color:#eee;
 }
 
 .list a {

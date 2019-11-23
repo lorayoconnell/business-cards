@@ -4,7 +4,7 @@ import { Card } from './cards/card.model';
 import { environment } from '../environments/environment';
 import { CardService } from './cards/card.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isUndefined } from 'util';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 const apikey = environment.cloudVision.apiKey;
 
@@ -20,10 +20,12 @@ export class WebcamService {
     this.card.displayName = "na";
     this.card.firstName = "na";
     this.card.lastName = "na";
+    this.card.title = "na";
     this.card.organizationName = "na";
     this.card.phone = "na";
     this.card.fax = "na";
     this.card.email = "na";
+    this.card.website = "na";
     this.card.additionalInfo = "na";
     this.card.cardImage = "na";
     this.apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apikey}`;
@@ -31,15 +33,28 @@ export class WebcamService {
 
   sendToCloudVision(base64img: string) {
     var request = {
-      "requests": [ {
-          "image": { "content": base64img },
-          "features": [ { "type": "TEXT_DETECTION" }, { "type": "CROP_HINTS" } ],
+      "requests": [ 
+        {
+          "image": {
+            "content": base64img
+          },
+          "features": [
+            {
+              "type": "TEXT_DETECTION"
+            },
+            {
+              "type": "CROP_HINTS"
+            }
+          ],
           "imageContext": {
             "cropHintsParams": {
-              "aspectRatios": [1.8]
+              "aspectRatios": [
+                1.8
+              ]
             }
           }
-        } ]
+        }
+      ]
     };
 
     this.httpClient.post(this.apiUrl, request).subscribe( (results: any) => {
@@ -58,18 +73,47 @@ export class WebcamService {
     console.log("Number of pieces of data retrieved from card: " + n);
 
     for (var i=0; i<n; i++) {
+
       if (this.checkForFax(res[i])) {
-        console.log("~~~~~~~~~~~~~~ fax number: " + res[i]);
-        this.card.fax = res[i];
+        var str;
+        console.log("~~~~~~~~~~~~~~ fax number: " + str);
+        str = res[i].replace('fax', '');
+        str = str.replace(':');
+        str = str.trim();
+        this.card.fax = str;
       }
       else if (this.validatePhoneNumber(res[i])) {
-        console.log("~~~~~~~~~~~~~~ phone number: " + res[i]);
-        this.card.phone = res[i];
+        var str;
+        console.log("~~~~~~~~~~~~~~ phone number: " + str);
+        str = res[i].replace('phone', '');
+        str = str.replace('ph.', '');
+        str = str.replace('ph', '');
+        str = str.replace('tel', '');
+        str = str.replace(':', '');
+        str = str.trim();
+        this.card.phone = str;
       }
       else if (this.validateEmail(res[i])) {
         console.log("~~~~~~~~~~~~~~ email address: " + res[i]);
         this.card.email = res[i];
       }
+      else if (this.validateUrl(res[i])) {
+        console.log("~~~~~~~~~~~~~~ website: " + res[i]);
+        this.card.website = res[i];
+      }
+      else if (this.checkForNames(res[i])) {
+        var split = res[i].split(" ");
+        var name0 = split[0].toLowerCase();
+        var num = split.length;
+        console.log("~~~~~~~~~~~~~ fn ln: " + split[0] + " " + split[1]);
+        this.card.firstName = split[0];
+        this.card.lastName = split[1];
+      }
+      else if (this.checkForTitles(res[i])) {
+        console.log("~~~~~~~~~~~~~~ title: " + res[i]);
+        this.card.title = res[i];
+      }
+
 
 
       //else if (this.validateAllLetters(res[i])) {
@@ -89,8 +133,9 @@ export class WebcamService {
 
   checkForFax(val): boolean {
     val = val.toLowerCase();
-    if (val.includes("fax")) {
+      if (val.includes('fax')) {
       val = val.replace('fax', '');
+      val = val.replace(':');
       val = val.trim();
       if (this.validatePhoneNumber(val)) {
         return true;
@@ -100,13 +145,14 @@ export class WebcamService {
 
   validatePhoneNumber(val): boolean {
     val = val.toLowerCase();
-    if ( (val.includes("phone")) || (val.includes("ph")) ) {
-      val = val.replace('phone', '');
-      val = val.replace('ph.', '');
-      val = val.replace('ph', '');
-      val = val.trim();
-    }
-    var phoneNumberPattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    val = val.replace('phone', '');
+    val = val.replace('ph.', '');
+    val = val.replace('ph', '');
+    val = val.replace('tel', '');
+    val = val.replace(':', '');
+    val = val.trim();
+    
+    var phoneNumberPattern = /^\(?(\d{3})\)?[- ]\s?(\d{3})[- ]\s?(\d{4})$/; // = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     return phoneNumberPattern.test(val);
   }
 
@@ -114,6 +160,58 @@ export class WebcamService {
     var emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailPattern.test(val);
   }
+
+  validateUrl(val): boolean {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!urlPattern.test(val);
+  }
+
+  checkForNames(val): boolean {
+    if (this.validateAllLetters(val)) {
+      var split = val.split(" ");
+      if (split.length == 2) {
+        var name0 = split[0].toUpperCase();
+        var n = topMaleFemaleNames.length;
+        if (topMaleFemaleNames.includes(name0)) {
+          console.log("if topMaleFemaleNames includes " + name0 + "... true");
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  checkForTitles(val): boolean {
+    if (this.validateAllLetters) {
+      var split = val.split(" ");
+      var str;
+      var num = split.length;
+      var n = titles.length;
+      for (var i=0; i<num; i++) {
+        str = split[i].toLowerCase()
+        for (var j=0; j<n; j++) {
+
+
+          if (titles.includes(str))
+          //if (titles[j].includes(str)) {
+            return true;
+          //}
+
+
+        }
+      }
+    }
+    return false;
+  }
+
+
+
+
 
 
   // all letters & allow apostrophe
@@ -129,27 +227,12 @@ export class WebcamService {
 
 
   processCardData() {
-
     console.log("processCardData");
-
     this.cardService.getWebcamInfo(this.card);
-
-
-
-    
-
     //this.cardService.createCard(this.card);
-
     //let cId = this.card ? this.card.id : null;  // is it too early to get this....?
     //this.router.navigate(['/cards', { id: cId, foo: 'foo' }]); // in case we want other paramaters passed
-  
   }
-
-
-
-  
-
-
 
 }
 
@@ -173,7 +256,6 @@ checkForCityState(val) {
 */
 
   /*
-
   */
 
 
@@ -313,11 +395,58 @@ www.dogmanguy com
 */
 
 
+const organizationMarkers = ['inc','corp'];
 
 
 
+const titles = ['manager','trainer','supervisor','associate','analyst','officer','executive','assistant','clerk','specialist',
+'collector','receptionist','designer','consultant','strategist','president','ceo','director','coordinator','teacher',
+'professor','instructor','doctor','therapist','administrator','artist','driver','attendant','operator','architect',
+'guard','mechanic','recruiter','scientist','student','assembler','paralegal','lawyer','judge','attorney','representative'];
 
 
+const topMaleFemaleNames = ['JAMES','JOHN','ROBERT','MICHAEL','WILLIAM','DAVID','RICHARD','CHARLES','JOSEPH','THOMAS',
+'CHRISTOPHER','DANIEL','PAUL','MARK','DONALD','GEORGE','KENNETH','STEVEN','EDWARD','BRIAN','RONALD','ANTHONY','KEVIN',
+'JASON','MATTHEW','GARY','TIMOTHY','JOSE','LARRY','JEFFREY','FRANK','SCOTT','ERIC','STEPHEN','ANDREW','RAYMOND','GREGORY',
+'JOSHUA','JERRY','DENNIS','WALTER','PATRICK','PETER','HAROLD','DOUGLAS','HENRY','CARL','ARTHUR','RYAN','ROGER','JOE',
+'JUAN','JACK','ALBERT','JONATHAN','JUSTIN','TERRY','GERALD','KEITH','SAMUEL','WILLIE','RALPH','LAWRENCE','NICHOLAS','ROY',
+'BENJAMIN','BRUCE','BRANDON','ADAM','HARRY','FRED','WAYNE','BILLY','STEVE','LOUIS','JEREMY','AARON','RANDY','HOWARD',
+'EUGENE','CARLOS','RUSSELL','BOBBY','VICTOR','MARTIN','ERNEST','PHILLIP','TODD','JESSE','CRAIG','ALAN','SHAWN','CLARENCE',
+'SEAN','PHILIP','CHRIS','JOHNNY','EARL','JIMMY','ANTONIO','DANNY','BRYAN','TONY','LUIS','MIKE','STANLEY','LEONARD','NATHAN',
+'DALE','MANUEL','RODNEY','CURTIS','NORMAN','ALLEN','MARVIN','VINCENT','GLENN','JEFFERY','TRAVIS','JEFF','CHAD','JACOB','LEE',
+'MELVIN','ALFRED','KYLE','FRANCIS','BRADLEY','JESUS','HERBERT','FREDERICK','RAY','JOEL','EDWIN','DON','EDDIE','RICKY','TROY',
+'RANDALL','BARRY','ALEXANDER','BERNARD','MARIO','LEROY','FRANCISCO','MARCUS','MICHEAL','THEODORE','CLIFFORD','MIGUEL','OSCAR',
+'JAY','JIM','TOM','CALVIN','ALEX','JON','RONNIE','BILL','LLOYD','TOMMY','LEON','DEREK','WARREN','DARRELL','JEROME','FLOYD',
+'LEO','ALVIN','TIM','WESLEY','GORDON','DEAN','GREG','JORGE','DUSTIN','PEDRO','DERRICK','DAN','LEWIS','ZACHARY','COREY',
+'HERMAN','MAURICE','VERNON','ROBERTO','CLYDE','GLEN','HECTOR','SHANE','RICARDO','SAM','RICK','LESTER','BRENT','RAMON',
+'CHARLIE','TYLER','GILBERT','GENE','MARC','REGINALD','RUBEN','BRETT','ANGEL','NATHANIEL','RAFAEL','LESLIE','EDGAR','MILTON',
+'RAUL','BEN','CHESTER','CECIL','DUANE','FRANKLIN','ANDRE','ELMER','BRAD','GABRIEL','RON','MITCHELL','ROLAND','ARNOLD','HARVEY',
+'JARED','ADRIAN','KARL','CORY','CLAUDE','ERIK','DARRYL','JAMIE','NEIL','JESSIE','CHRISTIAN','JAVIER','FERNANDO','CLINTON',
+'TED','MATHEW','TYRONE','DARREN','LONNIE','LANCE','CODY','JULIO','KELLY','KURT','ALLAN','NELSON','GUY','CLAYTON','HUGH','MAX',
+'DWAYNE','DWIGHT','ARMANDO','FELIX','JIMMIE','EVERETT','JORDAN','IAN','WALLACE','KEN','BOB','JAIME','CASEY','ALFREDO','ALBERTO',
+'DAVE','IVAN','JOHNNIE','SIDNEY','BYRON','JULIAN','ISAAC','MORRIS','CLIFTON','WILLARD','DARYL','ROSS','VIRGIL','ANDY','MARSHALL',
+'SALVADOR','PERRY','KIRK','SERGIO','MARION','TRACY','SETH','KENT','TERRANCE','RENE','EDUARDO','TERRENCE','ENRIQUE','FREDDIE',
+'WADE','MARY','PATRICIA','LINDA','BARBARA','ELIZABETH','JENNIFER','MARIA','SUSAN','MARGARET','DOROTHY','LISA','NANCY','KAREN',
+'BETTY','HELEN','SANDRA','DONNA','CAROL','RUTH','SHARON','MICHELLE','LAURA','SARAH','KIMBERLY','DEBORAH','JESSICA','SHIRLEY',
+'CYNTHIA','ANGELA','MELISSA','BRENDA','AMY','ANNA','REBECCA','VIRGINIA','KATHLEEN','PAMELA','MARTHA','DEBRA','AMANDA','STEPHANIE',
+'CAROLYN','CHRISTINE','MARIE','JANET','CATHERINE','FRANCES','ANN','JOYCE','DIANE','ALICE','JULIE','HEATHER','TERESA','DORIS',
+'GLORIA','EVELYN','JEAN','CHERYL','MILDRED','KATHERINE','JOAN','ASHLEY','JUDITH','ROSE','JANICE','KELLY','NICOLE','JUDY','CHRISTINA',
+'KATHY','THERESA','BEVERLY','DENISE','TAMMY','IRENE','JANE','LORI','RACHEL','MARILYN','ANDREA','KATHRYN','LOUISE','SARA','ANNE',
+'JACQUELINE','WANDA','BONNIE','JULIA','RUBY','LOIS','TINA','PHYLLIS','NORMA','PAULA','DIANA','ANNIE','LILLIAN','EMILY','ROBIN',
+'PEGGY','CRYSTAL','GLADYS','RITA','DAWN','CONNIE','FLORENCE','TRACY','EDNA','TIFFANY','CARMEN','ROSA','CINDY','GRACE','WENDY',
+'VICTORIA','EDITH','KIM','SHERRY','SYLVIA','JOSEPHINE','THELMA','SHANNON','SHEILA','ETHEL','ELLEN','ELAINE','MARJORIE','CARRIE',
+'CHARLOTTE','MONICA','ESTHER','PAULINE','EMMA','JUANITA','ANITA','RHONDA','HAZEL','AMBER','EVA','DEBBIE','APRIL','LESLIE','CLARA',
+'LUCILLE','JAMIE','JOANNE','ELEANOR','VALERIE','DANIELLE','MEGAN','ALICIA','SUZANNE','MICHELE','GAIL','BERTHA','DARLENE','VERONICA',
+'JILL','ERIN','GERALDINE','LAUREN','CATHY','JOANN','LORRAINE','LYNN','SALLY','REGINA','ERICA','BEATRICE','DOLORES','BERNICE',
+'AUDREY','YVONNE','ANNETTE','JUNE','SAMANTHA','MARION','DANA','STACY','ANA','RENEE','IDA','VIVIAN','ROBERTA','HOLLY','BRITTANY',
+'MELANIE','LORETTA','YOLANDA','JEANETTE','LAURIE','KATIE','KRISTEN','VANESSA','ALMA','SUE','ELSIE','BETH','JEANNE','VICKI','CARLA',
+'TARA','ROSEMARY','EILEEN','TERRI','GERTRUDE','LUCY','TONYA','ELLA','STACEY','WILMA','GINA','KRISTIN','JESSIE','NATALIE','AGNES',
+'VERA','WILLIE','CHARLENE','BESSIE','DELORES','MELINDA','PEARL','ARLENE','MAUREEN','COLLEEN','ALLISON','TAMARA','JOY','GEORGIA',
+'CONSTANCE','LILLIE','CLAUDIA','JACKIE','MARCIA','TANYA','NELLIE','MINNIE','MARLENE','HEIDI','GLENDA','LYDIA','VIOLA','COURTNEY',
+'MARIAN','STELLA','CAROLINE','DORA','JO','VICKIE','MATTIE','TERRY','MAXINE','IRMA','MABEL','MARSHA','MYRTLE','LENA','CHRISTY',
+'DEANNA','PATSY','HILDA','GWENDOLYN','JENNIE','NORA','MARGIE','NINA','CASSANDRA','LEAH','PENNY','KAY','PRISCILLA','NAOMI','CAROLE',
+'BRANDY','OLGA','BILLIE','DIANNE','TRACEY','LEONA','JENNY','FELICIA','SONIA','MIRIAM','VELMA','BECKY','BOBBIE','VIOLET','KRISTINA',
+'TONI','MISTY','MAE','SHELLY','DAISY','RAMONA','SHERRI','ERIKA','KATRINA','CLAIRE'];
 
 /*
 50 states + American Samoa (AS) + District of Columbia (DC) +
@@ -325,13 +454,12 @@ www.dogmanguy com
   Northern Mariana Islands (MP) + Palau (PW)+ Puerto Rico (PR) + Virgin Islands (VI) = 59
 */
 
-const stateAbbreviations = [
-  'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
+const stateAbbreviations =
+['AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
   'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA',
   'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
   'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
-  'VT','VI','VA','WA','WV','WI','WY'
- ];
+  'VT','VI','VA','WA','WV','WI','WY'];
  
  const stateNames =
  ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado',

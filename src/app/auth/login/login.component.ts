@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; // , NavigationExtras
 import { AuthService } from '../auth.service';
 
@@ -7,8 +7,9 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent { //implements OnDestroy {
+export class LoginComponent { // implements OnInit, OnDestroy {  // 
 
+ // private paramSub: any; // <--
   message: string;
   //subscr$;
 
@@ -32,19 +33,49 @@ export class LoginComponent { //implements OnDestroy {
 
 
 
+ // ngOnInit(): void {
+
+  //  this.paramSub = this.authService.loginn().subscribe(() => {
+  //    this.setMessage();
+
+
+
+//      if (this.authService.isLoggedIn) {
+//        let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/admin';
+//        this.router.navigateByUrl(redirect);
+//      }
+
+
+
+  //  });
+
+
+/*
+        this.paramSub = this.activeRoute.params.subscribe(params => {
+      if (params['error'] && params['error'] == "1") { 
+        this.hasError = true;
+      }
+    });
+*/
+
+//  }
+
+
 
 
 
   login() {
-    this.message = 'Trying to log in ...';
+    this.message = 'Trying to log in ...';   // <--
 
     //this.subscr$ = 
-    this.authService.loginn().subscribe(() => {
-      this.setMessage();
-      if (this.authService.isLoggedIn) {
+    //this.paramSub = 
+    this.authService.loginn().subscribe(() => {   // <--
+      console.log("SUBSCRIBING");
+      this.setMessage();  // <--
+      if (this.authService.isLoggedIn) {  // <--
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/admin';
+        let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/admin';   // <--
 
 /*
         // Set our navigation extras object
@@ -56,9 +87,9 @@ export class LoginComponent { //implements OnDestroy {
 */
 
         // Redirect the user
-        this.router.navigateByUrl(redirect);  //, navigationExtras);
-      }
-    });
+        this.router.navigateByUrl(redirect);  //, navigationExtras);   // <--
+      }   // <--
+    });   // <--
   }
 
 
@@ -69,6 +100,12 @@ export class LoginComponent { //implements OnDestroy {
     //throw new Error("Method not implemented.");
   //} 
 
+ // ngOnDestroy(): void {
+
+
+    //this.paramSub.unsubscribe(); // <--
+
+ // }
 
 
   logout() {
@@ -85,23 +122,6 @@ export class LoginComponent { //implements OnDestroy {
 
 
 }
-
-
-/*
-// Set our navigation extras object
-// that passes on our global query params and fragment
-let navigationExtras: NavigationExtras = {
-  queryParamsHandling: 'preserve',
-  preserveFragment: true
-};
-
-// Redirect the user
-this.router.navigateByUrl(redirect, navigationExtras);
-*/
-
-
-
-
 
 // from chat app:
 /*
@@ -154,6 +174,5 @@ export class LoginComponent implements OnInit, OnDestroy {
   signedIn(): boolean {
     return !this.authService.isSignedIn();
   }
-
 }
 */
