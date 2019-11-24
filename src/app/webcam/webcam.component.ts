@@ -50,8 +50,6 @@ public cancel() {
   this.stopCamera();
 }
 
-
-
   public capture() {
     var context = this.canvas.nativeElement.getContext("2d")
         .drawImage(this.video.nativeElement, 160, 140, 320, 200, 0,0, 640, 480); // first 4 are the section to capture, second 4 are the dimensions of the new img

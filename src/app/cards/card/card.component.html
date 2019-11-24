@@ -4,7 +4,7 @@
 
     <div *ngIf="card">
 
-        <div class="button-wrapper">
+        <div class="button-wrapper btn-group">
         <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
         <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
         <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="button-wrapper">
-        <button class="btn btn-primary" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
+        <button class="ui button backToList" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
     </div>
 
 </div>

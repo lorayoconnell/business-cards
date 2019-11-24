@@ -28,11 +28,11 @@ export class UserProfileComponent implements OnInit {
     this.user = new User;
     this.user.userId = this.afAuth.auth.currentUser.uid;
     this.user = this.userService.getUser(this.user);
-    this.userService.displayUserInfoOnConsole(this.user);
+    //this.userService.displayUserInfoOnConsole(this.user);
   }
 
   onSubmit(formData) {
-    console.log("onSubmit: updating user data");
+    //console.log("onSubmit: updating user data");
     this.userService.updateUser(this.user);
   }
 

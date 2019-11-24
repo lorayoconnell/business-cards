@@ -1,33 +1,7 @@
-form > div,
-input,
-label,
-.component-wrapper,
-.button-wrapper {
-    display: flex;
-}
-
-.component-wrapper {
-    position: relative;
-    flex-direction: column;
-    width: 90%;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin: 2em auto;
-    padding: 0.5em 0.5em 1em 0.5em;
-}
 
 form {
-    margin: 1em 0;
+    margin: 1em 0; /* OR */
     padding: 0.5em;
-}
-
-form > div {
-    position: relative;
-    margin: 0.5em 0;
-}
-
-textarea {
-    resize: none;
 }
 
 label {
@@ -39,11 +13,6 @@ label {
 input, textarea {
     width: 80%;
 }
-
-textarea {
-    height: 156px;
-}
-
 
 #thisForm {
     position:relative;
@@ -67,9 +36,15 @@ textarea {
     display: block;
 }
 
+button.backToList {
+    width: 120px;
+    justify-content: center;
+}
 
-/*
-form {outline: 1px solid red}
-form > div {outline: 1px solid green}
-input {outline: 1px solid blue}
-*/
+.component-wrapper > div {
+    flex-direction: column;
+}
+
+.btn-group > button {
+    padding: 0.3em 1.2em;
+}

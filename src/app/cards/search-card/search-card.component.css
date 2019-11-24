@@ -1,105 +1,15 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0;
-    font-size: 18px;
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  button,
-  input[type=text],
-  input[type=email],
-  input[type=password],
-  textarea {
-    display: flex;
-    font-size: 18px;
-    padding: 0.3em 0.5em;
-    border: 1px solid #999;
-    border-radius: 4px;
-  }
-  
-  button {
-    display: flex;
-    background-color: #2B5881;
-    outline: none;
-    color: #eee;
-    cursor: pointer;
-    margin: 0 0.5em;
-  }
-  
-  button:hover {
-    background-color: #1E3E5A
-  }
-  
-  button:active{
-    background-color: #162C41;
-  }
-  
-  ul {
-    display: flex;
-    list-style: none;
-  }
-  
-  li {
-    display: flex;
-  }
-  
-  h2 {
-    display: flex;
-    width: 90%;
-    content: flex-start;
-    margin: 1em auto;
-  }
-  
-  .component-wrapper {
-    display: flex;
-    margin: 2em auto;
-    flex-direction: column;
-    position: relative;
-    width: 90%;
-    border: 1px solid #999;
-    border-radius: 4px;
-    padding: 0.5em 0.5em 1em 0.5em;
-  }
-  
-  .button-wrapper {
-    display: flex;
-    justify-content: space-between
-  }
-  
-  
-  textarea {
-    width: 100%;
-    resize: none;
-  }
-  
-  
-  
-  .no-match {
+.no-match {
       display: flex;
       margin-top: 1em;
       border: 1px solid red;
     border-radius: 4px;
   }
+
   .no-match p {
       text-align: center;
       color: red;
   }
   
-  
-  
-  
-  
-
 .search-component-wrapper {
     width: 460px;
     padding: 1em 2em;
@@ -107,12 +17,18 @@
 
 .button-wrapper {
     margin-top: 1em;
-    justify-content: flex-end;
 }
 
 .button-close-wrapper {
+    width: 36px;
+    height: 36px;
     position: absolute;
     right: 1em;
+}
+
+button.close-btn {
+    width: 100%;
+    margin: 0;
 }
 
 p {
@@ -120,12 +36,6 @@ p {
     margin: 0.5em auto 1em;
 }
 
-
-button.close-btn {
-    width: 36px;
-    height: 36px;
-  }
-  
   span.close::before, span.close::after {
     display: block;
     position: absolute;

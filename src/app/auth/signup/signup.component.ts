@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user/user.model';
 import { UserService } from 'src/app/user/user.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,14 +12,22 @@ export class SignupComponent implements OnInit {
 
   user: User = new User();
 
-  constructor(private userService: UserService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   onSubmit(formData) {
-    //this.userService.createUser(this.user);
-    //this.user = new User();
+    if (formData.valid) {
+      console.log("this is where account creation needs to happen");
+/*
+      this.authService.createAccount(
+        formData.value.email,
+        formData.value.password
+      );
+*/
+
+    }
   }
 
 

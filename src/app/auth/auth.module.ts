@@ -5,6 +5,9 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { SignupComponent } from './signup/signup.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 //import { AngularFireModule } from 'angularfire2';
 //import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -15,12 +18,17 @@ import { SignupComponent } from './signup/signup.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   declarations: [
     LoginComponent,
     LogoutComponent,
     SignupComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class AuthModule { }

@@ -13,6 +13,18 @@ body {
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+form > div {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0;
+}
+
+label {
+  display: flex;
 }
 
 button,
@@ -44,6 +56,12 @@ button:active{
   background-color: #162C41;
 }
 
+textarea {
+  resize: none;
+  width: 100%;
+  height: 156px;
+}
+
 ul {
   display: flex;
   list-style: none;
@@ -60,36 +78,34 @@ h2 {
   margin: 1em auto;
 }
 
+input {
+  display: flex;
+}
 
-
-/*
+a {
+  text-decoration: none;
+}
 
 .component-wrapper {
   display: flex;
-  margin: 2em auto;
-  flex-direction: column;
   position: relative;
+  flex-direction: column;
+  margin: 2em auto;
   width: 90%;
   border: 1px solid #999;
   border-radius: 4px;
   padding: 0.5em 0.5em 1em 0.5em;
 }
 
+.component-wrapper > div {
+  display: flex;
+  width: 90%;
+  margin: 1em auto 0 auto;
+  justify-content: flex-end;
+}
+
 .button-wrapper {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
-
-
-textarea {
-  width: 100%;
-  resize: none;
-}
-
-
-
-
-
-*/
-
 

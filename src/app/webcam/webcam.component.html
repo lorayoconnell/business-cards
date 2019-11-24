@@ -1,7 +1,6 @@
 <div id="app" class="component-wrapper">
-
   <div class="button-wrapper">
-    <button id="snap" (click)="capture()">Snap Photo</button>
+    <button id="snap" (click)="capture()" autofocus>Snap Photo</button> <!-- autofocus will only work first time & on page refresh -->
     <button (click)="cancel()">Cancel</button>
   </div>
 

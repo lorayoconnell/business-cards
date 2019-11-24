@@ -4,7 +4,7 @@ import { Card } from './cards/card.model';
 import { environment } from '../environments/environment';
 import { CardService } from './cards/card.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
+// import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 const apikey = environment.cloudVision.apiKey;
 

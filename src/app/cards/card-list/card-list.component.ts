@@ -25,6 +25,7 @@ export class CardListComponent implements OnInit {
   card$: Observable<Card[]>;
   selectedCard: Card;
   searchStr: string;
+  viewList: boolean = true;
 
   constructor(private afs: AngularFirestore, private service: CardService, private searchService: SearchCardService, private route: ActivatedRoute) {
     this.cardIds = new Array();
@@ -50,6 +51,15 @@ export class CardListComponent implements OnInit {
   onSelect(card: Card): void {
     //console.log("onSelect card.id: " + card.id);
     this.selectedCard = card;
+  }
+
+
+  viewAsCards() {
+    this.viewList = false;
+  }
+
+  viewAsList() {
+    this.viewList = true;
   }
 
 

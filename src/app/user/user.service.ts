@@ -4,23 +4,23 @@ import { Router } from '@angular/router';
 import { User } from './user.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 
+import { Subscription } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserService { // implements OnDestroy {
+export class UserService implements OnDestroy {
 
-  //subscr$;
   user: User;
+  subscr: Subscription;
 
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) { }
 
   getUser(u: User): User {
     var docRef = this.db.collection("users").doc(u.userId);
-    //this.subscr$ = 
     console.log("SUBSCRIBING!!");
-    docRef.snapshotChanges().subscribe(
+    this.subscr = docRef.snapshotChanges().subscribe(
       res => {
-       //u.userId = res.payload.get('userId');
         u.email = res.payload.get('email');
         u.firstName = res.payload.get('firstName');
         u.lastName = res.payload.get('lastName');
@@ -29,9 +29,9 @@ export class UserService { // implements OnDestroy {
     return u;
   }
 
-  getUserEmail(): string {
-    return this.afAuth.auth.currentUser.email;
-  }
+  //getUserEmail(): string {
+  //  return this.afAuth.auth.currentUser.email;
+  //}
 
   getUserId(): string {
     return this.afAuth.auth.currentUser.uid;
@@ -68,65 +68,15 @@ export class UserService { // implements OnDestroy {
   }
 
 
-  displayUserInfoOnConsole(user: User) {
+  //displayUserInfoOnConsole(user: User) {
+  //  console.log("user.service: userId: " + user.userId + " userEmail: " + user.email + " userFirstName: " + user.firstName + " userLastName: " + user.lastName);
 
-    console.log("user.service: userId: " + user.userId + " userEmail: " + user.email + " userFirstName: " + user.firstName + " userLastName: " + user.lastName);
+  //}
 
-  }
-
-
-
-  //ngOnDestroy(): void {
-
-    //this.subscr$.unsubscribe();
-    //throw new Error("Method not implemented.");
-  //} 
+  ngOnDestroy(): void {
+    console.log("UNSUBSCRIBING");
+    this.subscr.unsubscribe();
+  } 
 
 }
 
-
-/*
-  updateCard(c: Card) {
-    var cardRef = this.db.collection('cards').doc(c.id);
-    return cardRef.update({
-      displayName: c.displayName,
-      firstName: c.firstName,
-      lastName: c.lastName,
-      organizationName: c.organizationName,
-      phone: c.phone,
-      fax: c.fax,
-      email: c.email,
-      additionalInfo: c.additionalInfo,
-      cardImage: c.cardImage,
-      userId: this.afAuth.auth.currentUser.uid
-    })
-    .then(function() {console.log("Document successfully updated");})
-    .catch(function(error) {console.error("Error updating document: ", error);});
-  }
-*/
-
-
-
-
-/*
-  createCard(card: Card): void {
-    this.db.collection("cards").add({
-      displayName: card.displayName,
-      firstName: card.firstName,
-      lastName: card.lastName,
-      organizationName: card.organizationName,
-      phone: card.phone,
-      fax: card.fax,
-      email: card.email,
-      cardImage: card.cardImage,
-      userId: this.afAuth.auth.currentUser.uid
-    })
-    .then(function(docRef) {
-      card.id = docRef.id;
-      console.log("Document written with id: " + docRef.id);
-    })
-    .catch (function (error) {
-      console.error("Error adding document: " + error);
-    });
-  }
-*/

@@ -1,29 +1,9 @@
-.list a,
-.component-wrapper,
-.button-wrapper {
+.list a {
   display: flex;
 }
 
-
-
-
-
-.component-wrapper {
-  margin: 2em auto;
-  flex-direction: column;
-  position: relative;
-  width: 90%;
-  border: 1px solid #999;
-  border-radius: 4px;
-  padding: 0.5em 0.5em 1em 0.5em;
-}
-
-.button-wrapper {
-  justify-content: space-between
-}
-
 .addBtn {
-  margin-left: 1.4em;
+  justify-content: flex-start;
 }
 
 ul.list {
@@ -45,7 +25,6 @@ ul.list {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  text-decoration: none;
   width: 100%;
 }
 
@@ -74,6 +53,11 @@ ul.list {
   min-width: 260px;
 }
 
+.bottom-wrapper {
+  width: 50%;
+  margin: auto;
+}
+
 
 
 .cards li.selected {
@@ -84,9 +68,3 @@ ul.list {
     background-color: #BBD8DC;
 }
 
-.bottom-wrapper {
-  width: 50%;
-  margin: auto;
-}
-
-  

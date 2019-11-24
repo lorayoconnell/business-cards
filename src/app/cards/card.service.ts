@@ -8,13 +8,15 @@ import { SearchCardService } from './search-card.service';
 import { WebcamComponent } from '../webcam/webcam.component';
 import { NewCardComponent } from '../cards/new-card/new-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable()
-export class CardService { //implements OnDestroy {
+export class CardService { // implements OnDestroy {
 
   //subscr$;
   @Input() card: Card;
 
+  subscr: Subscription;
   newCardComponent: NewCardComponent;
 
   scanData: boolean = false;
@@ -38,8 +40,8 @@ export class CardService { //implements OnDestroy {
   getCard(c: Card): Card {
     var docRef = this.db.collection("cards").doc(c.id);
     //this.subscr$ = 
-    console.log("SUBSCRIBING!!!");
-    docRef.snapshotChanges().subscribe(
+    console.log("SUBSCRIBING");
+    this.subscr = docRef.snapshotChanges().subscribe(
       res => {
         c.displayName = res.payload.get('displayName');
         c.firstName = res.payload.get('firstName');
@@ -58,10 +60,10 @@ export class CardService { //implements OnDestroy {
     return c;
   }
 
-  //ngOnDestroy(): void {
-    //this.subscr$.unsubscribe();
-    //throw new Error("Method not implemented.");
-  //} 
+  ngOnDestroy(): void {
+    console.log("UNSUBSCRIBING");
+    this.subscr.unsubscribe();
+  } 
 
   createCard(c: Card): void {
     this.db.collection("cards").add({

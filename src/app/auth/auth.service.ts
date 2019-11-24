@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { Subscription } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +16,7 @@ import { UserService } from '../user/user.service';
 export class AuthService {
 
   isLoggedIn: boolean = false;
+  subscr: Subscription;
   user: User;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) { }
@@ -20,15 +25,13 @@ export class AuthService {
   redirectUrl: string;
 
   isSignedIn(): boolean {
-
     // this.card.userId = 
     //console.log(this.afAuth.auth.currentUser.uid);
-    
-    
     return this.isLoggedIn;
   }
 
   login(email: string, password: string) {
+    console.log("auth.service.... login");
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(value => {
       console.log('Nice, it worked!');
@@ -41,13 +44,7 @@ export class AuthService {
     });
   }
 
-  logout() {
-
-// unsubscribe from 3
-
-
-
-
+  logout() {    // unsubscribe from 3
     this.afAuth.auth.signOut().then(() => {
       console.log("Logged out");
       this.isLoggedIn = false;
@@ -57,12 +54,82 @@ export class AuthService {
 
 
 
+  googleLogin() {
+console.log("this is where google login needs to be implemented");
+// https://angularfirebase.com/lessons/google-user-auth-with-firestore-custom-data/
+    /*
+    const provider = new firebase.auth.GoogleAuthProvider();
+    //return this.oAuthLogin(provider)
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then(value => {
+     console.log('Success', value);
+        this.isLoggedIn = true;
+        console.log("cred")
+     this.router.navigateByUrl('/profile');
+   })
+    .catch(error => {
+      console.log('Something went wrong: ', error);
+    });
+*/
+  }
+
+
+/*
+  private oAuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider).then(
+      (credential) => {
+        this.up
+      }
+    )
+  }
+*/
+
+
+  createAccount(email: string, password: string) {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then( res => {
+      // success message
+    })
+    .catch (err => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  
+}
+
+
+
+
+
+  /*
   loginn(): Observable<boolean> {
+    console.log("auth.service.... loginn");
     return of(true).pipe(
       delay(1000),
       tap(val => this.isLoggedIn = true)
     );
   }
+*/
+
+/*
+  signin() { // login() {
+    console.log("auth.service.... signin");
+    this.subscr = this.loginn().subscribe(() => {
+      console.log("SUBSCRIBING");
+      if (this.isLoggedIn) {
+        // Get the redirect URL from our auth service
+        // If no redirect has been set, use the default
+        let redirect = this.redirectUrl ? this.router.parseUrl(this.redirectUrl) : '/admin';
+        // Redirect the user
+        this.router.navigateByUrl(redirect);  //, navigationExtras);
+      }
+    });
+  }
+*/
+
+
+
+
 
 
 /*
@@ -87,7 +154,6 @@ export class AuthService {
 
 
 
-
 /*
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -103,7 +169,6 @@ export class AuthService {
 */
 
 
-
 /*
   emailSignup(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
@@ -117,6 +182,3 @@ export class AuthService {
   }
 */
 
-
-
-}

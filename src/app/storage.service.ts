@@ -3,12 +3,17 @@ import * as functions from 'firebase-functions';
 import * as vision from '@google-cloud/vision';
 
 
-const { Storage } = require('@google-cloud/storage');
-const storage = new Storage();
+/*
 const visionClient = new vision.ImageAnnotatorClient();
 let text;
 const bucketName = 'businesscards-bd4e4.appspot.com'; // 'gs://businesscards-bd4e4.appspot.com'
 
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+*/
+
+
+/*
 
 
 const imageTagger = functions.storage.object().onFinalize(async (object, context) => {
@@ -20,7 +25,7 @@ const imageTagger = functions.storage.object().onFinalize(async (object, context
   //return docRef.set({text, requiredEntities});
 });
 
-
+*/
 
 
 @Injectable({

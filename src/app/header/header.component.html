@@ -1,14 +1,22 @@
 <header>
     <h1>Business Cards</h1>
 
-<div class="button-wrapper">
-    <!-- <button class="btn btn-primary" (click)="displayTest()">Signed in?</button> -->
-    <button class="btn btn-primary" routerLink="/login" routerLinkActive="active" *ngIf="!userSignedIn()">Log In</button>
-    <button class="btn btn-primary" routerLink="/cardlist" routerLinkActive="active" *ngIf="userSignedIn()">My Cards</button>
-    <button class="btn btn-primary" *ngIf="userSignedIn()" (click)="gotoSearch()">Search</button> <!-- searchService.updateViewSearch -->
-    <button class="btn btn-primary" routerLink="/profile" routerLinkActive="active" *ngIf="userSignedIn()">My Profile</button>
-    <button class="btn btn-primary" (click)="signOut()" *ngIf="userSignedIn()">Log Out</button>
-</div>
+    <div class="button-wrapper">
+        <!-- <button class="btn btn-primary" routerLink="/login" routerLinkActive="active" *ngIf="!userSignedIn()">Log In</button> -->
+        <button class="btn btn-primary" routerLink="/cardlist" routerLinkActive="active" *ngIf="userSignedIn()">My Cards</button>
+        <button class="btn btn-primary" *ngIf="userSignedIn()" (click)="gotoSearch()">Search</button>
+        <button class="btn btn-primary" routerLink="/profile" routerLinkActive="active" *ngIf="userSignedIn()">My Profile</button>
+        <button class="btn btn-primary" (click)="signOut()" *ngIf="userSignedIn()">Log Out</button>
+    </div>
+
+</header>
+ 
+ 
+
+
+
+
+<!-- <button class="btn btn-primary" (click)="displayTest()">Signed in?</button> -->
 
 <!--
 <input type="text" id="searchField" placeholder="search" #searchContent/>
@@ -19,10 +27,6 @@
 <button (click)="showSearch()">search icon</button>
 <app-search-card *ngIf="showSearch()"></app-search-card>
 -->
-
-</header>
- 
- 
 
 <!--
 

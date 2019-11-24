@@ -26,6 +26,8 @@ export class SearchCardService {
   firstNameArr: string[];
   lastNameArr: string[];
 
+  searchResults: Card[];
+
   constructor(private afs: AngularFirestore, private cardService: CardService) {
     this.firstSearch = true;
   }
@@ -55,6 +57,10 @@ export class SearchCardService {
     })
 
   }
+
+
+
+
 
 
   updateViewSearch() {
@@ -92,8 +98,24 @@ export class SearchCardService {
   }
 
   testSearchServ(searchTerm: string) {
+
+    // firestore query returns only exact case-sensitive matches
+    /*
+        if (searchTerm != null) {
+          const query = this.afs.firestore.collection('cards').where('lastName', '==', searchTerm);
+          query.get().then( snapshot => {
+            console.log("num matches: " + snapshot.docs.length);
+
+            snapshot.docs.forEach(d => {
+              console.log("data: " + d.data());
+            });
+
+          });
+        }
+    */
+
     console.log("inside search-card.service.ts * searchTerm: " + searchTerm);
-    //this.getArrayOfCardIds();
+               //this.getArrayOfCardIds();
     this.createParallelSearchArrays(searchTerm);
   }
 
@@ -112,11 +134,6 @@ export class SearchCardService {
           this.lastNameArr.push(doc.get('lastName'));
           this.companyArr.push(doc.get('organizationName'));
         })
-  /*    }).then( res => {
-        this.updateArr(this.cardIdArr);
-        this.getFnArr(this.firstNameArr);
-        this.getLnArr(this.lastNameArr);
-        this.getCompArr(this.companyArr); */
       }).then(res => {
         this.gatherAllArrays(this.cardIdArr, this.firstNameArr, this.lastNameArr, this.companyArr, searchTerm);
       })
@@ -127,10 +144,6 @@ export class SearchCardService {
   }
 
   gatherAllArrays(id:string[], fn:string[], ln:string[], org:string[], searchTerm:string) {
-
-    //console.log("searchTerm: " + searchTerm + " id.length: " + id.length + " fn.length: "
-    //            + fn.length + " ln.length: " + fn.length + " org.length: " + org.length);
-
     var arrLen = id.length;
     if ((arrLen != fn.length) || (arrLen != ln.length) || (arrLen != org.length) ) {
       console.log("there is an error... all arrays should be the same length");
