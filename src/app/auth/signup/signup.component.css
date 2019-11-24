@@ -1,0 +1,16 @@
+
+label {
+    width: 180px;
+}
+
+input {
+  width: 64%;
+}
+  
+.component-wrapper {
+    width: 460px;
+}
+
+.button-wrapper {
+    justify-content: center;
+  }

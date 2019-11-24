@@ -11,6 +11,9 @@ export class NewUserComponent implements OnInit {
 
   user: User = new User();
 
+// ****** don't save the user password or even read it as a string
+
+
   constructor(private userService: UserService) { } // need router?
 
   ngOnInit() { }

@@ -30,6 +30,10 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
+  getCurrentUserId(): string {
+    return this.afAuth.auth.currentUser.uid;
+  }
+
   login(email: string, password: string) {
     console.log("auth.service.... login");
     this.afAuth.auth.signInWithEmailAndPassword(email, password)

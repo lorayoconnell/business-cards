@@ -27,6 +27,7 @@ import { HeaderComponent } from './header/header.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SearchCardService } from './cards/search-card.service';
 import { WebcamService } from './webcam.service';
+
 //import { FirebaseAdminModule } from './firebase-admin.module';
 
 @NgModule({

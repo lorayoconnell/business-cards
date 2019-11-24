@@ -44,22 +44,39 @@ export class NewCardComponent implements OnInit {
 //    this.scan = this.cardService.getCardInfoFromScan();
     //console.log("inside of new card: " + c.toString());
   //}
-
+/*
   save() {
-    this.cardService.createCard(this.card);
+
+    if (formData.valid) {
+
+    //this.cardService.createCard(this.card);
+this.cardService.createCardForUser(this.card);
+
+
+
     this.card = new Card();
     // and route back to list
     this.router.navigateByUrl('/cardlist');
     //this.todoService.createTodoItem(this.todoItem);
     //this.todoItem = new TodoItem();
+    }
   }
-
+*/
   onSubmit(formData) {
+    if (formData.valid) {
     console.log("new-card.component.ts onSubmit()");
     //this.card.userId = this.userService.getUserId();
-    this.cardService.createCard(this.card);
+
+
+
+   //this.cardService.createCard(this.card);
+   this.cardService.createCardForUser(this.card);
+
+
+
     this.card = new Card();
     this.router.navigateByUrl('/cardlist');
+    }
   }
 
 

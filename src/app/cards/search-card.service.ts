@@ -4,6 +4,7 @@ import { Card } from './card.model';
 import { Observable } from 'rxjs';
 //import { map } from 'rxjs/operators';
 import { CardService } from './card.service';
+import { AuthService } from '../auth/auth.service';
 //import { query } from '@angular/animations';
 //import { Router, ActivatedRoute } from '@angular/router';
 //import { AngularFireAuth } from 'angularfire2/auth';
@@ -28,18 +29,21 @@ export class SearchCardService {
 
   searchResults: Card[];
 
-  constructor(private afs: AngularFirestore, private cardService: CardService) {
+  constructor(private afs: AngularFirestore, private cardService: CardService, private authService: AuthService) {
     this.firstSearch = true;
   }
 
   // document reference points to a single card
   getSingleCard(cardId: string): AngularFirestoreDocument {
-    var documentReference = this.afs.collection('cards').doc(cardId);
+    // var documentReference = this.afs.collection('cards').doc(cardId);
+    // var cardRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
+    var documentReference = this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards').doc(cardId);
     return documentReference;
   }
 
   getCard(cardId: string) {
-    var documentReference = this.afs.collection('cards').doc(cardId);
+    // var documentReference = this.afs.collection('cards').doc(cardId);
+    var documentReference = this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards').doc(cardId);
     documentReference.get().toPromise().then(function(documentSnapshot) {
       if (documentSnapshot.exists) {
         console.log("Document has been found");
@@ -76,7 +80,11 @@ export class SearchCardService {
   }
 
   printAllCardIdsToConsole() {
-    this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+    //this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+
+      this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards').get().toPromise().then(querySnapshot => {
+      
+
       querySnapshot.forEach(doc => {
         console.log(doc.id);
       });
@@ -85,7 +93,9 @@ export class SearchCardService {
 
   getArrayOfCardIds() {
     this.cardIdArr = new Array();
-    this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+    //this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+      this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards').get().toPromise().then(querySnapshot => {
+
       querySnapshot.forEach(doc => {
         this.cardIdArr.push(doc.id.toString());
       })
@@ -127,7 +137,8 @@ export class SearchCardService {
       this.lastNameArr = new Array();
       this.companyArr = new Array();
 
-      this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+      // this.afs.collection("cards").get().toPromise().then(querySnapshot => {
+        this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards').get().toPromise().then(querySnapshot => {
         querySnapshot.forEach(doc => {
           this.cardIdArr.push(doc.id.toString());
           this.firstNameArr.push(doc.get('firstName'));   // || null?
@@ -178,8 +189,10 @@ export class SearchCardService {
     str = str.toLowerCase();
     var len = arr.length;
     for (var i=0; i<len; i++) {
-      if ((arr[i].toLowerCase()).indexOf(str) >= 0) {
-        result = i;
+      if (arr[i] != null) {
+        if ((arr[i].toLowerCase()).indexOf(str) >= 0) {
+          result = i;
+        }
       }
     }
     return result;

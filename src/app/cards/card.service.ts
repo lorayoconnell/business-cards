@@ -34,11 +34,16 @@ export class CardService { // implements OnDestroy {
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router) {  }
 
   getAllCards() {
-    return this.db.collection("cards").snapshotChanges();
+    //return this.db.collection("cards").snapshotChanges();
+    return this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').snapshotChanges();
   }
 
   getCard(c: Card): Card {
-    var docRef = this.db.collection("cards").doc(c.id);
+
+    // var docRef = this.db.collection("cards").doc(c.id);
+    var docRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
+
+
     //this.subscr$ = 
     console.log("SUBSCRIBING");
     this.subscr = docRef.snapshotChanges().subscribe(
@@ -90,8 +95,41 @@ export class CardService { // implements OnDestroy {
     });
   }
 
+  createCardForUser(c: Card): void {
+    //userId: this.afAuth.auth.currentUser.uid;
+
+    this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').add({
+      displayName: c.displayName,
+      firstName: c.firstName,
+      lastName: c.lastName,
+      title: c.title,
+      organizationName: c.organizationName,
+      phone: c.phone,
+      fax: c.fax,
+      email: c.email,
+      website: c.website,
+      additionalInfo: c.additionalInfo,
+      cardImage: c.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function (docRef) {
+      c.id = docRef.id;
+      console.log("Document written with id: " + docRef.id);
+    })
+    .catch (function (error) {
+      console.error("Error adding document: " + error);
+    });
+
+  }
+
+
+
+
+
+
   updateCard(c: Card) {
-    var cardRef = this.db.collection('cards').doc(c.id);
+    // var cardRef = this.db.collection('cards').doc(c.id);
+    var cardRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
     return cardRef.update({
       displayName: c.displayName,
       firstName: c.firstName,
@@ -111,7 +149,8 @@ export class CardService { // implements OnDestroy {
   }
 
   deleteCard(c: Card) {
-    var cardRef = this.db.collection('cards').doc(c.id);
+    //var cardRef = this.db.collection('cards').doc(c.id);
+    var cardRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
     cardRef.delete();
     console.log("Document deleted.");
   }

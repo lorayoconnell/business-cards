@@ -30,16 +30,17 @@
     
     <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
     
-        <div><label>First Name:</label><input [(ngModel)]="user.firstName" placeholder="firstName" name="firstName"/></div>
-        <div><label>Last Name:</label><input [(ngModel)]="user.lastName" placeholder="lastName" name="lastName"/></div>
-        <div><label>Email:</label><input [(ngModel)]="user.userEmail" placeholder="userEmail" name="userEmail"/></div>
+        <div><label>First Name:</label><input [(ngModel)]="user.firstName" type="text" placeholder="firstName" name="firstName" required/></div>
+        <div><label>Last Name:</label><input [(ngModel)]="user.lastName" type="text" placeholder="lastName" name="lastName" required/></div>
+        <div><label>Email:</label><input [(ngModel)]="user.userEmail" type="text" placeholder="userEmail" name="userEmail" required/></div>
+        <div><label>Create password:</label><input [(ngModel)]="user.password" type="text" placeholder="Create password" name="userPassword" required/></div>
 
         <!-- see how new accounts are handled in firebase -->
         <!-- don't save user password as string -->
         <!-- <div><label>Choose password:<input [(ngModel)]="user.password" placeholder="Password" name="password"/></label></div> -->
-    
-        <button class="btn" type="submit">Save</button>
-    
+        <div class="button-wrapper">
+            <button class="ui button" type="submit">Save</button>
+        </div>
     </form>
 </div>
 

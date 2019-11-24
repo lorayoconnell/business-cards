@@ -7,11 +7,11 @@
 
 <div class="button-wrapper addBtn">
 <button class="ui button" routerLink="/newcard" routerLinkActive="active">Add New Card</button>
-<button (click)="viewAsCards()">View as Cards</button>
-<button (click)="viewAsList()">View as List</button>
+<button *ngIf="viewList" (click)="viewAsCards()">View as Cards</button>
+<button *ngIf="!viewList" (click)="viewAsList()">View as List</button>
 </div>
 
-<ul class="list" >
+<ul [ngClass]="viewList ? 'list' : 'cards'">
     <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
         <a [routerLink]="['/card/', card.id]">
             <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
@@ -27,11 +27,6 @@
 
 
 <!--
-
-
-<ul [ngClass]="{viewList ? '.list' : '.cards'}" >
-
-
         <div class="button-wrapper btn-group">
         <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
         <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
