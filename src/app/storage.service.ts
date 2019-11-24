@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
+
+/*
 import * as functions from 'firebase-functions';
 import * as vision from '@google-cloud/vision';
+import { Storage } from '@google-cloud/storage';
+import { getBucket } from 'cloud-bucket';
+import { fromEventPattern } from 'rxjs';
+import { findNode } from '@angular/compiler';
+*/
 
+//const bucketName = 'businesscards-bd4e4.appspot.com'; // 'gs://businesscards-bd4e4.appspot.com'
+//const storage = new Storage();
 
 /*
 const visionClient = new vision.ImageAnnotatorClient();
 let text;
-const bucketName = 'businesscards-bd4e4.appspot.com'; // 'gs://businesscards-bd4e4.appspot.com'
-
-const { Storage } = require('@google-cloud/storage');
-const storage = new Storage();
 */
 
-
 /*
-
-
 const imageTagger = functions.storage.object().onFinalize(async (object, context) => {
   const filePath = object.name;
   const imageUri = `gs://${bucketName}/${filePath}`;
-
   const docId = filePath.split('.jpg')[0];
   //const docRef = admin.firestore().collection('photos').doc(docId);
   //return docRef.set({text, requiredEntities});
 });
-
 */
 
 
@@ -33,7 +33,31 @@ const imageTagger = functions.storage.object().onFinalize(async (object, context
 })
 export class StorageService {
 
+
+
   constructor() { }
+
+
+/*
+async uploadFile(file) {
+
+  // Uploads a local file to the bucket
+  await storage.bucket(bucketName).upload(file, {
+    // Support for HTTP requests made with `Accept-Encoding: gzip`
+    gzip: true,
+    // By setting the option `destination`, you can change the name of the
+    // object you are uploading to a bucket.
+    metadata: {
+      // Enable long-lived HTTP caching headers
+      // Use only if the contents of the file will never change
+      // (If the contents will change, use cacheControl: 'no-cache')
+      cacheControl: 'public, max-age=31536000',
+    },
+  });
+  console.log(`${file} uploaded to ${bucketName}.`);
+}
+*/
+
 }
 
 
@@ -59,25 +83,8 @@ const imageTagger = functions.storage.object().onFinalize(async (object, context
 }
 */
 
-
-
 /*
-async function uploadFile() {
-  // Uploads a local file to the bucket
-  await storage.bucket(bucketName).upload(filename, {
-    // Support for HTTP requests made with `Accept-Encoding: gzip`
-    gzip: true,
-    // By setting the option `destination`, you can change the name of the
-    // object you are uploading to a bucket.
-    metadata: {
-      // Enable long-lived HTTP caching headers
-      // Use only if the contents of the file will never change
-      // (If the contents will change, use cacheControl: 'no-cache')
-      cacheControl: 'public, max-age=31536000',
-    },
-  });
-  console.log(`${filename} uploaded to ${bucketName}.`);
-}
+
 */
 
 

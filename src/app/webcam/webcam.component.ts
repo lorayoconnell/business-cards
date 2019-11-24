@@ -3,6 +3,7 @@ import { CardService } from '../cards/card.service';
 // import { environment } from '../../environments/environment';
 import { WebcamService } from '../webcam.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../storage.service';
 
 //const vision = require('@google-cloud/vision');
 //const client = new vision.ImageAnnotatorClient();
@@ -24,7 +25,8 @@ export class WebcamComponent implements OnInit {
   base64img: string;
 
 // 
-  public constructor(private cardService: CardService, private webcamService: WebcamService, private route: ActivatedRoute, private router: Router) {
+  public constructor(private cardService: CardService, private webcamService: WebcamService,
+    private route: ActivatedRoute, private router: Router, private storageService: StorageService ) {
     this.captures = [];
   }
 
@@ -59,7 +61,7 @@ public cancel() {
     //this.processImage(dataURL);
 
 
-
+    //this.storageService.uploadFile(this.canvas.nativeElement.toDataURL("image/png"));
 
 
     this.base64img = this.canvas.nativeElement.toDataURL();
