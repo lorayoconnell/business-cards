@@ -11,9 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Injectable()
-export class CardService { // implements OnDestroy {
+export class CardService implements OnDestroy {
 
-  //subscr$;
   @Input() card: Card;
 
   subscr: Subscription;
@@ -43,12 +42,11 @@ export class CardService { // implements OnDestroy {
     // var docRef = this.db.collection("cards").doc(c.id);
     var docRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
 
-
     //this.subscr$ = 
-    console.log("SUBSCRIBING");
+    console.log("SUBSCRIBING to card");
     this.subscr = docRef.snapshotChanges().subscribe(
       res => {
-        c.displayName = res.payload.get('displayName');
+        //c.displayName = res.payload.get('displayName');
         c.firstName = res.payload.get('firstName');
         c.lastName = res.payload.get('lastName');
         c.title = res.payload.get("title");
@@ -72,7 +70,7 @@ export class CardService { // implements OnDestroy {
 
   createCard(c: Card): void {
     this.db.collection("cards").add({
-      displayName: c.displayName,
+      //displayName: c.displayName,
       firstName: c.firstName,
       lastName: c.lastName,
       title: c.title,
@@ -99,7 +97,7 @@ export class CardService { // implements OnDestroy {
     //userId: this.afAuth.auth.currentUser.uid;
 
     this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').add({
-      displayName: c.displayName,
+      //displayName: c.displayName,
       firstName: c.firstName,
       lastName: c.lastName,
       title: c.title,
@@ -123,15 +121,11 @@ export class CardService { // implements OnDestroy {
   }
 
 
-
-
-
-
   updateCard(c: Card) {
     // var cardRef = this.db.collection('cards').doc(c.id);
     var cardRef = this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').doc(c.id);
     return cardRef.update({
-      displayName: c.displayName,
+      //displayName: c.displayName,
       firstName: c.firstName,
       lastName: c.lastName,
       title: c.title,
@@ -160,8 +154,6 @@ export class CardService { // implements OnDestroy {
     this.router.navigate(['/card/', cardId]);
   }
 
-  // gotoWebcam() { }
-
   getWebcamInfo(c: Card) {
     console.log("getWebcamInfo: c.toString: " + c.toString());
     this.scanData = true;
@@ -169,6 +161,7 @@ export class CardService { // implements OnDestroy {
 
     // route to newcardcomponent and add a param = new
     this.router.navigate(['/newcard', { par: 'new' }]); // in case we want other paramaters passed
+    //this.router.navigate(['/newcard']);
   }
 
   getCardInfoFromScan(): Card {
@@ -178,54 +171,6 @@ export class CardService { // implements OnDestroy {
 
 }
 
-
-
-
-
-/*
-<button routerLink="/newcard" routerLinkActive="active">Add New Card</button>
-
-<ul class="list">
-    <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
-        <a [routerLink]="['/card/', card.id]">
-
-         //
-*/
-
-//this.newCardComponent.getInfoFromScan(c);
-
-// have to push c to newcardcomponent
-
-//import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
-//import { Observable, of } from 'rxjs';
-//import { map } from 'rxjs/operators';
-//import { CARDS } from './mock-cards';
-//import { CardListComponent } from '../cards/card-list/card-list.component';
-//import { CardComponent } from './card/card.component';
-
-  //private cardDoc: AngularFirestoreDocument<Card>;
-  //private dbPath = '/cards';
-  //cards$: Observable<Card[]>;
-  //c: Card;
-  //cardIds: string[];
-
-  //getCards(): Observable<Card[]> {
-    //console.log("this is where I should be getting the list from the db");
-    //return of(CARDS);
-  //}
-
-  //getCardIdsArray(arr: String[]): void {
-  //getCardIdsArray(): string[] {
-    //console.log("inside cardservice. arr.length: " + arr.length);
-    //console.log("cardIds.length: " + this.cardIds.length);
-    //return this.cardIds;
-    //getArrayOfCardIds();
-  //}
-
-  //showThisCard(card: Card) {
-  //  console.log("inside cardservice. send card to indiv card component");
-  //}
-
 /*
   docRef.get().then(function(doc) {
     if (doc.exists) { console.log("exists"); }
@@ -234,119 +179,3 @@ export class CardService { // implements OnDestroy {
     console.log("Error getting document: " + error);
   })
 */
-
-    /*
-    this.cards$.pipe(map(c => {
-      return c.map(cc => {
-        this.cardIds.push(cc.id);
-        // cc.firstName
-      })
-    }))
-
-*/
-
-
-
-
-/*
-
-thisFunction() {
-this.cards$ = this.db.collection<Card>('cards') //.valueChanges()
-.snapshotChanges().pipe(map(collection => {
-return collection.map(c => {
-let card = new Card();
-card.lastName = c.payload.doc.data().lastName;
-console.log("card.lastName: " + card.lastName);return card;
-});
-}));
-}
-
-thisFunction2(i: string): Card {
-this.c = new Card();
-this.db.collection<Card>('cards').doc(i)
-.snapshotChanges().pipe(map(carddd => {
-this.c = carddd.payload.data() as Card;
-this.c.lastName = carddd.payload.get('lastName');
-})
-)
-return this.c;
-}
-
-*/
-
-/*
-{
-  "rules": {
-    ".read": "auth !=null",
-    ".write": "auth !=null"
-  }
-}
-*/
-
-/*
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if (auth != null);
-    }
-  }
-}
-*/
-
-/*
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
-*/
-
-
-
-
-  //deleteCard(key: string): Promise<void> {
-    //return this.cardRef.remove(key);
-  //}
-
-  //getCardsList(): AngularFireList<Card> {
-  //  return this.cardRef;
-  //}
-
-
-
-
-
-// getCards(): Observable<Card[]> {
-    /*
-    this.db.collection("cards").get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
-      })
-    })
-*/
-
-// this.cards = this.db.collection("cards").valueChanges();
-
-
-/*
-this.cards = this.db.collection("cards")
-.snapshotChanges()
-.pipe(
-  map(actions => {
-    return actions.map(a => {
-      const data = a.payload.doc.data() as Card;
-      const id = a.payload.doc.id;
-      return { id, ...data };
-    })
-  })
-)
-*/
-
-//return this.cards;
-
-//}

@@ -1,5 +1,20 @@
 import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class StorageService {
+
+  constructor() { }
+
+}
+
+
+
+
+
+
+
 /*
 import * as functions from 'firebase-functions';
 import * as vision from '@google-cloud/vision';
@@ -28,14 +43,9 @@ const imageTagger = functions.storage.object().onFinalize(async (object, context
 */
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class StorageService {
 
 
 
-  constructor() { }
 
 
 /*
@@ -58,7 +68,6 @@ async uploadFile(file) {
 }
 */
 
-}
 
 
 //import * as admin from 'firebase-admin';

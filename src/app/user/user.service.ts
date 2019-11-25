@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './user.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 
@@ -14,11 +14,11 @@ export class UserService implements OnDestroy {
   user: User;
   subscr: Subscription;
 
-  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router) { }
 
   getUser(u: User): User {
     var docRef = this.db.collection("users").doc(u.userId);
-    console.log("SUBSCRIBING!!");
+    console.log("SUBSCRIBING to user");
     this.subscr = docRef.snapshotChanges().subscribe(
       res => {
         u.email = res.payload.get('email');
@@ -29,9 +29,28 @@ export class UserService implements OnDestroy {
     return u;
   }
 
-  //getUserEmail(): string {
-  //  return this.afAuth.auth.currentUser.email;
-  //}
+
+
+  getCurrentUser(){
+    return new Promise<any>((resolve, reject) => {
+      // var user = firebase.auth().onAuthStateChanged(function(user){
+        var user = this.afAuth.auth.onAuthStateChanged(function(user){
+        if (user) {
+          resolve(user);
+        } else {
+          reject('No user logged in');
+        }
+      })
+    })
+  }
+
+
+
+
+
+  getUserEmail(): string {
+    return this.afAuth.auth.currentUser.email;
+  }
 
   getUserId(): string {
     return this.afAuth.auth.currentUser.uid;

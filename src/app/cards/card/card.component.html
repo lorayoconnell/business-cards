@@ -5,19 +5,25 @@
     <div *ngIf="card">
 
         <div class="button-wrapper btn-group">
-        <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
-        <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
-        <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
+            <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
+            <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
+            <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
         </div>
 
-        <!-- <h2>{{card.displayName | uppercase}} Details</h2> -->
 
+    <div class="button-wrapper">
+        <button class="ui button backToList" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
+    </div>
+
+
+    
         <form id="thisForm" class="no_edit">
-            <!-- <div><span>id: </span>{{card.id}}</div> -->
 
+            <!--
             <div>
                 <label>displayName:</label><input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/>
             </div>
+            -->
 
             <div><label>firstName:</label><input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></div>
             <div><label>lastName:</label><input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></div>
@@ -27,48 +33,12 @@
             <div><label>fax:</label><input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax"/></div>
             <div><label>email:</label><input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></div>
             <div><label>website:</label><input [(ngModel)]="card.website" placeholder="website" type="text" name="website"/></div>
-
             <div><label>additionalInfo:</label><textarea [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" type="text" name="additionalInfo"></textarea></div>
-
             <div><label>cardImage:</label><input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></div>
-
-            <!-- do not actually display this -->
-            <!-- <div><label>userId:</label><input [(ngModel)]="card.userId" placeholder="userId" type="text" name="userId"/></div> -->
         </form>        
 
     </div>
 
-    <div class="button-wrapper">
-        <button class="ui button backToList" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
-    </div>
+
 
 </div>
-
-
-
-
-<!--
-
-
-
-
-<div *ngIf="card$ | async as card">
-    <div><label>Display Name: </label>{{ card.displayName }}</div>
-    <div><label>Organization Name: </label>{{ card.organizationName }}</div>
-    <div><label>Email: </label><input [(ngModel)]="card.email" placeholder="Email"/></div>
-        
-    <div>
-        <button (click)="gotoCards(card)">Back To List</button> 
-        <button>Update Card</button>
-    </div>
-</div>
--->
-<!-- passing curr selected card for ux -->
-
-
-
-<!--
-
-    using <input> will allow for user updating
-
--->

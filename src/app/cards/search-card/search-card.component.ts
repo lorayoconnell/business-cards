@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { CardListComponent } from '../card-list/card-list.component';
 import { CardService } from '../card.service';
 import { SearchCardService } from '../search-card.service';
 import { Card } from '../card.model';
@@ -26,6 +25,3 @@ export class SearchCardComponent implements OnInit {
   }
 
 }
-
-
-

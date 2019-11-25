@@ -4,9 +4,9 @@ import { Card } from './cards/card.model';
 import { environment } from '../environments/environment';
 import { CardService } from './cards/card.service';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 const apikey = environment.cloudVision.apiKey;
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,11 @@ const apikey = environment.cloudVision.apiKey;
 export class WebcamService {
   apiUrl: string;
   card: Card;
+  imageUrl: string;
 
   constructor(private cardService: CardService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.card = new Card();
-    this.card.displayName = "na";
+    //this.card.displayName = "na";
     this.card.firstName = "na";
     this.card.lastName = "na";
     this.card.title = "na";
@@ -30,6 +31,37 @@ export class WebcamService {
     this.card.cardImage = "na";
     this.apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apikey}`;
   }
+
+
+testThisBullshit(base64img: string) {
+
+console.log("base64img: " + base64img);
+
+
+this.imageUrl = base64img;
+this.card.cardImage = this.imageUrl;
+
+const parsedImage = base64img.replace('data:image\/png;base64,', '');
+this.sendToCloudVision(parsedImage);
+
+
+}
+
+
+
+processWebcamImg(base64img: string, imgsrc) {
+
+this.card.cardImage = imgsrc;
+
+//console.log("img.src: " + img.src);
+//this.card.cardImage = img.src;
+
+
+
+this.sendToCloudVision(base64img);
+
+
+}
 
   sendToCloudVision(base64img: string) {
     var request = {
@@ -212,8 +244,6 @@ export class WebcamService {
 
 
 
-
-
   // all letters & allow apostrophe
   validateAllLetters(val) {
     var letterPattern = /^[A-Za-z\'\s\,\.]+$/;
@@ -221,6 +251,7 @@ export class WebcamService {
       // if(inputtxt.value.match(letters)) { return true; }
       // else { return false; }
   }
+
 
   // put everything leftover into the 'additional info' section
   // maybe make each piece of info into a draggable box to add to the appropriate section
@@ -235,6 +266,10 @@ export class WebcamService {
   }
 
 }
+
+
+
+
 
 
 /*

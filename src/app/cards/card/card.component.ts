@@ -1,4 +1,4 @@
-import { switchMap, map } from 'rxjs/operators'; // to process the observable route parameters
+import { switchMap, map } from 'rxjs/operators';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -59,7 +59,9 @@ export class CardComponent implements OnInit {
    */
   gotoCards(card: Card) {
     let cId = card ? card.id : null;
-    this.router.navigate(['/cards', { id: cId, foo: 'foo' }]); // in case we want other paramaters passed
+    this.router.navigate(['/cards']);
+    
+    //this.router.navigate(['/cards', { id: cId, foo: 'foo' }]); // in case we want other paramaters passed
   }
 
 

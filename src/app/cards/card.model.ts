@@ -1,5 +1,4 @@
 export class Card {
-    displayName: string;
     id: string;
     firstName: string;
     lastName: string;
@@ -14,9 +13,8 @@ export class Card {
     userId: string;
 
     toString(): string {
-
         return ("id: " + this.id + " firstName: " + this.firstName + " lastName: " + this.lastName + " title: " + this.title + " orgName: " + this.organizationName 
-            + " phone: " + this.phone + " fax: " + this.fax + " email: " + this.email + " website: " + this.website + " additionalInfo: " + this.additionalInfo);
-
+            + " phone: " + this.phone + " fax: " + this.fax + " email: " + this.email + " website: " + this.website + " additionalInfo: " + this.additionalInfo + " cardImage: " + this.cardImage);
     }
+
 }

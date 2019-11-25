@@ -3,7 +3,6 @@ import { Card } from './card.model';
 export const CARDS: Card[] = [
 
     {
-        displayName: 'DisplayName1',
         id: '123abc',
         firstName: 'Joe',
         lastName: 'Smith',
@@ -18,7 +17,6 @@ export const CARDS: Card[] = [
         userId: 'myUserId123456789'
     },
     {
-        displayName: 'DisplayName2',
         id: '124abd',
         firstName: 'Joan',
         lastName: 'Davis',

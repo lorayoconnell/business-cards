@@ -40,20 +40,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/cardlist');
   }
 
-
-
 }
-
-
-/*
-
-
-  showSearch(): boolean {
-    return true;
-  }
-
-  displayTest() {
-    console.log("signed in: " + this.signedIn());
-  }
-
-*/

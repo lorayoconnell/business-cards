@@ -7,8 +7,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const appRoutes: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+
+//{ path: 'login', }
+
+
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
-  { path: 'logout', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
+  //{ path: 'logout', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
   { path: 'cardlist', loadChildren: () => import('./cards/cards.module').then(mod => mod.CardsModule) },
   { path: 'profile', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule) },
 

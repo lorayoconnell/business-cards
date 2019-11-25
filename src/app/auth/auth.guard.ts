@@ -1,20 +1,41 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot,
-        CanActivateChild, CanLoad, Route, UrlTree } from '@angular/router';  // NavigationExtras,
+        CanActivateChild, CanLoad, Route, UrlTree } from '@angular/router';
 import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
+
+/*
+  canActivate(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.userService.getCurrentUser()
+      .then(user => {
+        this.router.navigate(['/user']);
+        return resolve(false);
+      }, err => {
+        return resolve(true);
+      })
+    })
+  }
+  */
+
+
+
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
     return this.checkLogin(url);
   }
-  
+
+
+
+
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return this.canActivate(route, state);
   }
@@ -36,36 +57,3 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
 }
-
-    // Create a dummy session id
-    // let sessionId = 123456789;
-
-
-
-/*
-  // AuthGuard from chatApp
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.auth.user.pipe(
-      take(1),
-        map(user => !!user),
-        tap(loggedIn => {
-          if (!loggedIn) {
-            this.router.navigate(['/login']);
-          }
-      })
-    );
-  }
-*/
-
-
-/*
-  // SignedInAuthGuard from chatApp
-    canActivate(): boolean {
-    if (this.auth.isSignedIn()) {
-        this.router.navigate(['/chat']);
-        return false;
-    }
-    else { return true; }
-  }
-*/
-

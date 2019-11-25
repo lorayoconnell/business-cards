@@ -16,8 +16,8 @@ export class NewCardComponent implements OnInit {
   card: Card = new Card();
   scan: Card = new Card();
 
-  constructor(private cardService: CardService, private route: ActivatedRoute, private userService: UserService, private router: Router) {
-  }
+  constructor(private cardService: CardService, private route: ActivatedRoute,
+    private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.getScanData();
@@ -26,17 +26,60 @@ export class NewCardComponent implements OnInit {
   getScanData() {
     var par = this.route.snapshot.paramMap.get('par');
     if (par != null) {
-      this.goGetScanData();
+      //this.goGetScanData();
+      
+      this.card = new Card();
+      this.card = this.cardService.getCardInfoFromScan();
+      console.log("this.card: " + this.card);
+
+      /*
+      var img = new Image();
+      img.src = this.card.cardImage;
+      document.getElementById("cardImg").appendChild(img);
+      */
+      //this.imageUrl = "<img height='50' src='" + base64img + "'>";
+
+
+      document.getElementById("cardImg").setAttribute( "src" , this.card.cardImage );
+
+
     }
     else {
       console.log("no scan data here");
     }
   }
 
-  goGetScanData() {
+  onSubmit(formData) {
+    if (formData.valid) {
+    console.log("new-card.component.ts onSubmit()");
+
+   //this.cardService.createCard(this.card);
+   this.cardService.createCardForUser(this.card);
+
     this.card = new Card();
-    this.card = this.cardService.getCardInfoFromScan();
+    this.router.navigateByUrl('/cardlist');
+    }
   }
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+  //goGetScanData() {
+  //  this.card = new Card();
+  //  this.card = this.cardService.getCardInfoFromScan();
+  //}
 
   //getInfoFromScan(c: Card) {
     //console.log("getInfoFromScan");
@@ -44,42 +87,3 @@ export class NewCardComponent implements OnInit {
 //    this.scan = this.cardService.getCardInfoFromScan();
     //console.log("inside of new card: " + c.toString());
   //}
-/*
-  save() {
-
-    if (formData.valid) {
-
-    //this.cardService.createCard(this.card);
-this.cardService.createCardForUser(this.card);
-
-
-
-    this.card = new Card();
-    // and route back to list
-    this.router.navigateByUrl('/cardlist');
-    //this.todoService.createTodoItem(this.todoItem);
-    //this.todoItem = new TodoItem();
-    }
-  }
-*/
-  onSubmit(formData) {
-    if (formData.valid) {
-    console.log("new-card.component.ts onSubmit()");
-    //this.card.userId = this.userService.getUserId();
-
-
-
-   //this.cardService.createCard(this.card);
-   this.cardService.createCardForUser(this.card);
-
-
-
-    this.card = new Card();
-    this.router.navigateByUrl('/cardlist');
-    }
-  }
-
-
-
-
-}

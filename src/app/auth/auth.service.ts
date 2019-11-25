@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
 import { User } from '../user/user.model';
-import { UserService } from '../user/user.service';
 import { Subscription } from 'rxjs';
-
+import { UserService } from '../user/user.service';
+import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
 
 
 @Injectable({
@@ -19,14 +18,12 @@ export class AuthService {
   subscr: Subscription;
   user: User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
   isSignedIn(): boolean {
-    // this.card.userId = 
-    //console.log(this.afAuth.auth.currentUser.uid);
     return this.isLoggedIn;
   }
 
@@ -35,10 +32,9 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log("auth.service.... login");
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(value => {
-      console.log('Nice, it worked!');
+      console.log('Login successful');
       this.isLoggedIn = true;
       this.router.navigateByUrl('/cardlist');
     })
@@ -48,7 +44,7 @@ export class AuthService {
     });
   }
 
-  logout() {    // unsubscribe from 3
+  logout() {                                                      // unsubscribe from 3
     this.afAuth.auth.signOut().then(() => {
       console.log("Logged out");
       this.isLoggedIn = false;
@@ -56,133 +52,101 @@ export class AuthService {
     });
   }
 
-
-
-  googleLogin() {
-console.log("this is where google login needs to be implemented");
-// https://angularfirebase.com/lessons/google-user-auth-with-firestore-custom-data/
-    /*
-    const provider = new firebase.auth.GoogleAuthProvider();
-    //return this.oAuthLogin(provider)
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then(value => {
-     console.log('Success', value);
-        this.isLoggedIn = true;
-        console.log("cred")
-     this.router.navigateByUrl('/profile');
-   })
-    .catch(error => {
-      console.log('Something went wrong: ', error);
-    });
-*/
+  googleLogin(){
+    return new Promise<any>((resolve, reject) => {
+      let provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        resolve(res);
+      }, err => {
+        console.log(err);
+        reject(err);
+      })
+    })
   }
 
 
-/*
-  private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider).then(
-      (credential) => {
-        this.up
-      }
-    )
-  }
-*/
+ // ggoogleLogin() {
+  //    console.log("this is where google login needs to be implemented");
+      // https://angularfirebase.com/lessons/google-user-auth-with-firestore-custom-data/
+          /*
+          const provider = new firebase.auth.GoogleAuthProvider();
+          //return this.oAuthLogin(provider)
+          return this.afAuth.auth.signInWithPopup(provider)
+            .then(value => {
+          console.log('Success', value);
+              this.isLoggedIn = true;
+              console.log("cred")
+          this.router.navigateByUrl('/profile');
+        })
+          .catch(error => {
+            console.log('Something went wrong: ', error);
+          });
+
+
+
+          private oAuthLogin(provider) {
+              return this.afAuth.auth.signInWithPopup(provider).then(
+                (credential) => {
+                }
+              )
+            }
+
+
+
+        googleLogin() {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          return this.oAuthLogin(provider)
+            .then(value => {
+          console.log('Success', value),
+          this.router.navigateByUrl('/profile');
+        })
+          .catch(error => {
+            console.log('Something went wrong: ', error);
+          });
+        }
+      */
+
+ // }
+
 
 
   createAccount(email: string, password: string) {
+
+    return new Promise<any>((resolve, reject) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password)   // value.email and value.password to avoid actually seeing info
+      .then(res => {
+        resolve(res);
+      }, err => reject(err))
+    })
+
+/*
     firebase.auth().createUserWithEmailAndPassword(email, password).then( res => {
       // success message
+      this.router.navigateByUrl('/profile');
     })
     .catch (err => {
       console.log("Error: " + err.message);
     });
+*/
+
+
   }
-
-  
-}
-
-
-
-
 
   /*
-  loginn(): Observable<boolean> {
-    console.log("auth.service.... loginn");
-    return of(true).pipe(
-      delay(1000),
-      tap(val => this.isLoggedIn = true)
-    );
+  sendResetPasswordLink() {
+    const userEmail = this.userService.getUserEmail();
+    admin.auth().generatePasswordResetLink(userEmail)
+      .then((link) => {
+        return sendCustomPasswordResetEmail(email, displayName, link);
+      })
+      .catch((error) => {
+        console.log("Error: " + error.message);
+      });
   }
 */
 
-/*
-  signin() { // login() {
-    console.log("auth.service.... signin");
-    this.subscr = this.loginn().subscribe(() => {
-      console.log("SUBSCRIBING");
-      if (this.isLoggedIn) {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        let redirect = this.redirectUrl ? this.router.parseUrl(this.redirectUrl) : '/admin';
-        // Redirect the user
-        this.router.navigateByUrl(redirect);  //, navigationExtras);
-      }
-    });
-  }
-*/
-
-
-
-
-
-
-/*
-  getCard(cardd: Card): Card {
-    var docRef = this.db.collection("cards").doc(cardd.id);
-    docRef.snapshotChanges().subscribe(
-      res => {
-        cardd.displayName = res.payload.get('displayName');
-        cardd.firstName = res.payload.get('firstName');
-        cardd.lastName = res.payload.get('lastName');
-        cardd.organizationName = res.payload.get('organizationName');
-        cardd.phone = res.payload.get('phone');
-        cardd.fax = res.payload.get('fax');
-        cardd.email = res.payload.get('email');
-        cardd.cardImage = res.payload.get('cardImage');
-        cardd.userId = res.payload.get('userId');
-      }
-    );
-    return cardd;
-  }
-*/
-
-
-
-/*
-  googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider)
-      .then(value => {
-     console.log('Success', value),
-     this.router.navigateByUrl('/profile');
-   })
-    .catch(error => {
-      console.log('Something went wrong: ', error);
-    });
-  }
-*/
-
-
-/*
-  emailSignup(email: string, password: string) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-    .then(value => {
-     console.log('Success', value);
-     this.router.navigateByUrl('/profile');
-    })
-    .catch(error => {
-      console.log('Something went wrong: ', error);
-    });
-  }
-*/
-
+}

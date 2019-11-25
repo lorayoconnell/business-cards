@@ -1,6 +1,89 @@
 
 
 
+<div id="app" class="component-wrapper">
+  <div class="button-wrapper">
+    <button id="snap" (click)="capture()" autofocus>Snap Photo</button> 
+    <button (click)="cancel()">Cancel</button>
+  </div>
+
+  <div class="wrapper">
+    <video #video id="video" width="640" height="480" autoplay></video>
+    <div id="guides"></div>
+  </div>
+
+  <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  <ul>
+    <li *ngFor="let c of captures">
+      <img src="{{ c }}" height="50"/>
+    </li>
+  </ul>
+</div>
+
+<img id="here"/>
+
+
+<!-- autofocus will only work first time & on page refresh -->
+
+
+
+
+
+
+
+
+<!--
+<div> <span class="camera-text">
+  Capture your card</span></div>
+  <br>
+  
+  <div class="app-camera">
+      <div class="mdc-card demo-card">
+          <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+            <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+              [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+              [videoOptions]="videoOptions"
+              [imageQuality]="1"
+              (cameraSwitched)="cameraWasSwitched($event)"
+              (initError)="handleInitError($event)"
+      ></webcam>
+
+            <div class="mdc-card__action-icons">
+             <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Share" (click)="triggerSnapshot();" data-mdc-ripple-is-unbounded="true">add_a_photo</button>
+               </div>
+               <br>
+        </div> 
+      
+      </div>
+
+     <div class = "helptext-cam"> <span class= "camera-helptext">Please position business card so that it fills up entire camera view.</span></div>
+
+<div class="snapshot" *ngIf="webcamImage">
+      <br> <img [src]="imageUrl" width="500" />
+     </div>
+     <div class = "save" *ngIf="webcamImage">  <button class="btn btn-outline-success my-2 my-sm-0" *ngIf="webcamImage" (click)="save();"><i id = "save" class="material-icons">
+        library_add
+        </i>  Add Business Card</button>
+     </div>
+    -->
+
+
+
+
+
+
+
+
+<!--
+<h3> Homer image url</h3>
+<img class="my-image" [src]="imageUrl" id="image" />
+<div>
+  <button (click)="convertToBase64()"> Base 64 </button>
+</div>
+<div *ngIf="base64">
+  <img [src]="base64">
+</div>
+-->
 
 
 
@@ -11,14 +94,10 @@
 <!--
 <div></div>
 
-
 <div style="text-align:center">
     <h1>
       Ngx-Webcam Demo
     </h1>
-  
-
-
 <div>
 
 <app-camera [trigger]="triggerObservable"  (imageCapture)="handleImage($event)" *ngIf="showWebcam">
@@ -30,6 +109,8 @@
 (cameraSwitched)="cameraWasSwitched($event)"
 (initError)="handleInitError($event)">
 -->  
+
+
 <!-- 
 </app-camera>
 
@@ -69,42 +150,3 @@
       </li>
     </ul>
   -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="app" class="component-wrapper">
-  <div class="button-wrapper">
-    <button id="snap" (click)="capture()" autofocus>Snap Photo</button> 
-    <button (click)="cancel()">Cancel</button>
-  </div>
-
-  <div class="wrapper">
-    <video #video id="video" width="640" height="480" autoplay></video>
-    <div id="guides"></div>
-  </div>
-
-  <canvas #canvas id="canvas" width="640" height="480"></canvas>
-  <ul>
-    <li *ngFor="let c of captures">
-      <img src="{{ c }}" height="50"/>
-    </li>
-  </ul>
-
-
-</div>
-
-
-
-
-<!-- autofocus will only work first time & on page refresh -->

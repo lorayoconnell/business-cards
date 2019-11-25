@@ -1,81 +1,24 @@
-
 <app-search-card *ngIf="searchService.viewSearchPanel()"></app-search-card>
 
 <div class="component-wrapper">
 
-<h2>CardList</h2>
+    <h2>CardList</h2>
 
-<div class="button-wrapper addBtn">
-<button class="ui button" routerLink="/newcard" routerLinkActive="active">Add New Card</button>
-<button *ngIf="viewList" (click)="viewAsCards()">View as Cards</button>
-<button *ngIf="!viewList" (click)="viewAsList()">View as List</button>
+    <div class="button-wrapper addBtn">
+        <button class="ui button" routerLink="/newcard" routerLinkActive="active">Add New Card</button>
+        <button *ngIf="viewList" (click)="viewAsCards()">View as Cards</button>
+        <button *ngIf="!viewList" (click)="viewAsList()">View as List</button>
+    </div>
+
+    <ul [ngClass]="viewList ? 'list' : 'cards'">
+        <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
+            <a [routerLink]="['/card/', card.id]">
+                <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
+                <span class="phNum">{{ card.phone }}</span>
+                <span class="orgName">{{ card.organizationName }}</span>
+                <span class="emailAdd">{{ card.email }}</span>
+            </a>
+        </li>
+    </ul>
+
 </div>
-
-<ul [ngClass]="viewList ? 'list' : 'cards'">
-    <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
-        <a [routerLink]="['/card/', card.id]">
-            <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
-            <span class="phNum">{{ card.phone }}</span>
-            <span class="orgName">{{ card.organizationName }}</span>
-            <span class="emailAdd">{{ card.email }}</span>
-        </a>
-    </li>
-</ul>
-
-</div>
-
-
-
-<!--
-        <div class="button-wrapper btn-group">
-        <button id="editBtn" class="toggleBtnShow" (click)="editCard()">Edit</button>
-        <button id="updateBtn" class="toggleBtnHide" (click)="updateCard()">Update</button>
-        <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
-        </div>
--->
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-               <span class="badge">{{ card.id }}</span>{{ card.displayName }}
-
-
-
-
-<ul class="ui cards">
-<li class="card" *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
-        <div class="content">
-        <a class="ui card" [routerLink]="['/card', card.id]">
-            <div class="content">
-            <div class="header">{{card.firstName}} {{card.lastName}}</div>
-            <div class="meta">
-                <span class="category">{{card.organizationName}}</span>
-            </div>
-            <div class="description">
-                <p>{{card.displayName}}</p>
-                <p>{{card.email}}</p>
-                <p>{{card.phone}}</p>
-            </div>
-            </div>
-            <div class="extra content">
-            <div class="right floated author">
-                <img class="ui avatar image" src=""> Matt
-            </div>
-            </div>
-        </a>
-        </div>
-</li>
-</ul>
--->
-
-
-
-

@@ -22,13 +22,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { WebcamComponent } from './webcam/webcam.component';
 import { HeaderComponent } from './header/header.component';
-// import { WebcamModule } from 'ngx-webcam';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SearchCardService } from './cards/search-card.service';
 import { WebcamService } from './webcam.service';
-
-//import { FirebaseAdminModule } from './firebase-admin.module';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   imports: [
@@ -43,8 +41,7 @@ import { WebcamService } from './webcam.service';
     AngularFireModule.initializeApp(environment.firebaseConfig, 'app'),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule,
-    //FirebaseAdminModule
+    AngularFirestoreModule
   ],
   declarations: [
     AppComponent,
@@ -52,22 +49,16 @@ import { WebcamService } from './webcam.service';
     WebcamComponent,
     HeaderComponent
   ],
-  providers: [SearchCardService, WebcamService],
+  providers: [SearchCardService, WebcamService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(router: Router) {
-    // Use a custom replacer to display function names in the route configs
-    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
-
-    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
-  }
+  constructor(router: Router) { }
 }
-
 
 /**
  * 
- * AppRoutingModule should be last, and def after the other feature modules
+ * AppRoutingModule should be after the other feature modules
  * because they have their own routing modules
  * Have to give the other routers a chance to match within their own modules
  * before ending up at PageNotFound

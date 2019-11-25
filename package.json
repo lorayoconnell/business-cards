@@ -24,6 +24,7 @@
     "@google-cloud/vision": "^1.7.2",
     "angularfire2": "^5.2.1",
     "cloud-bucket": "^0.2.12",
+    "dom-to-image": "^2.6.0",
     "firebase": "^7.3.0",
     "firebase-admin": "^8.8.0",
     "firebase-functions": "^3.3.0",

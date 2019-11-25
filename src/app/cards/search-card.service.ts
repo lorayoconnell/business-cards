@@ -63,10 +63,6 @@ export class SearchCardService {
   }
 
 
-
-
-
-
   updateViewSearch() {
     this.viewSearch = true;
   }
