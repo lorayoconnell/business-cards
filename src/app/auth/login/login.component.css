@@ -1,8 +1,44 @@
 .component-wrapper {
   margin-top: 10%;
-    width: 460px;
+  width: 460px;
 }
 
 input {
   width: 80%;
+}
+
+.btn-wrap {
+  margin-bottom: 1em;
+}
+
+
+button.btn-link {
+  color: rgb(67, 39, 226);
+  background-color: #efefef;
+  margin-top: 0.83em;
+  margin-left: 0;
+  padding: none;
+  padding-top: 7px;
+  border: none;
+}
+
+#msg-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.msg-container-s {
+  margin-top: 1em;
+  border-radius: 4px;
+  padding: 1em;
+  color: green;
+  border: 1px solid green;
+}
+
+.msg-container-e {
+  margin-top: 1em;
+  border-radius: 4px;
+  padding: 1em;
+  color: red;
+  border: 1px solid red;
 }

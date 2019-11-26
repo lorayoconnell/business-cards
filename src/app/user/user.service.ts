@@ -29,8 +29,6 @@ export class UserService implements OnDestroy {
     return u;
   }
 
-
-
   getCurrentUser(){
     return new Promise<any>((resolve, reject) => {
       // var user = firebase.auth().onAuthStateChanged(function(user){
@@ -43,10 +41,6 @@ export class UserService implements OnDestroy {
       })
     })
   }
-
-
-
-
 
   getUserEmail(): string {
     return this.afAuth.auth.currentUser.email;
@@ -73,6 +67,14 @@ export class UserService implements OnDestroy {
 
   updateUser(user: User) {
     var userRef = this.db.collection("users").doc(user.userId);
+    /*
+    this.afAuth.auth.currentUser.updateEmail(newEmail).then(function() {
+      console.log("Email has been successfully updated")
+    })
+    .catch(function(error) {
+      console.log("Error: " + error);
+    })
+    */
     return userRef.update({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -86,11 +88,9 @@ export class UserService implements OnDestroy {
     });
   }
 
-
-  //displayUserInfoOnConsole(user: User) {
-  //  console.log("user.service: userId: " + user.userId + " userEmail: " + user.email + " userFirstName: " + user.firstName + " userLastName: " + user.lastName);
-
-  //}
+  displayUserInfoOnConsole(user: User) {
+    console.log("user.service: userId: " + user.userId + " userEmail: " + user.email + " userFirstName: " + user.firstName + " userLastName: " + user.lastName);
+  }
 
   ngOnDestroy(): void {
     console.log("UNSUBSCRIBING");

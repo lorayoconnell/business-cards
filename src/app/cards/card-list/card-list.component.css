@@ -1,3 +1,30 @@
+
+.component-wrapper {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+li {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 0.5em;
+  box-shadow: 0 0 8px 1px rgba(50,50,50,0.2);
+}
+
+li:hover {
+  background-color:#BC6AED;
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
+
+span {
+  color: #333;
+  margin: 0 0.5em;
+}
+
+
 .list a {
   display: flex;
 }
@@ -11,17 +38,7 @@ ul.list {
 }
 
 .list li {
-  background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 4px;
   margin: 0.5em 1em 0.5em 0;
-  padding: 0.5em;
-}
-
-.list li:hover {
-  background-color:#BC6AED;
-  transform: scale(1.05);
-  transition: all 0.3s;
 }
 
 .list a {
@@ -29,11 +46,6 @@ ul.list {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-}
-
-.list span {
-  color: #333;
-  margin: 0 0.5em;
 }
 
 .list span.name {
@@ -61,5 +73,45 @@ ul.list {
   margin: auto;
 }
 
+ul.cards {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
 
+
+.cards li {
+  width: 340px;
+  margin: 0.5em;
+}
+
+.cards a {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards span {
+  display: flex;
+  margin: 0.2em 0;
+
+}
+
+.cards span:first-child {
+  font-size: 1.4em;
+}
+
+
+
+
+/*
+    <ul [ngClass]="viewList ? 'list' : 'cards'">
+        <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
+            <a [routerLink]="['/card/', card.id]">
+                <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
+                <span class="phNum">{{ card.phone }}</span>
+                <span class="orgName">{{ card.organizationName }}</span>
+                <span class="emailAdd">{{ card.email }}</span>
+            </a>
+        </li>
+    </ul>
+*/

@@ -52,6 +52,7 @@ export class NewCardComponent implements OnInit {
     }
     else {
       console.log("no scan data");
+      document.getElementById("cardImg").setAttribute( "style" , "display:none" );
     }
   }
 

@@ -36,31 +36,40 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    //console.log("onSubmit: updating user data");
-    this.userService.updateUser(this.user);
+    try {
+      this.user.firstName = formData.value.firstName;
+      this.user.lastName = formData.value.lastName;
+      this.user.email = formData.value.email;
+      this.userService.updateUser(this.user);
+      this.updateMessageSuccess("Account has been updated.");
+    }
+    catch (Error) {
+      this.updateMessageError("Something has gone wrong.")
+    }
   }
-
-updateAcctInfo(newEmail) {
-
-  this.afAuth.auth.currentUser.updateEmail(newEmail).then(function() {
-    console.log("Email has been successfully updated")
-  })
-  .catch(function(error) {
-    console.log("Error: " + error);
-  })
-
-}
 
   deleteUserAccount() {
 
     // confirm deletion
 
     this.afAuth.auth.currentUser.delete().then(function() {
-      console.log("User has been deleted"); // display message to user
+      this.updateMessageSuccess("User account has been deleted.");
     })
     .catch(function(error) {
+      this.updateMessageError("There was a problem deleting your account.");
       console.log("Error: " + error);
     });
+  }
+
+
+  updateMessageSuccess(msg: string) {
+    document.getElementById("msg-cont").classList.add("msg-container-s");
+    document.getElementById("msg").innerHTML = msg;
+  }
+
+  updateMessageError(msg: string) {
+    document.getElementById("msg-cont").classList.add("msg-container-e");
+    document.getElementById("msg").innerHTML = msg;
   }
 
 
@@ -73,6 +82,9 @@ updateAcctInfo(newEmail) {
 
 
 /*
+
+<div id="msg-cont" class="msg-container"><p id="msg"></p></div>
+
 
     this.cardService.createCard(this.card);
     this.card = new Card();

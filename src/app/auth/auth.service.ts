@@ -38,6 +38,7 @@ export class AuthService {
     .then(value => {
       console.log('Login successful');
       this.isLoggedIn = true;
+      this.gotoCardlist();
     })
     .catch(err => {
       window.alert("Incorrect email or password. Try again.");    // or set message that displays on screen
@@ -127,19 +128,23 @@ console.log("inside createAccount in authService");
 */
 
 
-sendResetPasswordLink(userEmail) {
+sendResetPasswordLink(userEmail): boolean {
 
-if (userEmail !== null) {
+//console.log("userEmail: " + userEmail);
 
-  this.afAuth.auth.sendPasswordResetEmail(userEmail).then(function() {
-    // email sent
-    console.log("Email has been sent"); // display message to user
-  })
-  .catch(function(error) {
-    console.log("Error: " + error);
-  });
-}
+  if (userEmail != null) {
 
+    this.afAuth.auth.sendPasswordResetEmail(userEmail).then(function() {
+      // email sent
+      console.log("Email has been sent");
+      return true;
+    })
+    .catch(function(error) {
+      console.log("Error: " + error);
+      return false;
+    });
+  }
+  return false;
 }
 
 }

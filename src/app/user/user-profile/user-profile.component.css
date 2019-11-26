@@ -11,3 +11,41 @@ input {
     width: 460px;
 }
 
+#msg-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.msg-container-s {
+  margin-top: 1em;
+  border-radius: 4px;
+  padding: 1em;
+  color: green;
+  border: 1px solid green;
+}
+
+.msg-container-e {
+  margin-top: 1em;
+  border-radius: 4px;
+  padding: 1em;
+  color: red;
+  border: 1px solid red;
+}
+
+
+/*
+
+<div id="msg-cont" class="msg-container"><p id="msg"></p></div>
+
+
+
+.no-match {
+      display: flex;
+      
+  }
+
+  .no-match p {
+      text-align: center;
+      
+  }
+*/

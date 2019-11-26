@@ -19,7 +19,6 @@ export class SignupComponent implements OnInit {
 
   onSubmit(formData) {
     if (formData.valid) {
-      console.log("this is where account creation needs to happen");
       this.authService.createAccount(
         formData.value.email,
         formData.value.password

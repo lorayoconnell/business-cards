@@ -23,7 +23,7 @@ input, textarea {
 }
 
 #cardImg {
-    
+    margin-left: 2em;
     width: 200px;
     height: 140px;
 }
