@@ -80,22 +80,34 @@ export class AuthService {
 
   createAccount(email: string, password: string) {
 
-console.log("inside createAccount in authService");
-
+//console.log("inside createAccount in authService");
     //return new Promise<any>((resolve, reject) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {   // value.email and value.password to avoid actually seeing info
-      
+   // console.log("email: " + email);
+   // console.log("password: " + password);
+   this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
+//   firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {
+   // firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {
+      // value.email and value.password to avoid actually seeing info
         //resolve(res);
 
-        console.log("Successfully created account");  // success message
-        this.router.navigateByUrl('/profile');
 
+        console.log("Successfully created account");  // success message
+
+this.login(email,password);
+//this.user.userId = res.user.uid;
+//console.log("userId: " + this.user.userId);
+
+    //    this.router.navigateByUrl('/profile');
       })
       .catch(err => {
-        console.log("Error: " + err.message);
+        console.log("*** Error: " + err.message);
       });
       //}, err => reject(err));
     //});
+
+
+
+
   }
 
 

@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
 
   @Input() user: User;
   userId: string;
+  conf: number;
 
   constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private authService: AuthService, private cardService: CardService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
@@ -25,6 +26,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getCurrentUser() {
+    this.conf = 0;
     console.log("Getting current user profile information");
     this.user = new User;
     this.user.userId = this.afAuth.auth.currentUser.uid;
@@ -36,6 +38,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit(formData) {
+    console.log("onSubmit");
     try {
       this.user.firstName = formData.value.firstName;
       this.user.lastName = formData.value.lastName;
@@ -48,17 +51,29 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+
+
+  
   deleteUserAccount() {
-
-    // confirm deletion
-
-    this.afAuth.auth.currentUser.delete().then(function() {
+    console.log("deleteUserAccount");
+    if (this.conf == 0) {
+      this.updateMessageError("Are you sure? This is not reversible.");
+      this.conf++;
+    }
+    else {  // the account deletes, but console still has error messages
+      this.afAuth.auth.currentUser.delete().then(function() {
       this.updateMessageSuccess("User account has been deleted.");
-    })
-    .catch(function(error) {
-      this.updateMessageError("There was a problem deleting your account.");
-      console.log("Error: " + error);
-    });
+
+      this.router.navigateByUrl('/login');
+
+
+      })
+      .catch(function(error) {
+        this.updateMessageError("There was a problem deleting your account.");
+        console.log("Error: " + error);
+      });
+    }
+
   }
 
 

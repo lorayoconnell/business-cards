@@ -18,13 +18,16 @@
     </div>
 
     <div class="button-wrapper">
-    <button class="ui button" (click)="this.authService.sendPasswordResetLink(userEmail)">Reset Password</button>
     <button class="ui button" type="submit">Update</button>
-    <button class="ui button" (click)="deleteUserAccount()">Delete Account</button>
     </div>
 
     <div id="msg-cont"><p id="msg"></p></div>
 
 </form>
+
+<div class="button-wrapper">
+    <button class="ui button" (click)="this.authService.sendPasswordResetLink(userEmail)">Reset Password</button>
+    <button class="ui button" (click)="deleteUserAccount()">Delete Account</button>
+</div>
 </div>
 
