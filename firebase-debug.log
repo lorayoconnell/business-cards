@@ -1,0 +1,47 @@
+[debug] [2019-11-26T22:36:45.318Z] ----------------------------------------------------------------------
+[debug] [2019-11-26T22:36:45.320Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2019-11-26T22:36:45.320Z] CLI Version:   7.6.2
+[debug] [2019-11-26T22:36:45.320Z] Platform:      darwin
+[debug] [2019-11-26T22:36:45.320Z] Node Version:  v11.15.0
+[debug] [2019-11-26T22:36:45.326Z] Time:          Tue Nov 26 2019 14:36:45 GMT-0800 (Pacific Standard Time)
+[debug] [2019-11-26T22:36:45.327Z] ----------------------------------------------------------------------
+[debug] [2019-11-26T22:36:45.327Z] 
+[debug] [2019-11-26T22:36:45.337Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-26T22:36:45.337Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/lorayoconnell/Desktop/businessCards
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2019-11-26T22:37:15.467Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-26T22:37:15.468Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-26T22:37:15.837Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-26T22:37:15.862Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2019-11-26T22:37:16.625Z] <<< HTTP RESPONSE 200
+[info] i  Using project businesscards-bd4e4 (businessCards)
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
