@@ -14,12 +14,13 @@
 
     <div>
         <label>Email:</label>
-        <input [(ngModel)]="user.email" type="text" placeholder="userEmail" name="email"/>
+        <input [(ngModel)]="user.email" type="text" placeholder="userEmail" name="email" #newEmail/>
     </div>
 
     <div class="button-wrapper">
-    <button class="ui button">Reset Password</button>
-    <button class="ui button">Update</button>
+    <button class="ui button" (click)="this.authService.sendPasswordResetLink(userEmail)">Reset Password</button>
+    <button class="ui button" (click)="updateAcctInfo(newEmail)">Update EMAIL</button>
+    <button class="ui button" (click)="deleteUserAccount()">Delete Account</button>
     </div>
 
 </form>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { CardService } from 'src/app/cards/card.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   @Input() user: User;
   userId: string;
 
-  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private cardService: CardService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private authService: AuthService, private cardService: CardService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,6 +39,31 @@ export class UserProfileComponent implements OnInit {
     //console.log("onSubmit: updating user data");
     this.userService.updateUser(this.user);
   }
+
+updateAcctInfo(newEmail) {
+
+  this.afAuth.auth.currentUser.updateEmail(newEmail).then(function() {
+    console.log("Email has been successfully updated")
+  })
+  .catch(function(error) {
+    console.log("Error: " + error);
+  })
+
+}
+
+  deleteUserAccount() {
+
+    // confirm deletion
+
+    this.afAuth.auth.currentUser.delete().then(function() {
+      console.log("User has been deleted"); // display message to user
+    })
+    .catch(function(error) {
+      console.log("Error: " + error);
+    });
+  }
+
+
 
 }
 

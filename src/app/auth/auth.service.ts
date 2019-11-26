@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute,
     private router: Router, private userService: UserService, private ngZone: NgZone ) {
   }
-  
+
   isSignedIn(): boolean {
     return this.isLoggedIn;
   }
@@ -78,25 +78,40 @@ export class AuthService {
   }
 
   createAccount(email: string, password: string) {
-    return new Promise<any>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(email, password)   // value.email and value.password to avoid actually seeing info
-      .then(res => {
-        resolve(res);
-      }, err => reject(err))
-    })
+
+console.log("inside createAccount in authService");
+
+    //return new Promise<any>((resolve, reject) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {   // value.email and value.password to avoid actually seeing info
+      
+        //resolve(res);
+
+        console.log("Successfully created account");  // success message
+        this.router.navigateByUrl('/profile');
+
+      })
+      .catch(err => {
+        console.log("Error: " + err.message);
+      });
+      //}, err => reject(err));
+    //});
+  }
+
+
+
+
 
 /*
     firebase.auth().createUserWithEmailAndPassword(email, password).then( res => {
-      // success message
-      this.router.navigateByUrl('/profile');
     })
     .catch (err => {
-      console.log("Error: " + err.message);
+      
     });
 */
 
 
-  }
+
+
 
   /*
   sendResetPasswordLink() {
@@ -110,5 +125,21 @@ export class AuthService {
       });
   }
 */
+
+
+sendResetPasswordLink(userEmail) {
+
+if (userEmail !== null) {
+
+  this.afAuth.auth.sendPasswordResetEmail(userEmail).then(function() {
+    // email sent
+    console.log("Email has been sent"); // display message to user
+  })
+  .catch(function(error) {
+    console.log("Error: " + error);
+  });
+}
+
+}
 
 }

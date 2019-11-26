@@ -2,7 +2,7 @@
     <h2>Login</h2>
     <form #formData="ngForm" (ngSubmit)="onSubmit(formData)">
         <div>
-            <input type="email" (ngModel)="email" name="email" placeholder="Email address" required/>
+            <input id="userEmail" type="email" (ngModel)="email" name="email" placeholder="Email address" required/>
         </div>
         <div>
             <input type="password" (ngModel)="password" name="password" placeholder="Password" required/>
@@ -14,16 +14,17 @@
 
 
     <div>
-        <button (click)="loginGoogle()" class="ui button">Login With Google</button>
+        <button (click)="loginGoogle()" class="ui button">Log in With Google</button>
     </div>
-
-
-<!--    
 
     <div>
         <a routerLink="/signup" routerLinkActive="active">No account? <strong>Create one here</strong></a>
     </div>
--->
 
+    <div>
+        <a>Forgot your password? Fill in your email address and click here.</a>
+        <button (click)="resetPassword()">Click</button>
+    </div>
 
 </div>
+

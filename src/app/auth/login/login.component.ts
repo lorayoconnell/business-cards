@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,6 +22,11 @@ export class LoginComponent {
 
   loginGoogle() {
     this.authService.googleLogin();
+  }
+
+  resetPassword() {
+    var em = document.getElementById("userEmail").innerHTML
+    this.authService.sendResetPasswordLink(em);
   }
 
 }
