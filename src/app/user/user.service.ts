@@ -31,7 +31,6 @@ export class UserService implements OnDestroy {
 
   getCurrentUser(){
     return new Promise<any>((resolve, reject) => {
-      // var user = firebase.auth().onAuthStateChanged(function(user){
         var user = this.afAuth.auth.onAuthStateChanged(function(user){
         if (user) {
           resolve(user);
@@ -50,18 +49,12 @@ export class UserService implements OnDestroy {
     return this.afAuth.auth.currentUser.uid;
   }
 
-  createUser(user: User): void {
-    this.db.collection("users").add({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email
-    })
-    .then(function(docRef) {
-      user.userId = docRef.id;
-      console.log("New user recorded with userId: " + docRef.id);
-    })
-    .catch( function(error) {
-      console.error("Error adding user: " + error);
+
+createUser(uid:string, fn:string, ln:string, em:string) {
+    this.db.collection("users").doc(uid).set({
+      firstName: fn,
+      lastName: ln,
+      email: em
     });
   }
 
@@ -98,4 +91,3 @@ export class UserService implements OnDestroy {
   } 
 
 }
-

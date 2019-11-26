@@ -27,25 +27,16 @@ export class LoginComponent {
   }
 
   resetPassword(userEmail) {
-
     if (userEmail.value) {
-
-      //this.str = document.getElementById("userEmail").;
-      //console.log("email: " + userEmail.value);
       if (this.authService.sendResetPasswordLink(userEmail.value)) {
         this.updateMessageSuccess("Email has been sent.");
       }
       else {
         this.updateMessageError("Something went wrong.<br>Email has not been sent.");
       }
-
-
-
     } else {
       this.updateMessageError("Please enter your email address.");
     }
-
-
   }
 
   updateMessageSuccess(msg: string) {

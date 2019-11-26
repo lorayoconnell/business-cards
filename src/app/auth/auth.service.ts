@@ -17,9 +17,7 @@ export class AuthService {
   isLoggedIn: boolean = false;
   subscr: Subscription;
   user: User;
-  // store the URL so we can redirect after logging in
   redirectUrl: string;
-
 
   constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute,
     private router: Router, private userService: UserService, private ngZone: NgZone ) {
@@ -41,22 +39,22 @@ export class AuthService {
       this.gotoCardlist();
     })
     .catch(err => {
-      window.alert("Incorrect email or password. Try again.");    // or set message that displays on screen
+      window.alert("Incorrect email or password. Try again.");
       console.log('Something went wrong: ', err.message);
     });
-
   }
 
   gotoCardlist() {
     this.router.navigateByUrl('/cardlist');
   }
 
-  logout() {                                                      // unsubscribe from 3
+  logout() {
     this.afAuth.auth.signOut().then(() => {
       console.log("Logged out");
       this.isLoggedIn = false;
+    }).then(res => {
       this.router.navigate(['/login']);
-    });
+    })
   }
 
   googleLogin(){
@@ -78,85 +76,53 @@ export class AuthService {
     })
   }
 
-  createAccount(email: string, password: string) {
+//  createAccount(email: string, password: string) {
+createAccount(formData) {
 
-//console.log("inside createAccount in authService");
-    //return new Promise<any>((resolve, reject) => {
-   // console.log("email: " + email);
-   // console.log("password: " + password);
-   this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
-//   firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {
-   // firebase.auth().createUserWithEmailAndPassword(email, password).then(res => {
-      // value.email and value.password to avoid actually seeing info
-        //resolve(res);
+  //formData.value.userEmail
+// this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
+    this.afAuth.auth.createUserWithEmailAndPassword(formData.value.userEmail, formData.value.userPassword).then(res => {
+      console.log("Successfully created account");
 
+      this.user = new User();
 
-        console.log("Successfully created account");  // success message
+      this.user.email = formData.value.userEmail;
+      this.user.firstName = formData.value.firstName;
+      this.user.lastName = formData.value.lastName;
+      // get the user id that was created
+      this.user.userId = res.user.uid;
+      console.log("userId: " + this.user.userId);
+      console.log("firstName: " + this.user.firstName);
+      console.log("lastName: " + this.user.lastName);
+      console.log("email: " + this.user.email);
 
-this.login(email,password);
-//this.user.userId = res.user.uid;
-//console.log("userId: " + this.user.userId);
+      this.userService.createUser(this.user.userId, this.user.firstName, this.user.lastName, this.user.email);
 
-    //    this.router.navigateByUrl('/profile');
-      })
-      .catch(err => {
-        console.log("*** Error: " + err.message);
-      });
-      //}, err => reject(err));
-    //});
-
+      //this.userService.createUser(this.user);
+      //this.login(this.user.email,formData.value.userPassword);
+      //this.router.navigateByUrl('/profile');
 
 
 
-  }
-
-
-
-
-
-/*
-    firebase.auth().createUserWithEmailAndPassword(email, password).then( res => {
     })
-    .catch (err => {
-      
-    });
-*/
-
-
-
-
-
-  /*
-  sendResetPasswordLink() {
-    const userEmail = this.userService.getUserEmail();
-    admin.auth().generatePasswordResetLink(userEmail)
-      .then((link) => {
-        return sendCustomPasswordResetEmail(email, displayName, link);
-      })
-      .catch((error) => {
-        console.log("Error: " + error.message);
-      });
-  }
-*/
-
-
-sendResetPasswordLink(userEmail): boolean {
-
-//console.log("userEmail: " + userEmail);
-
-  if (userEmail != null) {
-
-    this.afAuth.auth.sendPasswordResetEmail(userEmail).then(function() {
-      // email sent
-      console.log("Email has been sent");
-      return true;
-    })
-    .catch(function(error) {
-      console.log("Error: " + error);
-      return false;
+    .catch(err => {
+      console.log("*** Error: " + err.message);
     });
   }
-  return false;
-}
+
+
+  sendResetPasswordLink(userEmail): boolean {
+    if (userEmail != null) {
+      this.afAuth.auth.sendPasswordResetEmail(userEmail).then(function() {
+        console.log("Email has been sent");
+        return true;
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+        return false;
+      });
+    }
+    return false;
+  }
 
 }

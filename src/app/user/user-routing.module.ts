@@ -5,11 +5,8 @@ import { AuthGuard } from '../auth/auth.guard';
 
 
 const userRoutes: Routes = [
-
-{ path: '', redirectTo: '/profile', pathMatch: 'full' },
-{ path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-// need '**' ?
-
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

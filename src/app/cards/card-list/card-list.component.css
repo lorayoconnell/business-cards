@@ -99,19 +99,3 @@ ul.cards {
 .cards span:first-child {
   font-size: 1.4em;
 }
-
-
-
-
-/*
-    <ul [ngClass]="viewList ? 'list' : 'cards'">
-        <li *ngFor="let card of card$ | async" [class.selected]="card === selectedCard">
-            <a [routerLink]="['/card/', card.id]">
-                <span class="name">{{ card.firstName }} {{ card.lastName }}</span>
-                <span class="phNum">{{ card.phone }}</span>
-                <span class="orgName">{{ card.organizationName }}</span>
-                <span class="emailAdd">{{ card.email }}</span>
-            </a>
-        </li>
-    </ul>
-*/

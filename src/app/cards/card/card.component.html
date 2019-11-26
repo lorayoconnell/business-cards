@@ -10,36 +10,12 @@
             <button id="deleteBtn" class="toggleBtnHide" (click)="deleteCard()">Delete</button>
         </div>
 
+        <div class="button-wrapper">
+            <button class="ui button backToList" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
+        </div>
 
-    <div class="button-wrapper">
-        <button class="ui button backToList" routerLink="/cardlist" routerLinkActive="active">Back to List</button>
-    </div>
-
-
-    
         <form id="thisForm" class="no_edit">
-
-            <!--
-            <div>
-                <label>displayName:</label><input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName"/>
-            </div>
-            
-        <img id="cardImg" [(ngModel)]="card.cardImage" name="cardImage"/>
-        <img ng-src="{{card.cardImage}}"/>
-        <img id="cardImg" ngModel [ngModelOptions]="{src: card.cardImage}" name="cardImage"/>
-
-        <img [src]="card.cardImage" width="100" height="75">
-        <img *ngIf="!image" src="assets/preview.jpeg" width= 376px; alt="">
-        
-
-    default card img
-    
-    -->
-        
-        <img *ngIf="card.cardImage" src="{{card.cardImage}}" width= 240px; alt="" name="cardImage">
-      
-            
-
+            <img *ngIf="card.cardImage" src="{{card.cardImage}}" width= 240px; alt="" name="cardImage">
             <div><label>firstName:</label><input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName"/></div>
             <div><label>lastName:</label><input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName"/></div>
             <div><label>title:</label><input [(ngModel)]="card.title" placeholder="title" type="text" name="title"/></div>
@@ -49,11 +25,8 @@
             <div><label>email:</label><input [(ngModel)]="card.email" placeholder="email" type="text" name="email"/></div>
             <div><label>website:</label><input [(ngModel)]="card.website" placeholder="website" type="text" name="website"/></div>
             <div><label>additionalInfo:</label><textarea [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" type="text" name="additionalInfo"></textarea></div>
-            <!-- <div><label>cardImage:</label><input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage"/></div> -->
         </form>        
 
     </div>
-
-
 
 </div>

@@ -12,7 +12,6 @@ import { CardComponent } from '../card/card.component';
 import { SearchCardService } from '../search-card.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
-
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
@@ -28,13 +27,9 @@ export class CardListComponent implements OnInit {
   searchStr: string;
   viewList: boolean = true;
 
-// 'users/' + this.authService.getCurrentUserId() + '/cards'
-
   constructor(private afs: AngularFirestore, private service: CardService, private searchService: SearchCardService,
     private route: ActivatedRoute, private authService: AuthService) {
     this.cardIds = new Array();
-
-    //this.cardCollectionRef = this.afs.collection('cards');
     this.cardCollectionRef = this.afs.collection('users/' + this.authService.getCurrentUserId() + '/cards');
 
     this.card$ = this.cardCollectionRef.snapshotChanges().pipe(

@@ -20,8 +20,9 @@ export class SignupComponent implements OnInit {
   onSubmit(formData) {
     if (formData.valid) {
       this.authService.createAccount(
-        formData.value.userEmail,
-        formData.value.userPassword
+        formData
+        //formData.value.userEmail,
+        //formData.value.userPassword
       );
     }
   }

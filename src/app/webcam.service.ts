@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 const apikey = environment.cloudVision.apiKey;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +17,6 @@ export class WebcamService {
 
   constructor(private cardService: CardService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.card = new Card();
-    //this.card.displayName = "na";
     this.card.firstName = "na";
     this.card.lastName = "na";
     this.card.title = "na";
@@ -33,35 +31,18 @@ export class WebcamService {
   }
 
 
-testThisBullshit(base64img: string) {
+  testThisBullshit(base64img: string) {
+    console.log("base64img: " + base64img);
+    this.imageUrl = base64img;
+    this.card.cardImage = this.imageUrl;
+    const parsedImage = base64img.replace('data:image\/png;base64,', '');
+    this.sendToCloudVision(parsedImage);
+  }
 
-console.log("base64img: " + base64img);
-
-
-this.imageUrl = base64img;
-this.card.cardImage = this.imageUrl;
-
-const parsedImage = base64img.replace('data:image\/png;base64,', '');
-this.sendToCloudVision(parsedImage);
-
-
-}
-
-
-
-processWebcamImg(base64img: string, imgsrc) {
-
-this.card.cardImage = imgsrc;
-
-//console.log("img.src: " + img.src);
-//this.card.cardImage = img.src;
-
-
-
-this.sendToCloudVision(base64img);
-
-
-}
+  processWebcamImg(base64img: string, imgsrc) {
+    this.card.cardImage = imgsrc;
+    this.sendToCloudVision(base64img);
+  }
 
   sendToCloudVision(base64img: string) {
     var request = {
@@ -146,16 +127,12 @@ this.sendToCloudVision(base64img);
         this.card.title = res[i];
       }
 
-
-
       //else if (this.validateAllLetters(res[i])) {
       //  console.log("this piece of info has all letters: " + res[i]);
-        // what could I be
       //}
 
-
       else {
-        console.log("numbers and letters... what could I be: " + res[i]);
+        console.log("leftover data: " + res[i]);
         this.card.additionalInfo += (res[i] + '\t');
       }
 
@@ -183,8 +160,7 @@ this.sendToCloudVision(base64img);
     val = val.replace('tel', '');
     val = val.replace(':', '');
     val = val.trim();
-    
-    var phoneNumberPattern = /^\(?(\d{3})\)?[- ]\s?(\d{3})[- ]\s?(\d{4})$/; // = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    var phoneNumberPattern = /^\(?(\d{3})\)?[- ]\s?(\d{3})[- ]\s?(\d{4})$/;
     return phoneNumberPattern.test(val);
   }
 
@@ -227,71 +203,30 @@ this.sendToCloudVision(base64img);
       for (var i=0; i<num; i++) {
         str = split[i].toLowerCase()
         for (var j=0; j<n; j++) {
-
-
-          if (titles.includes(str))
-          //if (titles[j].includes(str)) {
-            return true;
-          //}
-
-
+          if (titles.includes(str)) return true;
         }
       }
     }
     return false;
   }
 
-
-
-
   // all letters & allow apostrophe
   validateAllLetters(val) {
     var letterPattern = /^[A-Za-z\'\s\,\.]+$/;
     return letterPattern.test(val);
-      // if(inputtxt.value.match(letters)) { return true; }
-      // else { return false; }
   }
-
 
   // put everything leftover into the 'additional info' section
   // maybe make each piece of info into a draggable box to add to the appropriate section
 
-
   processCardData() {
     console.log("processCardData");
-    this.cardService.getWebcamInfo(this.card);
-    //this.cardService.createCard(this.card);
-    //let cId = this.card ? this.card.id : null;  // is it too early to get this....?
-    //this.router.navigate(['/cards', { id: cId, foo: 'foo' }]); // in case we want other paramaters passed
   }
 
 }
 
 
 
-
-
-
-/*
-
-checkForCityState(val) {
-    var split = val.split(" ");
-    var num = split.length;
-    if (num > 1) {
-      for (var i=0; i<num; i++) {
-        if (stateNames.includes(split[i])) {
-          // flag as state
-        }
-        else if (stateAbbreviations.includes(split[i])) {
-          // flag as state
-        }
-      }
-    }
-  }
-*/
-
-  /*
-  */
 
 
 
@@ -325,10 +260,6 @@ check(str) {
     
     }
     */
-
-
-
-
 
 /*
   checkNumbers(str) {
@@ -366,79 +297,12 @@ check(str) {
 
 
 
-
-
-/*
-data: 
-All Ages
-All Breeds
-Expert Witness
-8asic&Advanced
-Obedience
-GUY YEAMAN
-Professional Dog Trainer
-Garnerville NV
-Ph (775) 265-4530
-Fax (775) 265-3740
-Reasonable Rales
-www.dogmanguy com
-*/
-
-
-
-/*
-<div class="ui selection dropdown">
-  <input type="hidden" name="gender">
-  <i class="dropdown icon"></i>
-  <div class="default text">Gender</div>
-  <div class="menu">
-    <div class="item" data-value="1">Male</div>
-    <div class="item" data-value="0">Female</div>
-  </div>
-</div>
-*/
-
-
-
-  //cardOCR(input: any) {
-    //this.httpClient.post(this.apiUrl, input).get('res', '0', 'textAnnotations').subscribe(
-  //}
-
-    
-    // apiUrl
-    // data: JSON.stringify(request)
-    // contentType: 'application/json'
-
-    /*
-    $('#results').text('Loading...');
-    
-    $.post({
-      url: CV_TARGET,
-      data: JSON.stringify(request),
-      contentType: 'application/json'
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-      $('#results').text('ERRORS: ' + textStatus + ' ' + errorThrown);
-    }).done(displayJSON);
-
-
-  displayJSON(data) {
-    var contents = JSON.stringify(data, null, 4);
-    //$("#results").text(contents);
-  }
-
-
-*/
-
-
 const organizationMarkers = ['inc','corp'];
-
-
 
 const titles = ['manager','trainer','supervisor','associate','analyst','officer','executive','assistant','clerk','specialist',
 'collector','receptionist','designer','consultant','strategist','president','ceo','director','coordinator','teacher',
 'professor','instructor','doctor','therapist','administrator','artist','driver','attendant','operator','architect',
 'guard','mechanic','recruiter','scientist','student','assembler','paralegal','lawyer','judge','attorney','representative'];
-
 
 const topMaleFemaleNames = ['JAMES','JOHN','ROBERT','MICHAEL','WILLIAM','DAVID','RICHARD','CHARLES','JOSEPH','THOMAS',
 'CHRISTOPHER','DANIEL','PAUL','MARK','DONALD','GEORGE','KENNETH','STEVEN','EDWARD','BRIAN','RONALD','ANTHONY','KEVIN',
@@ -483,6 +347,40 @@ const topMaleFemaleNames = ['JAMES','JOHN','ROBERT','MICHAEL','WILLIAM','DAVID',
 'BRANDY','OLGA','BILLIE','DIANNE','TRACEY','LEONA','JENNY','FELICIA','SONIA','MIRIAM','VELMA','BECKY','BOBBIE','VIOLET','KRISTINA',
 'TONI','MISTY','MAE','SHELLY','DAISY','RAMONA','SHERRI','ERIKA','KATRINA','CLAIRE'];
 
+
+
+// If add location field -
+
+
+/*
+checkForCityState(val) {
+    var split = val.split(" ");
+    var num = split.length;
+    if (num > 1) {
+      for (var i=0; i<num; i++) {
+        if (stateNames.includes(split[i])) {
+          // flag as state
+        }
+        else if (stateAbbreviations.includes(split[i])) {
+          // flag as state
+        }
+      }
+    }
+  }
+*/
+
+/*
+<div class="ui selection dropdown">
+  <input type="hidden" name="gender">
+  <i class="dropdown icon"></i>
+  <div class="default text">Gender</div>
+  <div class="menu">
+    <div class="item" data-value="1">Male</div>
+    <div class="item" data-value="0">Female</div>
+  </div>
+</div>
+*/
+
 /*
 50 states + American Samoa (AS) + District of Columbia (DC) +
   Federated States Of Micronesia (FM) + Guam (GU) + Marshall Islands (MH) +
@@ -507,45 +405,3 @@ const stateAbbreviations =
  'South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington',
  'West Virginia','Wisconsin','Wyoming'];
 
-
-
-
-
-// already used
- /*
-  demo() {
-    var data = "All Ages\nAll Breeds\nExpert Witness\n8asic&Advanced\nObedience\nGUY YEAMAN\nProfessional Dog Trainer\nGarnerville NV\nPh (775) 265-4530\nFax (775) 265-3740\nReasonable Rales\nwww.dogmanguy com";
-    document.write(data);
-    var res = data.split('\n');
-    var n = res.length;
-    console.log("n: " + n);
-    for (var i=0; i<n; i++) {
-      console.log("** " + res[i]);
-      if (this.checkForFax(res[i])) {console.log("~~~~~~~~ fax number: " + res[i]);}
-      else if (this.validatePhoneNumber(res[i])) {console.log("~~~~~~~~ phone number: " + res[i]);}
-      else if (this.validateEmail(res[i])) {console.log("~~~~~~~~~ email: " + res[i]);}
-      else if ()
-    }
-  }
-  const parsedImage = dataURL.replace('data:image\/png;base64,', '');
-
-  checkForFax(val): boolean {
-    if ((val.toLowerCase().includes("fax")) {
-      val = val.replace(/fax/gi, "");
-      val = val.trim();
-      if (this.validatePhoneNumber(val)) return true; }
-  }
-  validatePhoneNumber(val): boolean{
-    if ( (val.toLowerCase().includes("phone")) || (val.toLowerCase().includes("ph")) ) {
-      val = val.replace(/phone/gi, "");
-      val = val.replace(/ph/gi, "");
-      val = val.trim();
-    }
-    var phoneNumberPattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    return phoneNumberPattern.test(val);
-  }
-  validateEmail(val): boolean {
-    var emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return emailPattern.test(val);
-  }
-*/

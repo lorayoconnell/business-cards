@@ -20,14 +20,9 @@
     <button class="ui button cancel-btn" routerLink="/cardlist" routerLinkActive="active">Cancel</button>
   </div>
 
-
   <img id="cardImg"/>
 
   <form class="" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
-
-   <!-- <img id="cardImg" [(ngModel)]="card.cardImage" name="cardImage"/>  -->
-
-      <!-- <div><label>displayName:</label><input [(ngModel)]="card.displayName" placeholder="displayName" type="text" name="displayName" required/></div> -->
       <div><label>firstName:</label><input [(ngModel)]="card.firstName" placeholder="firstName" type="text" name="firstName" required/></div>
       <div><label>lastName:</label><input [(ngModel)]="card.lastName" placeholder="lastName" type="text" name="lastName" required/></div>
       <div><label>title:</label><input [(ngModel)]="card.title" placeholder="title" type="text" name="title" required/></div>
@@ -36,8 +31,8 @@
       <div><label>fax:</label><input [(ngModel)]="card.fax" placeholder="fax" type="text" name="fax" required/></div>
       <div><label>email:</label><input [(ngModel)]="card.email" placeholder="email" type="text" name="email" required/></div>
       <div><label>website:</label><input [(ngModel)]="card.website" placeholder="website" type="text" name="website" required/></div>
-      <!--<div><label>cardImage:</label><input [(ngModel)]="card.cardImage" placeholder="cardImage" type="text" name="cardImage" required/></div>-->
       <div><label>additionalInfo:</label><textarea [(ngModel)]="card.additionalInfo" placeholder="additionalInfo" name="additionalInfo"></textarea></div>
+      
       <div class="button-wrapper">
         <button class="btn" type="submit" [disabled]="!formData.valid">Save Card</button>
       </div>

@@ -65,8 +65,6 @@ export class CardComponent implements OnInit {
   gotoCards(card: Card) {
     let cId = card ? card.id : null;
     this.router.navigate(['/cards']);
-    
-    //this.router.navigate(['/cards', { id: cId, foo: 'foo' }]); // in case we want other paramaters passed
   }
 
 

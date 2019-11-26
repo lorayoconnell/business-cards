@@ -32,9 +32,20 @@ export class UserProfileComponent implements OnInit {
     this.user.userId = this.afAuth.auth.currentUser.uid;
     console.log("user id is: " + this.user.userId);
 
-    this.user = this.userService.getUser(this.user);
-    //this.userService.displayUserInfoOnConsole(this.user);
+    /*
+    var docRef = this.afs.collection("users").doc(this.user.userId);
+    docRef.snapshotChanges().subscribe(
+      res => {
+        this.user.firstName = res.payload.get('firstName');
+        this.user.lastName = res.payload.get('lastName');
+      }
+    )
+*/
 
+   this.user = this.userService.getUser(this.user);
+   this.user.email = this.userService.getUserEmail();
+
+    //this.userService.displayUserInfoOnConsole(this.user);
   }
 
   onSubmit(formData) {
@@ -51,31 +62,23 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-
-
-  
   deleteUserAccount() {
     console.log("deleteUserAccount");
     if (this.conf == 0) {
       this.updateMessageError("Are you sure? This is not reversible.");
       this.conf++;
     }
-    else {  // the account deletes, but console still has error messages
+    else {  // the account deletes, but console still has permission error messages - observable...?
       this.afAuth.auth.currentUser.delete().then(function() {
-      this.updateMessageSuccess("User account has been deleted.");
-
-      this.router.navigateByUrl('/login');
-
-
+        this.updateMessageSuccess("User account has been deleted.");
+        this.router.navigateByUrl('/login');
       })
       .catch(function(error) {
         this.updateMessageError("There was a problem deleting your account.");
         console.log("Error: " + error);
       });
     }
-
   }
-
 
   updateMessageSuccess(msg: string) {
     document.getElementById("msg-cont").classList.add("msg-container-s");
@@ -87,48 +90,4 @@ export class UserProfileComponent implements OnInit {
     document.getElementById("msg").innerHTML = msg;
   }
 
-
-
 }
-
-
-
-
-
-
-/*
-
-<div id="msg-cont" class="msg-container"><p id="msg"></p></div>
-
-
-    this.cardService.createCard(this.card);
-    this.card = new Card();
-    this.router.navigateByUrl('/cardlist');
-  
-
-
-
-
-export class CardComponent implements OnInit {
-
-  @Input() card: Card;
-  cardId: string;
-  card$: Observable<Card>;
-  cardCollectionRef: AngularFirestoreCollection<Card>;
-
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private service: CardService) { }
-
-  ngOnInit():void {
-    //this.setReadOnly("false");
-    this.getSelectedCard();
-  }
-
-  getSelectedCard() {
-    this.card = new Card;
-    this.card.id = this.route.snapshot.paramMap.get('id');
-    if (this.card.id != null) {
-      this.card = this.service.getCard(this.card);
-    }
-  }
-
-*/

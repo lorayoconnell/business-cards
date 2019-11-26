@@ -31,21 +31,3 @@ input {
   color: red;
   border: 1px solid red;
 }
-
-
-/*
-
-<div id="msg-cont" class="msg-container"><p id="msg"></p></div>
-
-
-
-.no-match {
-      display: flex;
-      
-  }
-
-  .no-match p {
-      text-align: center;
-      
-  }
-*/

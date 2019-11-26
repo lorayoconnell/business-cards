@@ -32,23 +32,10 @@ export class NewCardComponent implements OnInit {
 
     var par = this.route.snapshot.paramMap.get('par');
     if (par != null) {
-      //this.goGetScanData();
-      
       this.card = new Card();
       this.card = this.cardService.getCardInfoFromScan();
       console.log("this.card: " + this.card);
-
-      /*
-      var img = new Image();
-      img.src = this.card.cardImage;
-      document.getElementById("cardImg").appendChild(img);
-      */
-      //this.imageUrl = "<img height='50' src='" + base64img + "'>";
-
-
       document.getElementById("cardImg").setAttribute( "src" , this.card.cardImage );
-
-
     }
     else {
       console.log("no scan data");
@@ -58,7 +45,6 @@ export class NewCardComponent implements OnInit {
 
   clearForm(formData) {   /******* THIS DOESN'T WORK *******/
     formData.resetForm();
-
     /*
     var arr = document.getElementsByTagName("input");
     console.log("arr.length: " + arr.length); // 8
@@ -68,53 +54,22 @@ export class NewCardComponent implements OnInit {
     }
     arr2[0].value = "";
     */
-
   }
 
   onSubmit(formData) {
 
-
-if (this.card.cardImage = null) {
-  this.card.cardImage = this.cardService.getDefaultCard();
-}
-
+    if (this.card.cardImage = null) {
+      this.card.cardImage = this.cardService.getDefaultCard();
+    }
 
     if (formData.valid) {
     console.log("new-card.component.ts onSubmit()");
-
-
-   //this.cardService.createCard(this.card);
-   this.cardService.createCardForUser(this.card);
-
+    this.cardService.createCardForUser(this.card);
     this.card = new Card();
     this.clearForm(formData);
     this.router.navigateByUrl('/cardlist');
     }
+
   }
 
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-  //goGetScanData() {
-  //  this.card = new Card();
-  //  this.card = this.cardService.getCardInfoFromScan();
-  //}
-
-  //getInfoFromScan(c: Card) {
-    //console.log("getInfoFromScan");
-    //this.scan = new Card();
-//    this.scan = this.cardService.getCardInfoFromScan();
-    //console.log("inside of new card: " + c.toString());
-  //}

@@ -9,13 +9,11 @@ import { WebcamComponent } from '../webcam/webcam.component';
 const cardRoutes: Routes = [
   { path: '', redirectTo: '/cardlist', pathMatch: 'full' },
   { path: 'cards', redirectTo: '/cardlist' },
- // { path: 'card/:cardId', redirectTo: '/card/:cardId' },
   { path: 'cardlist', component: CardListComponent, data: { animation: 'cards' }, canActivate: [AuthGuard] },
   { path: 'card/:id', component: CardComponent, data: { animation: 'card' }, canActivate: [AuthGuard] },
   { path: 'newcard', component: NewCardComponent, canActivate: [AuthGuard] },
   { path: 'newcard/:par', component: NewCardComponent, canActivate: [AuthGuard] },
   { path: 'webcam', component: WebcamComponent, canActivate: [AuthGuard]}
-  // need '**' ?
 ];
 
 @NgModule({

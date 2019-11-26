@@ -11,9 +11,6 @@ import { CardsRoutingModule } from './cards-routing.module';
 import { CardService } from './card.service';
 import { SearchCardService } from './search-card.service';
 
-//import { AngularFireModule } from 'angularfire2';
-//import { AngularFirestoreModule } from 'angularfire2/firestore';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +25,7 @@ import { SearchCardService } from './search-card.service';
   ],
   providers: [
     CardService, 
-    SearchCardService //, AngularFirestore
+    SearchCardService
   ]
   
 })
