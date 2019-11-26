@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../user/user.model';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user/user.service';
-import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
+import { NgZone } from '@angular/core';
 
 
 @Injectable({
@@ -17,12 +17,14 @@ export class AuthService {
   isLoggedIn: boolean = false;
   subscr: Subscription;
   user: User;
-
-  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router, private userService: UserService) { }
-
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
+
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute,
+    private router: Router, private userService: UserService, private ngZone: NgZone ) {
+  }
+  
   isSignedIn(): boolean {
     return this.isLoggedIn;
   }
@@ -36,12 +38,16 @@ export class AuthService {
     .then(value => {
       console.log('Login successful');
       this.isLoggedIn = true;
-      this.router.navigateByUrl('/cardlist');
     })
     .catch(err => {
       window.alert("Incorrect email or password. Try again.");    // or set message that displays on screen
       console.log('Something went wrong: ', err.message);
     });
+
+  }
+
+  gotoCardlist() {
+    this.router.navigateByUrl('/cardlist');
   }
 
   logout() {                                                      // unsubscribe from 3
@@ -61,6 +67,9 @@ export class AuthService {
       .signInWithPopup(provider)
       .then(res => {
         resolve(res);
+        console.log("Successfully logged in via Google");
+        this.isLoggedIn = true;
+        this.ngZone.run(() => this.router.navigateByUrl('/cardlist'));
       }, err => {
         console.log(err);
         reject(err);
@@ -68,54 +77,7 @@ export class AuthService {
     })
   }
 
-
- // ggoogleLogin() {
-  //    console.log("this is where google login needs to be implemented");
-      // https://angularfirebase.com/lessons/google-user-auth-with-firestore-custom-data/
-          /*
-          const provider = new firebase.auth.GoogleAuthProvider();
-          //return this.oAuthLogin(provider)
-          return this.afAuth.auth.signInWithPopup(provider)
-            .then(value => {
-          console.log('Success', value);
-              this.isLoggedIn = true;
-              console.log("cred")
-          this.router.navigateByUrl('/profile');
-        })
-          .catch(error => {
-            console.log('Something went wrong: ', error);
-          });
-
-
-
-          private oAuthLogin(provider) {
-              return this.afAuth.auth.signInWithPopup(provider).then(
-                (credential) => {
-                }
-              )
-            }
-
-
-
-        googleLogin() {
-          const provider = new firebase.auth.GoogleAuthProvider();
-          return this.oAuthLogin(provider)
-            .then(value => {
-          console.log('Success', value),
-          this.router.navigateByUrl('/profile');
-        })
-          .catch(error => {
-            console.log('Something went wrong: ', error);
-          });
-        }
-      */
-
- // }
-
-
-
   createAccount(email: string, password: string) {
-
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(email, password)   // value.email and value.password to avoid actually seeing info
       .then(res => {

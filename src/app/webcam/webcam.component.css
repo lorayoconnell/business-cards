@@ -32,11 +32,11 @@ li {
 #guides {
     display:block;
     position:absolute;
-    width:320px;
-    height:190px;
+    width:520px;
+    height:288px;
     outline:6px dashed rgba(255,255,255,0.6);
-    left:160px;
-    top:140px;
+    left:48px;
+    top:60px;
 }
 
 
@@ -44,3 +44,11 @@ li {
 .thisone {
     outline:5px solid red;
 }
+
+
+
+/*
+ 48,60,520,288,0,0,640,356);
+220,184,200,112,0,0,640,356);
+
+*/

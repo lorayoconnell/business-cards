@@ -11,6 +11,7 @@ ul.list {
 }
 
 .list li {
+  background-color: #fff;
   border: 1px solid #999;
   border-radius: 4px;
   margin: 0.5em 1em 0.5em 0;
@@ -18,7 +19,9 @@ ul.list {
 }
 
 .list li:hover {
-  background-color:#eee;
+  background-color:#BC6AED;
+  transform: scale(1.05);
+  transition: all 0.3s;
 }
 
 .list a {
@@ -59,12 +62,4 @@ ul.list {
 }
 
 
-
-.cards li.selected {
-    background-color: #CFD8DC;
-    color: white;
-}
-.cards li.selected:hover {
-    background-color: #BBD8DC;
-}
 

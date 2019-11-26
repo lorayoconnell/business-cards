@@ -4,6 +4,8 @@ import { Card } from '../card.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/user/user.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { FormGroup } from '@angular/forms';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-new-card',
@@ -24,6 +26,10 @@ export class NewCardComponent implements OnInit {
   }
 
   getScanData() {
+
+// clear form
+//document.getElementById("myForm").reset();
+
     var par = this.route.snapshot.paramMap.get('par');
     if (par != null) {
       //this.goGetScanData();
@@ -45,18 +51,42 @@ export class NewCardComponent implements OnInit {
 
     }
     else {
-      console.log("no scan data here");
+      console.log("no scan data");
     }
   }
 
+  clearForm(formData) {   /******* THIS DOESN'T WORK *******/
+    formData.resetForm();
+
+    /*
+    var arr = document.getElementsByTagName("input");
+    console.log("arr.length: " + arr.length); // 8
+    var arr2 = document.getElementsByTagName("textarea");
+    for (var i=0; i<arr.length; i++) {
+      arr[i].value = "";
+    }
+    arr2[0].value = "";
+    */
+
+  }
+
   onSubmit(formData) {
+
+
+if (this.card.cardImage = null) {
+  this.card.cardImage = this.cardService.getDefaultCard();
+}
+
+
     if (formData.valid) {
     console.log("new-card.component.ts onSubmit()");
+
 
    //this.cardService.createCard(this.card);
    this.cardService.createCardForUser(this.card);
 
     this.card = new Card();
+    this.clearForm(formData);
     this.router.navigateByUrl('/cardlist');
     }
   }

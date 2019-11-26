@@ -27,8 +27,11 @@ export class UserProfileComponent implements OnInit {
     console.log("Getting current user profile information");
     this.user = new User;
     this.user.userId = this.afAuth.auth.currentUser.uid;
+    console.log("user id is: " + this.user.userId);
+
     this.user = this.userService.getUser(this.user);
     //this.userService.displayUserInfoOnConsole(this.user);
+
   }
 
   onSubmit(formData) {
@@ -37,7 +40,6 @@ export class UserProfileComponent implements OnInit {
   }
 
 }
-
 
 
 

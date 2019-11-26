@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CardService } from '../card.service';
 import { Card } from '../card.model';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
@@ -29,6 +31,9 @@ export class CardComponent implements OnInit {
     this.card.id = this.route.snapshot.paramMap.get('id');
     if (this.card.id != null) {
       this.card = this.service.getCard(this.card);
+      if (this.card.cardImage == null) {
+        this.card.cardImage = this.service.getDefaultCard();
+      }
     }
   }
 
