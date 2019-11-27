@@ -90,4 +90,8 @@ export class UserProfileComponent implements OnInit {
     document.getElementById("msg").innerHTML = msg;
   }
 
+  resetPassword(userEmail) {
+    this.authService.sendResetPasswordLink(userEmail)
+  }
+
 }

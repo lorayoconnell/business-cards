@@ -11,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
 export class SearchCardService {
 
   viewSearch: boolean = false;
-  noMatch: boolean = false; // when true, display error message to user
+  public noMatch: boolean = false; // when true, display error message to user
 
   firstSearch: boolean;
   cardCollectionRef: AngularFirestoreCollection<Card>;
@@ -57,7 +57,7 @@ export class SearchCardService {
     this.viewSearch = true;
   }
 
-  viewSearchPanel(): boolean {
+  public viewSearchPanel(): boolean {
     return this.viewSearch;
   }
 

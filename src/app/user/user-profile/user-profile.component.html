@@ -14,7 +14,7 @@
 
     <div>
         <label>Email:</label>
-        <input [(ngModel)]="user.email" type="text" placeholder="userEmail" name="email"/>
+        <input [(ngModel)]="user.email" type="text" placeholder="userEmail" name="email" #email/>
     </div>
 
     <div class="button-wrapper">
@@ -26,7 +26,7 @@
 </form>
 
 <div class="button-wrapper">
-    <button class="ui button" (click)="this.authService.sendPasswordResetLink(userEmail)">Reset Password</button>
+    <button class="ui button" (click)="resetPassword(email)">Reset Password</button>
     <button class="ui button" (click)="deleteUserAccount()">Delete Account</button>
 </div>
 </div>

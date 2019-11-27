@@ -1,7 +1,7 @@
 <div class="component-wrapper search-component-wrapper">
 
     <div class="button-close-wrapper">
-        <button (click)="searchCardService.closeViewSearch()" class=" ui button close-btn"><span class="close"></span></button>
+        <button (click)="closeViewSea()" class=" ui button close-btn"><span class="close"></span></button>
     </div>
 
     <h2>Search My Cards</h2>
@@ -13,7 +13,7 @@
         <button (click)="searchCards(inputContent)">Search</button>
     </div>
 
-    <div *ngIf="searchCardService.noMatch" class="no-match">
+    <div *ngIf="getNoMatch()" class="no-match">
         <p>No match was found.</p>
     </div>
 

@@ -59,4 +59,7 @@ export class CardListComponent implements OnInit {
     this.viewList = true;
   }
 
+  viewSearchPan(): boolean {
+    return this.searchService.viewSearchPanel();
+  }
 }

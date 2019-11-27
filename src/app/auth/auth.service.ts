@@ -31,7 +31,12 @@ export class AuthService {
     return this.afAuth.auth.currentUser.uid;
   }
 
+
   login(email: string, password: string) {
+
+console.log("email: " + email);
+
+
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(value => {
       console.log('Login successful');
@@ -43,6 +48,40 @@ export class AuthService {
       console.log('Something went wrong: ', err.message);
     });
   }
+
+
+    /*
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(val => {
+        console.log('Login successful');
+        this.isLoggedIn = true;
+        this.gotoCardlist();
+      })
+      .catch(err => {
+        window.alert("Incorrect email or password. Try again.");
+        console.log('Something went wrong: ', err.message);
+      });
+*/
+
+/*
+ firebase.auth().signInWithEmailAndPassword(email, password);
+
+login(email: string, password: string) {
+  this.afAuth.auth.signInWithEmailAndPassword(email, password)
+  .then(value => {
+    console.log('Login successful');
+    this.isLoggedIn = true;
+    this.gotoCardlist();
+  })
+  .catch(err => {
+    window.alert("Incorrect email or password. Try again.");
+    console.log('Something went wrong: ', err.message);
+  });
+}
+*/  
+  
+
+
 
   gotoCardlist() {
     this.router.navigateByUrl('/cardlist');

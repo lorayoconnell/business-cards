@@ -24,4 +24,12 @@ export class SearchCardComponent implements OnInit {
     this.searchCardService.testSearchServ(this.searchStr);
   }
 
+  closeViewSea() {
+    this.searchCardService.closeViewSearch();
+  }
+
+  getNoMatch(): boolean {
+    return this.searchCardService.noMatch;
+  }
+
 }

@@ -10,16 +10,22 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
 
   str: string;
+  email;
+  password;
 
   constructor(public authService: AuthService, private route: ActivatedRoute, public router: Router) { }
 
   onSubmit(formData) {
+
+
+
     if (formData.valid) {
       this.authService.login(
         formData.value.email,
         formData.value.password
       );
     }
+
   }
 
   loginGoogle() {

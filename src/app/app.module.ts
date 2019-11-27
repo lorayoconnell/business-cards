@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
@@ -30,6 +30,7 @@ import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   imports: [
+    
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -37,8 +38,8 @@ import { AuthGuard } from './auth/auth.guard';
     CardsModule,
     AuthModule,
     UserModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, 'app'),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule
