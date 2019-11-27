@@ -43,7 +43,7 @@ export class WebcamComponent implements OnInit {
         .drawImage(this.video.nativeElement, 48,60,520,288,0,0,640,356);
         // first 4 are the section to capture, second 4 are the dimensions of the new img
     this.base64img = this.canvas.nativeElement.toDataURL();
-    this.webcamService.testThisBullshit(this.base64img);
+    this.webcamService.testThis(this.base64img);
     this.stopCamera();
   }
 

@@ -31,7 +31,7 @@ export class WebcamService {
   }
 
 
-  testThisBullshit(base64img: string) {
+  testThis(base64img: string) {
     console.log("base64img: " + base64img);
     this.imageUrl = base64img;
     this.card.cardImage = this.imageUrl;
@@ -221,6 +221,7 @@ export class WebcamService {
 
   processCardData() {
     console.log("processCardData");
+    this.cardService.getWebcamInfo(this.card);
   }
 
 }
