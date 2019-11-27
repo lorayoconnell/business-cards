@@ -34,8 +34,10 @@ export class NewCardComponent implements OnInit {
     if (par != null) {
       this.card = new Card();
       this.card = this.cardService.getCardInfoFromScan();
-      console.log("this.card: " + this.card);
+      console.log("1this.card: " + this.card);
       document.getElementById("cardImg").setAttribute( "src" , this.card.cardImage );
+
+      console.log("2this.card: " + this.card);
     }
     else {
       console.log("no scan data");
@@ -55,8 +57,9 @@ export class NewCardComponent implements OnInit {
     arr2[0].value = "";
     */
   }
-
+/*
   onSubmit(formData) {
+
 
     if (this.card.cardImage = null) {
       this.card.cardImage = this.cardService.getDefaultCard();
@@ -64,6 +67,8 @@ export class NewCardComponent implements OnInit {
 
     if (formData.valid) {
     console.log("new-card.component.ts onSubmit()");
+
+
     this.cardService.createCardForUser(this.card);
     this.card = new Card();
     this.clearForm(formData);
@@ -71,5 +76,31 @@ export class NewCardComponent implements OnInit {
     }
 
   }
+*/
+
+  onSubmit(formData) {
+console.log("whyyyyy" + this.card.cardImage);
+
+ //   if (this.card.cardImage = null) {
+  //    this.card.cardImage = this.cardService.getDefaultCard();
+  //  }
+    
+  //      if (formData.valid) {
+        console.log("new-card.component.ts onSubmit()");
+    console.log("onsubmit: img: " + this.card.cardImage);
+    
+       //this.cardService.createCard(this.card);
+       this.cardService.createCardForUser(this.card);
+    
+        this.card = new Card();
+       // this.clearForm(formData);
+        this.router.navigateByUrl('/cardlist');
+   //     }
+      }
+    
+    
+
+
+
 
 }

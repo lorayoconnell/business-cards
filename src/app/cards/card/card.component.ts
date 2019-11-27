@@ -31,9 +31,9 @@ export class CardComponent implements OnInit {
     this.card.id = this.route.snapshot.paramMap.get('id');
     if (this.card.id != null) {
       this.card = this.service.getCard(this.card);
-      if (this.card.cardImage == null) {
-        this.card.cardImage = this.service.getDefaultCard();
-      }
+      //if (this.card.cardImage == null) {
+      //  this.card.cardImage = this.service.getDefaultCard();
+      //}
     }
   }
 

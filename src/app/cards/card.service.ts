@@ -87,7 +87,12 @@ export class CardService implements OnDestroy {
   }
 
   createCardForUser(c: Card): void {
+
+    console.log("createCardForUser: cardImage: " + c.cardImage);
+
+
     this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').add({
+      //displayName: c.displayName,
       firstName: c.firstName,
       lastName: c.lastName,
       title: c.title,
@@ -108,6 +113,29 @@ export class CardService implements OnDestroy {
       console.error("Error adding document: " + error);
     });
 
+
+    /*
+    this.db.collection('users/' + this.afAuth.auth.currentUser.uid + '/cards').add({
+      firstName: c.firstName,
+      lastName: c.lastName,
+      title: c.title,
+      organizationName: c.organizationName,
+      phone: c.phone,
+      fax: c.fax,
+      email: c.email,
+      website: c.website,
+      additionalInfo: c.additionalInfo,
+      cardImage: c.cardImage,
+      userId: this.afAuth.auth.currentUser.uid
+    })
+    .then(function (docRef) {
+      c.id = docRef.id;
+      console.log("Document written with id: " + docRef.id);
+    })
+    .catch (function (error) {
+      console.error("Error adding document: " + error);
+    });
+*/
   }
 
   updateCard(c: Card) {
